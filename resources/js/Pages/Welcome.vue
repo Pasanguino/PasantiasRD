@@ -59,7 +59,7 @@ function handleImageError() {
 
 
                 <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                    de los estudiante de el ITLA proyecto final de tecnologo en desarrollo de software (Pasagüino)
+                    de los estudiante de el ITLA proyecto final de tecnologo en desarrollo de software (pasangüino )
                 </footer>
             </div>
         </div>

@@ -40,7 +40,7 @@ const submit = () => {
                 <div class="item">
                     <img src="logo.jpg" alt="">
                     <div class="marca">
-                        <h1>Pasagüino</h1>
+                        <h1>pasangüino </h1>
                     </div>
                 </div>
             </div>
