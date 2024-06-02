@@ -59,7 +59,7 @@ function handleImageError() {
 
 
                 <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                    Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+                    de los estudiante de el ITLA proyecto final de tecnologo en desarrollo de software (Pasagüino)
                 </footer>
             </div>
         </div>
