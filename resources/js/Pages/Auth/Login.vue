@@ -33,94 +33,94 @@ const submit = () => {
 
     <Head title="Log in" />
 
+    <div class="login-page">
 
-
-    <div class="container">
-        <div class="logo">
-            <div class="item">
-                <img src="logo.jpg" alt="">
-                <div class="marca">
-                    <h1>Pasanguino</h1>
-                </div>
-            </div>
-        </div>
-        <div class="login">
-            <div class="container">
-
-
-
-
-
-
-                <div class="form">
-                    <h1>Inicio de sección </h1>
-                    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-                        {{ status }}
+        <div class="container">
+            <div class="logo">
+                <div class="item">
+                    <img src="logo.jpg" alt="">
+                    <div class="marca">
+                        <h1>Pasagüino</h1>
                     </div>
+                </div>
+            </div>
+            <div class="login">
+                <div class="container">
 
-                    <form @submit.prevent="submit">
-                        <div>
-                            <InputLabel for="email" value="Email" />
 
-                            <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
-                                autofocus autocomplete="username" />
 
-                            <InputError class="mt-2" :message="form.errors.email" />
+
+
+
+                    <div class="form">
+                        <h1>Inicio de sección </h1>
+                        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+                            {{ status }}
                         </div>
 
-                        <div class="mt-4">
-                            <InputLabel for="password" value="Contraseña" />
+                        <form @submit.prevent="submit">
+                            <div>
+                                <InputLabel for="email" value="Email" />
 
-                            <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
-                                required autocomplete="current-password" />
+                                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email"
+                                    required autofocus autocomplete="username" />
 
-                            <InputError class="mt-2" :message="form.errors.password" />
-                        </div>
+                                <InputError class="mt-2" :message="form.errors.email" />
+                            </div>
 
-                        <div class="block mt-4">
-                            <label class="flex items-center">
-                                <Checkbox name="remember" v-model:checked="form.remember" />
-                                <span class="ms-2 text-sm text-gray-600">Recordar contraseña</span>
-                            </label>
-                        </div>
+                            <div class="mt-4">
+                                <InputLabel for="password" value="Contraseña" />
 
-                        <div class="flex items-center justify-end mt-4">
-                            <Link v-if="canResetPassword" :href="route('password.request')"
-                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            ¿Olvidaste tu contraseña?
-                            </Link>
+                                <TextInput id="password" type="password" class="mt-1 block w-full"
+                                    v-model="form.password" required autocomplete="current-password" />
 
-                            <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
-                                :disabled="form.processing">
-                                Iniciar sección
-                            </PrimaryButton>
-                        </div>
-                    </form>
+                                <InputError class="mt-2" :message="form.errors.password" />
+                            </div>
+
+                            <div class="block mt-4">
+                                <label class="flex items-center">
+                                    <Checkbox name="remember" v-model:checked="form.remember" />
+                                    <span class="ms-2 text-sm text-gray-600">Recordar contraseña</span>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-end mt-4">
+                                <Link v-if="canResetPassword" :href="route('password.request')"
+                                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                ¿Olvidaste tu contraseña?
+                                </Link>
+
+                                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
+                                    :disabled="form.processing">
+                                    Iniciar sección
+                                </PrimaryButton>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </template>
 
@@ -131,7 +131,7 @@ const submit = () => {
     box-sizing: border-box;
 }
 
-body {
+.login-page {
     background: rgb(89, 44, 3);
     background: linear-gradient(0deg, rgba(89, 44, 3, 1) 0%, rgba(191, 95, 7, 1) 100%);
     height: 100vh; 
