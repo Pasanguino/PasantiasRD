@@ -1,3 +1,8 @@
+<template>
+    <input class="border-gray-300 custom-focus-border custom-focus-ring rounded-md shadow-sm" v-model="model"
+        ref="input" />
+</template>
+
 <script setup>
 import { onMounted, ref } from 'vue';
 
@@ -17,10 +22,16 @@ onMounted(() => {
 defineExpose({ focus: () => input.value.focus() });
 </script>
 
-<template>
-    <input
-        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-        v-model="model"
-        ref="input"
-    />
-</template>
+<style scoped>
+.custom-focus-border:focus {
+    border-color: #ff5215;
+    /* Color personalizado para el borde */
+}
+
+.custom-focus-ring:focus {
+    outline: none;
+    /* Eliminar el outline predeterminado */
+    box-shadow: 0 0 0 2px #ff5215;
+    /* Simular anillo de enfoque con color personalizado */
+}
+</style>
