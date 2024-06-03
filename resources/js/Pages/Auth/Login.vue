@@ -53,7 +53,7 @@ const submit = () => {
 
 
                     <div class="form">
-                        <h1>Inicio de sección </h1>
+                        <h1>inicio de sesión </h1>
                         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
                             {{ status }}
                         </div>
@@ -92,7 +92,7 @@ const submit = () => {
 
                                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                     :disabled="form.processing">
-                                    Iniciar sección
+                                    inicio de sesión
                                 </PrimaryButton>
                             </div>
                         </form>
