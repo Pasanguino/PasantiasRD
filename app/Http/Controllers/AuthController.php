@@ -15,9 +15,12 @@ class AuthController extends Controller
     public function register(Request $request){
 // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'state' => 'required|interger',
+            'country' => 'required|interger'
         ]);
 
         if($validator->fails()){
@@ -27,7 +30,9 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'state' => $request->name,
+            'country' => $request->email,
         ]);
 
         $token = $user->createToken('aut_token')->plainTextToken;
