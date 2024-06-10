@@ -57,9 +57,36 @@ function handleImageError() {
                 </header>
 
 
-
-                <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                    de los estudiante de el ITLA proyecto final de tecnologo en desarrollo de software (pasangüino )
+                <footer class="bg-orange-500 text-white py-16">
+                    <div class="container mx-auto flex flex-wrap justify-around">
+                        <div class="w-full sm:w-1/3 px-4 mb-8 sm:mb-0">
+                            <div class="flex items-center mb-4">
+                                <h1 class="text-2xl font-bold">Pasangüino</h1>
+                            </div>
+                            <p>Mejoramos y facilitamos cada día la búsqueda y aplicación a pasantías en toda la
+                                República Dominicana.</p>
+                        </div>
+                        <div class="w-full sm:w-1/6 px-4 mb-8 sm:mb-0">
+                            <h2 class="text-xl font-semibold mb-4">Recursos</h2>
+                            <ul>
+                                <li class="mb-2"><a href="#" class="hover:underline">Sobre nosotros</a></li>
+                                <li class="mb-2"><a href="#" class="hover:underline">Contáctanos</a></li>
+                            </ul>
+                        </div>
+                        <div class="w-full sm:w-1/6 px-4">
+                            <h2 class="text-xl font-semibold mb-4">Más</h2>
+                            <ul>
+                                <li class="mb-2"><a href="#" class="hover:underline">Privacidad</a></li>
+                                <li class="mb-2"><a href="#" class="hover:underline">Términos y condiciones</a></li>
+                                <li class="mb-2"><a href="#" class="hover:underline">Ayuda</a></li>
+                                <li class="mb-2"><a href="#" class="hover:underline">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="border-t border-white/50 my-8">
+                    <div class="text-center mt-8 text-white/70 text-sm">
+                       Copyright &copy; 2024. Pasangüino all rights reserved
+                    </div>
                 </footer>
             </div>
         </div>
