@@ -67,9 +67,9 @@ function handleImageError() {
                                 República Dominicana.</p>
                         </div>
                         <div class="w-full sm:w-1/6 px-4 mb-8 sm:mb-0">
-                            <h2 class="text-xl font-semibold mb-4">Recursos</h2>
+                            <h2 class="text-xl font-semibold mb-4">Información</h2>
                             <ul>
-                                <li class="mb-2"><a href="#" class="hover:underline">Sobre nosotros</a></li>
+                                <li class="mb-2"><a href="/about-us" class="hover:underline">Sobre nosotros</a></li>
                                 <li class="mb-2"><a href="#" class="hover:underline">Contáctanos</a></li>
                             </ul>
                         </div>
@@ -85,10 +85,16 @@ function handleImageError() {
                     </div>
                     <hr class="border-t border-white/50 my-8">
                     <div class="text-center mt-8 text-white/70 text-sm">
-                       Copyright &copy; 2024. Pasangüino all rights reserved
+                        Copyright &copy; 2024. Pasangüino all rights reserved
                     </div>
                 </footer>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+  name: 'Footer',
+};
+</script>
