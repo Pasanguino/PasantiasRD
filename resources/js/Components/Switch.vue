@@ -1,31 +1,38 @@
 <template>
     <div class="switch-container">
-        <input type="checkbox" id="switch" class="switch" v-model="isChecked">
-        <label for="switch" class="switch-label">
-            <span class="switch-icon" id="on-icon">🔆</span>
-            <span class="switch-icon" id="off-icon">🌙</span>
+        <div class="icon estudiante" :class="{ visible: !checked }">E</div>
+        <label class="switch">
+            <input type="checkbox" v-model="checked" @change="handleChange">
+            <span class="slider round"></span>
         </label>
+        <div class="icon organizacion" :class="{ visible: checked }">O</div>
     </div>
 </template>
 
 <script>
 export default {
+    name: 'Switch',
+    props: {
+        onEstudiante: {
+            type: Function,
+            required: true
+        },
+        onOrganizacion: {
+            type: Function,
+            required: true
+        }
+    },
     data() {
         return {
-            isChecked: false
+            checked: false
         };
     },
-    watch: {
-        isChecked(newValue) {
-            const onIcon = this.$refs.onIcon;
-            const offIcon = this.$refs.offIcon;
-
-            if (newValue) {
-                onIcon.style.opacity = '1';
-                offIcon.style.opacity = '0';
+    methods: {
+        handleChange() {
+            if (this.checked) {
+                this.onOrganizacion();
             } else {
-                onIcon.style.opacity = '0';
-                offIcon.style.opacity = '1';
+                this.onEstudiante();
             }
         }
     }
@@ -34,70 +41,82 @@ export default {
 
 <style scoped>
 .switch-container {
-    position: relative;
-    width: 60px;
-    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 24px;
+    margin: 0 10px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.icon.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.icon.estudiante {
+    color: #FFA500;
+    /* Color naranja para ESTUDIANTE */
+}
+
+.icon.organizacion {
+    color: #FFD700;
+    /* Color dorado para ORGANIZACIÓN */
 }
 
 .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0 10px;
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.switch-label {
+.slider {
     position: absolute;
     cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: #ccc;
-    border-radius: 34px;
-    width: 60px;
-    height: 34px;
-    transition: background-color 0.2s;
+    transition: .4s;
 }
 
-.switch-label:before {
-    content: "";
+.slider:before {
     position: absolute;
-    left: 4px;
-    top: 4px;
-    width: 26px;
+    content: "";
     height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
     background-color: white;
-    border-radius: 50%;
-    transition: transform 0.2s;
+    transition: .4s;
 }
 
-.switch:checked+.switch-label {
-    background-color: #66bb6a;
+input:checked+.slider {
+    background-color: #2196F3;
 }
 
-.switch:checked+.switch-label:before {
+input:checked+.slider:before {
     transform: translateX(26px);
 }
 
-.switch-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    transition: opacity 0.2s;
+.slider.round {
+    border-radius: 34px;
 }
 
-#on-icon {
-    left: 8px;
-    opacity: 0;
-}
-
-#off-icon {
-    right: 8px;
-    opacity: 1;
-}
-
-.switch:checked+.switch-label #on-icon {
-    opacity: 1;
-}
-
-.switch:checked+.switch-label #off-icon {
-    opacity: 0;
+.slider.round:before {
+    border-radius: 50%;
 }
 </style>
