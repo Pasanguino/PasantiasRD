@@ -1,11 +1,15 @@
 <template>
     <div class="switch-container">
-        <div class="icon estudiante" :class="{ visible: !checked }">E</div>
+        <div class="icon estudiante" :class="{ visible: !checked }">
+            <img src="/images/graduado.png" alt="">
+        </div>
         <label class="switch">
             <input type="checkbox" v-model="checked" @change="handleChange">
             <span class="slider round"></span>
         </label>
-        <div class="icon organizacion" :class="{ visible: checked }">O</div>
+        <div class="icon organizacion" :class="{ visible: checked }">
+            <img src="/images/empresario.png" alt="">
+        </div>
     </div>
 </template>
 
@@ -47,15 +51,27 @@ export default {
 }
 
 .icon {
-    font-size: 24px;
-    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    /* Ajusta el tamaño según sea necesario */
+    height: 40px;
+    /* Ajusta el tamaño según sea necesario */
+    margin: 0 2px;
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
 }
 
 .icon.visible {
     opacity: 1;
     visibility: visible;
+}
+
+.icon img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .icon.estudiante {
@@ -73,7 +89,7 @@ export default {
     display: inline-block;
     width: 60px;
     height: 34px;
-    margin: 0 10px;
+    margin: 0;
 }
 
 .switch input {
@@ -120,3 +136,4 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 </style>
+
