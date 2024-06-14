@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .header {
@@ -194,6 +195,13 @@ body {
 .search-bar button .search-icon {
   margin-right: 5px;
 }
+
+.footer {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
 
 /* Media Queries for Responsiveness */
 
