@@ -47,8 +47,3 @@
 .sección.provincias {
     margin-top: 20px; /* Añadir margen superior a la sección de provincias */
 }
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

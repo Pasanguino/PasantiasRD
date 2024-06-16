@@ -56,6 +56,52 @@ function handleImageError() {
                     </nav>
                 </header>
 
+                <div class="vacantes-por-localización">
+                    <section>
+                    <h1 class="Título-sección-provincias">Vacantes por localización</h1>
+                    <p class="Bienvenida-sección-provincias">Encuentra vacantes en tu provincia para mejor movilidad</p>
+                    <div class="sección provincias">
+                    <table class="tabla-provincias">
+                        <tr>
+                        <td>
+                            <img src="resources\assets\Santo Domingo.png" alt="Santo Domingo">
+                            <p>Santo Domingo</p>
+                            <p>Vacantes: 0</p>&nbsp<p>Empresas: 0</p>
+                        </td>
+                        <td>
+                            <img src="resources\assets\Distrito nacional.png" alt="Distrito Nacional">
+                            <p>Distrito Nacional</p>
+                            <p>Vacantes: 0</p>&nbsp<p>Empresas: 0</p>
+                        </td>
+                        <td>
+                            <img src="resources\assets\El Seibo.png" alt="El Seibo">
+                            <p>El Seibo</p>
+                            <p>Vacantes: 0</p>&nbsp<p>Empresas: 0</p>
+                        </td>               
+                        </tr>
+                        <tr>
+                        <td>
+                            <img src="resources\assets\La Altagracia.jpg" alt="La Altagracia">
+                            <p>La Altagracia</p>
+                            <p>Vacantes: 0</p>&nbsp<p>Empresas: 0</p>
+                            
+                        </td>
+                        <td>
+                            <img src="resources\assets\San Pedro de Macorís.png" alt="San Pedro de Macorís">
+                            <p>San Pedro de Macorís</p>
+                            <p>Vacantes: 0</p>&nbsp<p>Empresas: 0</p>
+                        </td>
+                        <td>
+                            <img src="resources\assets\Hato Mayor.png" alt="Hato Mayor">
+                            <p>Hato Mayor</p>
+                            <p>Vacantes: 0</p>&nbsp<p>Empresas: 0</p>
+                        </td>         
+                        </tr>
+                    </table>
+                    </div>
+                    </section>
+                </div>
+                <style scoped src="/resources/css/Homedos.css"></style>
 
                 <footer class="bg-orange-500 text-white py-16">
                     <div class="container mx-auto flex flex-wrap justify-around">
