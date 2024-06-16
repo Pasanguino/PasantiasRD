@@ -41,6 +41,50 @@
           </div>
         </div>
       </section>
+<<<<<<< HEAD
+=======
+      <div class="flex flex-col min-h-screen">
+        
+  <!-- Contenido principal aquí -->
+  <div class="flex-grow">
+    <!-- ... -->
+  </div>
+  
+  <!-- Footer ajustado sin posición absoluta -->
+  <footer class="bg-orange-500 text-white py-2 text-xs">
+    <div class="container mx-auto flex flex-wrap justify-between">
+      <!-- Contenido del footer -->
+      <div class="w-full sm:w-1/3 px-4 mb-4 sm:mb-0 p-2">
+        <div class="flex items-center mb-2">
+          <h1 class="text-xl font-bold">Pasangüino</h1>
+        </div>
+        
+        <p>Mejoramos y facilitamos cada día la búsqueda y aplicación a pasantías en toda la República Dominicana.</p>
+      </div>
+      <div class="w-full sm:w-1/6 px-4 mb-4 sm:mb-0">
+        <h2 class="text-lg font-semibold mb-2">Información</h2>
+        <ul>
+          <li class="mb-1"><a href="/about-us" class="hover:underline">Sobre nosotros</a></li>
+          <li class="mb-1"><a href="/contact-us" class="hover:underline">Contáctanos</a></li>
+        </ul>
+      </div>
+      <div class="w-full sm:w-1/6 px-4">
+        <h2 class="text-lg font-semibold mb-2">Más</h2>
+        <ul>
+          <li class="mb-1"><a href="/privacy" class="hover:underline">Privacidad</a></li>
+          <li class="mb-1"><a href="/terms" class="hover:underline">Términos y condiciones</a></li>
+          <li class="mb-1"><a href="/help" class="hover:underline">Ayuda</a></li>
+          <li class="mb-1"><a href="/faq" class="hover:underline">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-t border-white/50 my-2">
+    <div class="text-center mt-2 text-white/70">
+      &copy; 2024 Pasangüino. Todos los derechos reservados.
+    </div>
+  </footer>
+</div>
+>>>>>>> origin/Adrian
     </main>
   </div>
 </template>

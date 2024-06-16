@@ -2,6 +2,10 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+<<<<<<< HEAD
+=======
+  overflow-x: hidden;
+>>>>>>> origin/Adrian
 }
 
 .header {
@@ -195,6 +199,16 @@ body {
   margin-right: 5px;
 }
 
+<<<<<<< HEAD
+=======
+.footer {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
+
+>>>>>>> origin/Adrian
 /* Media Queries for Responsiveness */
 
 @media (max-width: 768px) {
