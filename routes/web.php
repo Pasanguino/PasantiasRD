@@ -5,14 +5,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
 Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Adrian
 Route::get('/home', function () {
     return Inertia::render('Home');
 })->name('home');
