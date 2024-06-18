@@ -130,7 +130,7 @@ onMounted(() => {
 
 
                     <div class="mt-4">
-                        <InputLabel for="password_confirmation" value="confirmar Contraseña" />
+                        <InputLabel for="password_confirmation" value="Confirmar contraseña" />
 
                         <TextInput id="password_confirmation" type="password" class="mt-1 block w-full"
                             v-model="form.password_confirmation" required autocomplete="new-password" />
@@ -307,7 +307,7 @@ onMounted(() => {
 
 
                     <div class="mt-4">
-                        <InputLabel for="password_confirmation" value="confirmar Contraseña" />
+                        <InputLabel for="password_confirmation" value="Confirmar contraseña" />
 
                         <TextInput id="password_confirmation" type="password" class="mt-1 block w-full"
                             v-model="form.password_confirmation" required autocomplete="new-password" />
@@ -323,7 +323,7 @@ onMounted(() => {
 
                     <div class="flex">
                         <div class="w-full mr-4">
-                            <InputLabel for="pais" value="pais" />
+                            <InputLabel for="pais" value="Pais" />
 
                             <TextInput id="pais" type="text" class="mt-1 block w-full" v-model="form.pais" required
                                 autocomplete="pais" />

@@ -40,7 +40,6 @@ const submit = () => {
                 <div class="item">
                     <div class="marca">
                         <img src="/images/logo.png" alt="Example Image">
-                        <h1>pasangüino </h1>
                     </div>
                 </div>
             </div>
@@ -53,7 +52,7 @@ const submit = () => {
 
 
                     <div class="form">
-                        <h1>inicio de sesión </h1>
+                        <h1>Inicio de sesión </h1>
                         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
                             {{ status }}
                         </div>
@@ -176,9 +175,9 @@ const submit = () => {
 }
 
 .logo .item img {
-    width: 90%;
+    width: 100%;
     margin: auto;
-    max-width: 300px;
+    max-width: 500px;
 }
 
 
