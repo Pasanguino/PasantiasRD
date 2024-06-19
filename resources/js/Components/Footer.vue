@@ -41,10 +41,10 @@
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
-                    <a href="https://flowbite.com/" class="flex items-center">
+                    <a href="/" class="flex items-center">
                         <img src="/images/favicon.ico" class=" logo" alt="FlowBite Logo" />
                         <span
-                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pasangüino</span>
                     </a>
                     <p class="mt-2 ">Mejoramos y facilitamos cada día<br> la búsqueda y aplicación a pasantías<br> en
                         toda la
@@ -156,7 +156,7 @@ export default {
 
 }
 footer {
-    background-color: #BF5F07;
+    background-color: #7D98F8;
     max-width: 100%;
     overflow: hidden;
 
