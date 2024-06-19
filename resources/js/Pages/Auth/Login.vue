@@ -39,7 +39,7 @@ const submit = () => {
             <div class="logo">
                 <div class="item">
                     <div class="marca">
-                        <img src="/images/logo.png" alt="Example Image">
+                        <img src="/images/favicon.ico" alt="Example Image">
                     </div>
                 </div>
             </div>
@@ -177,7 +177,8 @@ const submit = () => {
 .logo .item img {
     width: 100%;
     margin: auto;
-    max-width: 500px;
+    max-width: 800px;
+    transform: scale(1.2);
 }
 
 
