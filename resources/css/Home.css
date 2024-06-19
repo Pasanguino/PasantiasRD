@@ -196,10 +196,6 @@ body {
   margin-right: 5px;
 }
 
-.footer {
-  max-width: 100%;
-  overflow: hidden;
-}
 
 
 
@@ -520,6 +516,3 @@ table td img {
 
 
 
-footer {
-  background-color: #BF5F07;
-}/* Estilos para el fondo de la página */
