@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('vacancy_description');
             $table->integer('salary');
             $table->string('company_name');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->notNullValue();
-            $table->foreignId('area_id')->constrained()->cascadeOnDelete()->notNullValue();
-            $table->foreignId('position_id')->constrained()->cascadeOnDelete()->notNullValue();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('area_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('position_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
