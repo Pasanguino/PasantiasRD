@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PHPUnit\Framework\Constraint\Constraint;
 
 return new class extends Migration
 {
@@ -13,6 +14,13 @@ return new class extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
+            $table->string('vacancy_name');
+            $table->string('vacancy_description');
+            $table->integer('salary');
+            $table->string('company_name');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->notNullValue();
+            $table->foreignId('area_id')->constrained()->cascadeOnDelete()->notNullValue();
+            $table->foreignId('position_id')->constrained()->cascadeOnDelete()->notNullValue();
             $table->timestamps();
         });
     }
