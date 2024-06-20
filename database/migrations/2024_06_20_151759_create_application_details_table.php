@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('photo_path');
             $table->string('identification_path');
             $table->string('cv_path');
-            $table->string('decription');
+            $table->string('description');
+            $table->string('ability');
             $table->int('experience');
             $table->int('year_month');
             $table->foreignId('area_id');
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->foreignId('application_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
+
+
     }
 
     /**
