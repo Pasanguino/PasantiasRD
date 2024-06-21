@@ -22,7 +22,10 @@ class User extends Authenticatable
         'last_name', // String
         'email', // String
         'password', // String
-        'province' // Interger
+        'type_user_id',
+        'province_id', // Interger
+        'company_id',
+        'company_name'
     ];
 
     /**
