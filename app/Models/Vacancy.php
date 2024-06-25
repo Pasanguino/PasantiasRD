@@ -18,4 +18,16 @@ class Vacancy extends Model
         'area_id',
         'position_id'
     ];
+
+    public function Users(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function areas(){
+        return $this->belongsTo(Area::class);
+    }
+
+    public function positions(){
+        return $this->belongsTo(Position::class);
+    }
 }

@@ -54,11 +54,11 @@ class AuthController extends Controller
         $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('aut_token')->plainTextToken;
         return response()->json([
-            'message' => 'Hi '.$user->name,
+            'user' => $user->first_name,
             'accessToken' => $token,
             'token_type' => 'Bearer',
-            'user'=>$user,
-            'login' => True
+            'login' => True,
+            'message' => 'Authorized'
     
         ]);
     }

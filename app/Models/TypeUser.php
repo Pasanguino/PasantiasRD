@@ -12,4 +12,9 @@ class TypeUser extends Model
         'id',
         'type_user', // String
     ];
+
+
+    public function users(){
+        return $this->hasMany(User::class); 
+    }
 }
