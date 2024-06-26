@@ -13,5 +13,16 @@ class Application extends Model
         'user_id', // String
         'vacancy_id',
     ];
+
+    public function vacancies(){
+        return $this->hasOne(Vacancy::class); 
+    }
     
+    public function application_details(){
+        return $this->hasOne(Application_detail::class); 
+    }
+
+    public function users(){
+        return $this->belongsTo(User::class); 
+    }
 }
