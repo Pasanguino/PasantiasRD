@@ -5,7 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Application extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id',
+        'user_id', // String
+        'vacancy_id',
+    ];
+    
 }
