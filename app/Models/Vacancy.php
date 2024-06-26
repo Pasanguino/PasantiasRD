@@ -19,7 +19,7 @@ class Vacancy extends Model
         'position_id'
     ];
 
-    public function Users(){
+    public function users(){
         return $this->belongsTo(User::class);
     }
 
