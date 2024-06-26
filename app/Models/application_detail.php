@@ -25,4 +25,9 @@ class Application_detail extends Model
         'position_id',
         'aplicaction_id'
     ];
+
+    public function application(){
+        return $this->hasOne(Application::class); 
+    }
+
 }
