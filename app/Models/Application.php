@@ -15,7 +15,7 @@ class Application extends Model
     ];
 
     public function vacancies(){
-        return $this->hasOne(Vacancy::class); 
+        return $this->belongsTo(Vacancy::class); 
     }
     
     public function application_details(){

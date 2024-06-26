@@ -30,4 +30,8 @@ class Vacancy extends Model
     public function positions(){
         return $this->belongsTo(Position::class);
     }
+
+    public function favorites(){
+        return $this->belongsTo(Favorite::class);
+    }
 }
