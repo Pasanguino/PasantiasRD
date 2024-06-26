@@ -12,4 +12,8 @@ class Profession extends Model
         'id',
         'profession_name', // String
     ];
+
+    public function users(){
+        return $this->hasMany(User::class); 
+    }
 }
