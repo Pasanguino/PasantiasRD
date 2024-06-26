@@ -19,6 +19,9 @@ class Vacancy extends Model
         'position_id'
     ];
 
+    public function application(){
+        return $this->hasMany(Application::class);
+    }
     public function users(){
         return $this->belongsTo(User::class);
     }
