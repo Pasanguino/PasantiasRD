@@ -14,4 +14,11 @@ class Favorite extends Model
         'vacancy_id',
     ];
     
+    public function users(){
+        return $this->belongsTo(User::class);
+    }
+    public function vacancies(){
+        return $this->belongsTo(Vacancy::class);
+    }
+    
 }
