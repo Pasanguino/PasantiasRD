@@ -51,9 +51,6 @@ class User extends Authenticatable
         ];
     }
 
-    public function vacancies(){
-        return $this->hasMany(Vacancy::class);
-    }
 
     public function applications(){
         return $this->hasMany(Application::class);
@@ -61,6 +58,10 @@ class User extends Authenticatable
 
     public function favorites(){
         return $this->hasMany(Favorite::class);
+    }
+
+    public function user_profile(){
+        return $this->hasOne(UserProfile::class);
     }
 
     public function type_users(){
