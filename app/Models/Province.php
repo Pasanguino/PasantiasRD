@@ -12,4 +12,6 @@ class Province extends Model
         'id',
         'province_name', // String
     ];
+
+    
 }
