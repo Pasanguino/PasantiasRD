@@ -13,5 +13,7 @@ class Position extends Model
         'position_name', // String
     ];
 
-    
+    public function areas(){
+        return $this->belongsTo(Area::class);
+    }
 }
