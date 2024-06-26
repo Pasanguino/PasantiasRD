@@ -14,7 +14,15 @@ class TypeUser extends Model
     ];
 
 
+    public function vacancies(){
+        return $this->hasMany(Vacancy::class); 
+    }
+
     public function users(){
         return $this->hasMany(User::class); 
+    }
+
+    public function companies(){
+        return $this->hasMany(Company::class); 
     }
 }
