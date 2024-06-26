@@ -12,4 +12,8 @@ class Area extends Model
         'id',
         'area_name' // String
     ];
+
+    public function positions(){
+        return $this->hasMany(Position::class); 
+    }
 }

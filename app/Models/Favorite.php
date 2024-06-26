@@ -13,4 +13,5 @@ class Favorite extends Model
         'user_id', // String
         'vacancy_id',
     ];
+    
 }

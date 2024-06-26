@@ -12,4 +12,6 @@ class Position extends Model
         'id',
         'position_name', // String
     ];
+
+    
 }
