@@ -13,4 +13,12 @@ class Company extends Model
         'id',
         'company_name', // String
     ];
+
+    public function users(){
+        return $this->hasMany(User::class); 
+    }
+
+    public function vacancies(){
+        return $this->hasMany(Vacancy::class); 
+    }
 }
