@@ -18,7 +18,7 @@ class Favorite extends Model
         return $this->belongsTo(User::class);
     }
     public function vacancies(){
-        return $this->belongsTo(Vacancy::class);
+        return $this->hasMany(Vacancy::class);
     }
     
 }
