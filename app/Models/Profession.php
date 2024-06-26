@@ -13,7 +13,7 @@ class Profession extends Model
         'profession_name', // String
     ];
 
-    public function use_profile(){
+    public function user_profile(){
         return $this->hasMany(UserProfile::class); 
     }
 }
