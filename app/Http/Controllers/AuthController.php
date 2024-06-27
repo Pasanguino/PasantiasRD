@@ -63,8 +63,9 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout (Request $request){
-        $request->user()->tokens()->delete();
+    public function logout (){
+        $user = Auth::user();
+        $user()->tokens()->delete();
         return [
             "message" => "Tus tokens han sido borrados"
         ];

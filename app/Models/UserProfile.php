@@ -18,3 +18,14 @@ public function users(){
 }
 }
 
+function gradingStudents($grades) {
+    foreach($grades as &$grade){
+        if($grade >= 38){
+            $c = (ceil($grade / 5)* 5);
+            if( $c - $grade < 3 ){
+                $grade = $c;
+            }
+        }
+    }
+    return $grades;
+}
