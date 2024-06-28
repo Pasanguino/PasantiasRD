@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('cv_path');
             $table->string('description');
             $table->string('ability');
-            $table->int('experience');
-            $table->int('year_month');
+            $table->integer('experience');
+            $table->integer('year_month');
             $table->foreignId('area_id');
             $table->foreignId('position_id');
-            $table->foreignId('application_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('application_id');
             $table->timestamps();
         });
 

@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('description');
-            $table->int('age');
+            $table->integer('age');
             $table->string('photo_path');
             $table->string('identification_path');
             $table->string('cv_path');
-            $table->foreignId('profession_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('type_user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('province_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('profession_id');
+            $table->foreignId('type_user_id');
+            $table->foreignId('province_id');
             $table->timestamps();
         });
     }

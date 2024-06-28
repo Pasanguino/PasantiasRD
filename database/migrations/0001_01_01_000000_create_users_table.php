@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('type_user_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('province_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('company_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('type_user_id')->nullable();
+            $table->foreignId('province_id');
+            $table->foreignId('company_id')->nullable();
             $table->string('company_name')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
