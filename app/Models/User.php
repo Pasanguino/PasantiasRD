@@ -22,7 +22,10 @@ class User extends Authenticatable
         'last_name', // String
         'email', // String
         'password', // String
-        'province' // Interger
+        'type_user_id',
+        'province_id', // Interger
+        'company_id',
+        'company_name'
     ];
 
     /**
@@ -46,5 +49,30 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public function applications(){
+        return $this->hasMany(Application::class);
+    }
+
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function user_profile(){
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function type_users(){
+        return $this->belongsTo(TypeUser::class);
+    }
+
+    public function provinces(){
+        return $this->belongsTo(Province::class);
+    }
+
+    public function companies(){
+        return $this->belongsTo(Company::class);
     }
 }

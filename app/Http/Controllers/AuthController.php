@@ -19,7 +19,10 @@ class AuthController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'province' => 'required|interger'
+            'type_user_id' => 'required|interger',
+            'province_id' => 'required|interger',
+            'company_id' => 'required|interger',
+            'company_name' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -31,7 +34,10 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'province' => $request->province
+            'type_user_id' => $request->type_user_id,
+            'province_id' => $request->province_id,
+            'company_id' => $request->company_id,
+            'company_name' => $request->company_name,
 
         ]);
 
@@ -42,16 +48,17 @@ class AuthController extends Controller
 
     public function login(Request $request){
         if (!Auth::attempt($request->only('email', 'password'))){
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Unauthorized', 'login' => False], 401);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('aut_token')->plainTextToken;
         return response()->json([
-            'message' => 'Hi '.$user->name,
+            'user' => $user->first_name,
             'accessToken' => $token,
             'token_type' => 'Bearer',
-            'user'=>$user
+            'login' => True,
+            'message' => 'Authorized'
     
         ]);
     }

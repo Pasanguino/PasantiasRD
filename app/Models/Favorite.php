@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Province extends Model
+class Favorite extends Model
 {
     use HasFactory;
     protected $fillable = [
         'id',
-        'province_name', // String
+        'user_id', // String
+        'vacancy_id',
     ];
-
+    
     public function users(){
-        return $this->hasMany(User::class); 
+        return $this->belongsTo(User::class);
     }
-
     public function vacancies(){
-        return $this->hasMany(Vacancy::class); 
+        return $this->hasMany(Vacancy::class);
     }
-
-    public function companies(){
-        return $this->hasMany(Company::class); 
-    }
+    
 }
