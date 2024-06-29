@@ -14,6 +14,7 @@ class Vacancy extends Model
         'vacancy_description',
         'salary',
         'company_name',
+        'company_id',
         'user_id',
         'area_id',
         'position_id'
