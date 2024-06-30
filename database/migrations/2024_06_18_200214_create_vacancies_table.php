@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('company_name');
             $table->foreignId('company_id');
             $table->foreignId('user_id');
+            $table->foreignId('province_id');
             $table->foreignId('area_id');
             $table->foreignId('position_id');
             $table->timestamps();

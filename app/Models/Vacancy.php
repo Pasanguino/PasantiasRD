@@ -16,6 +16,7 @@ class Vacancy extends Model
         'company_name',
         'company_id',
         'user_id',
+        'pronvice_id',
         'area_id',
         'position_id'
     ];
@@ -37,5 +38,9 @@ class Vacancy extends Model
 
     public function favorites(){
         return $this->belongsTo(Favorite::class);
+    }
+
+    public function provinces(){
+        return $this->belongsTo(Province::class);
     }
 }
