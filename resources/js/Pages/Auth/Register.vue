@@ -3,23 +3,22 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel(reg).vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-
 import TextInput from '@/Components/TextInput.vue';
-
-
-
-
-
 
 import { Head, useForm } from '@inertiajs/vue3';
 import Switch from '@/Components/Switch.vue';
 import { ref, onMounted } from 'vue';
 
 const form = useForm({
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: '',
+    type_user_id: 1,
+    province_id: '',
+    company_id: 0,
+    company_name: 'Null',
 });
 
 const fondoColor = ref('#7D98F8');
@@ -29,7 +28,7 @@ const img = ref('/images/graduation.svg');
 
 const submit = () => {
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        // onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
 
@@ -38,8 +37,9 @@ const onEstudiante = () => {
     tipo.value = 'estudiante';
     fondoColor.value = '#7D98F8';
     img.value = '/images/graduation.svg';
+    form.type_user_id = 1;
 
-    
+    console.log('tipo cambiado a estudiante' + form.type_user_id);
 };
 
 const onOrganizacion = () => {
@@ -47,15 +47,17 @@ const onOrganizacion = () => {
     fondoColor.value = '#F9A826';
     tipo.value = 'Organización';
     img.value = '/images/production.svg';
+    form.type_user_id = 2;
+
+    console.log('tipo cambiado a Organización ' + form.type_user_id);
 };
 
 onMounted(() => {
     document.documentElement.style.setProperty('--titulo-color', tituloColor.value);
 });
 
-
-
 </script>
+
 
 <template>
 
@@ -81,21 +83,22 @@ onMounted(() => {
                 <form @submit.prevent="submit">
                     <div class="mt-5 flex">
                         <div class="w-full mr-4">
-                            <InputLabel for="Nombre" value="Nombre" />
+                            <InputLabel for="first_name" value="Nombre" />
 
-                            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required
-                                autofocus autocomplete="name" />
+                            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.first_name"
+                                required autofocus autocomplete="given-name" />
 
-                            <InputError class="mt-2" :message="form.errors.name" />
+                            <InputError class="mt-2" :message="form.errors.first_name" />
                         </div>
 
+
                         <div class="w-full  ml-4">
-                            <InputLabel for="Apellido" value="Apellido" />
+                            <InputLabel for="last_name" value="Apellido" />
 
-                            <TextInput id="lastName" type="text" class="mt-1 block w-full" v-model="form.lastName"
-                                required autocomplete="lastName" />
+                            <TextInput id="lastName" type="text" class="mt-1 block w-full" v-model="form.last_name"
+                                required autocomplete="family-name" />
 
-                            <InputError class="mt-2" :message="form.errors.lastName" />
+                            <InputError class="mt-2" :message="form.errors.last_name" />
                         </div>
                     </div>
 
@@ -106,10 +109,10 @@ onMounted(() => {
 
 
                     <div class="mt-4">
-                        <InputLabel for="email" value="Correo electronico" />
+                        <InputLabel for="email" value="Email" />
 
                         <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
-                            autocomplete="email" />
+                            autocomplete="username" />
 
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
@@ -117,24 +120,18 @@ onMounted(() => {
 
                     <div class="mt-4">
                         <InputLabel for="password" value="Contraseña" />
-
                         <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
                             required autocomplete="new-password" />
-
                         <InputError class="mt-2" :message="form.errors.password" />
                     </div>
 
 
 
 
-
-
                     <div class="mt-4">
-                        <InputLabel for="password_confirmation" value="Confirmar contraseña" />
-
+                        <InputLabel for="password_confirmation" value="Confirmar Contraseña" />
                         <TextInput id="password_confirmation" type="password" class="mt-1 block w-full"
                             v-model="form.password_confirmation" required autocomplete="new-password" />
-
                         <InputError class="mt-2" :message="form.errors.password_confirmation" />
                     </div>
 
@@ -143,78 +140,58 @@ onMounted(() => {
 
 
 
-                    <div class=" flex">
+                    <div class=" flex mb-10">
                         <div class="w-full mr-4">
-                            <InputLabel for="provincia" value="Provincia" />
+                            <InputLabel for="province_id" value="Provincia" />
 
-                            <select id="provincia"
+                            <select id="province_id"
                                 class="mt-1 block w-full provincia border-gray-300 custom-focus-border custom-focus-ring rounded-md shadow-sm"
-                                v-model="form.provincia" required>
+                                v-model="form.province_id" required>
                                 <option value="" disabled selected>Seleccione una provincia</option>
-                                <option value="Azúa">Azúa</option>
-                                <option value="Baoruco">Baoruco</option>
-                                <option value="Barahona">Barahona</option>
-                                <option value="Dajabón">Dajabón</option>
-                                <option value="Distrito Nacional">Distrito Nacional</option>
-                                <option value="Duarte">Duarte</option>
-                                <option value="Elías Piña">Elías Piña</option>
-                                <option value="El Seibo">El Seibo</option>
-                                <option value="Espaillat">Espaillat</option>
-                                <option value="Hato Mayor">Hato Mayor</option>
-                                <option value="Independencia">Independencia</option>
-                                <option value="La Altagracia">La Altagracia</option>
-                                <option value="La Romana">La Romana</option>
-                                <option value="La Vega">La Vega</option>
-                                <option value="María Trinidad Sánchez">María Trinidad Sánchez</option>
-                                <option value="Monseñor Nouel">Monseñor Nouel</option>
-                                <option value="Monte Cristi">Monte Cristi</option>
-                                <option value="Monte Plata">Monte Plata</option>
-                                <option value="Pedernales">Pedernales</option>
-                                <option value="Peravia">Peravia</option>
-                                <option value="Puerto Plata">Puerto Plata</option>
-                                <option value="Salcedo">Salcedo</option>
-                                <option value="Samaná">Samaná</option>
-                                <option value="Sánchez Ramírez">Sánchez Ramírez</option>
-                                <option value="San Cristobal">San Cristobal</option>
-                                <option value="San José de Ocoa">San José de Ocoa</option>
-                                <option value="San Juan">San Juan</option>
-                                <option value="San Pedro de Macorís">San Pedro de Macorís</option>
-                                <option value="Santiago de los Caballeros">Santiago de los Caballeros</option>
-                                <option value="Santiago Rodríguez">Santiago Rodríguez</option>
-                                <option value="Santo Domingo">Santo Domingo</option>
-                                <option value="Valverde">Valverde</option>
+                                <option value="1">Santo Domingo</option>
+                                <option value="2">San Cristobal</option>
+                                <option value="3">Azúa</option>
+                                <option value="4">Baoruco</option>
+                                <option value="5">Barahona</option>
+                                <option value="6">Dajabón</option>
+                                <option value="7">Distrito Nacional</option>
+                                <option value="8">Duarte</option>
+                                <option value="9">Elías Piña</option>
+                                <option value="10">El Seibo</option>
+                                <option value="11">Espaillat</option>
+                                <option value="12">Hato Mayor</option>
+                                <option value="13">Independencia</option>
+                                <option value="14">La Altagracia</option>
+                                <option value="15">La Romana</option>
+                                <option value="16">La Vega</option>
+                                <option value="17">María Trinidad Sánchez</option>
+                                <option value="18">Monseñor Nouel</option>
+                                <option value="19">Monte Cristi</option>
+                                <option value="20">Monte Plata</option>
+                                <option value="21">Pedernales</option>
+                                <option value="22">Peravia</option>
+                                <option value="23">Puerto Plata</option>
+                                <option value="24">Salcedo</option>
+                                <option value="25">Samaná</option>
+                                <option value="26">Sánchez Ramírez</option>
+                                <option value="27">San José de Ocoa</option>
+                                <option value="28">San Juan</option>
+                                <option value="29">San Pedro de Macorís</option>
+                                <option value="30">Santiago de los Caballeros</option>
+                                <option value="31">Santiago Rodríguez</option>
+                                <option value="32">Valverde</option>
                             </select>
 
-                            <InputError class="mt-2" :message="form.errors.provincia" />
+                            <InputError class="mt-2" :message="form.errors.province_id" />
                         </div>
 
-                        <div class="w-full ml-4">
-                            <InputLabel for="telefono" value="Numero de telefono" />
 
-                            <TextInput id="telefono" type="number" class="mt-1 block w-full" v-model="form.telefono"
-                                required autocomplete="telefono" />
-
-                            <InputError class="mt-2" :message="form.errors.telefono" />
-                        </div>
                     </div>
 
 
 
 
 
-
-                    <div class="">
-                        <div class="w-full mr-2">
-                            <InputLabel for="Cedula" value="Cédula de ciudadanía
-" />
-
-                            <TextInput id="Cedula" type="text" class="mt-1 block w-full" v-model="form.Cedula" required
-                                autocomplete="Cedula" />
-
-                            <InputError class="mt-2" :message="form.errors.Cedula" />
-                        </div>
-
-                    </div>
 
 
 
@@ -236,82 +213,62 @@ onMounted(() => {
 
                 </form>
             </div>
+
+
             <div v-else class="Organización">
 
-
-
-
-
-
-
-
-
-
-
-
-
                 <form @submit.prevent="submit">
+                    <div class="mt-5 flex">
+                        <div class="w-full mr-4">
+                            <InputLabel for="first_name" value="Nombre(Propietario)" />
 
-                    <div class="w-full mr-4">
-                        <InputLabel for="Nombre" value="Nombre de la empresa" />
+                            <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.first_name"
+                                required autofocus autocomplete="given-name" />
 
-                        <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required
-                            autocomplete="name" autofocus />
+                            <InputError class="mt-2" :message="form.errors.first_name" />
+                        </div>
 
-                        <InputError class="mt-2" :message="form.errors.name" />
+
+                        <div class="w-full  ml-4">
+                            <InputLabel for="last_name" value="Apellido(Propietario)" />
+
+                            <TextInput id="lastName" type="text" class="mt-1 block w-full" v-model="form.last_name"
+                                required autocomplete="family-name" />
+
+                            <InputError class="mt-2" :message="form.errors.last_name" />
+                        </div>
                     </div>
 
 
 
 
 
-                    <div class="mt-4">
-                        <InputLabel for="emaile" value="Correo de la organizacion" />
 
-                        <TextInput id="emaile" type="email" class="mt-1 block w-full" v-model="form.emaile" required
-                            autocomplete="emaile" />
+
+                    <div class="mt-4">
+                        <InputLabel for="email" value="Email Organizacional" />
+
+                        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
+                            autocomplete="username" />
 
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
 
 
-                    <div class=" ">
-                        <div class="w-full mr-2">
-                            <InputLabel for="telefono" value="Número de teléfono" />
-
-                            <TextInput id="telefono" type="number" class="mt-1 block w-full" v-model="form.telefono"
-                                required autocomplete="telefono" />
-
-                            <InputError class="mt-2" :message="form.errors.telefono" />
-                        </div>
-
-                    </div>
-
-
-               
-
-
-
                     <div class="mt-4">
                         <InputLabel for="password" value="Contraseña" />
-
                         <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password"
                             required autocomplete="new-password" />
-
                         <InputError class="mt-2" :message="form.errors.password" />
                     </div>
 
 
 
 
-
-
                     <div class="mt-4">
-                        <InputLabel for="password_confirmation" value="Confirmar contraseña" />
-
+                        <InputLabel for="password_confirmation" value="Confirmar Contraseña" />
                         <TextInput id="password_confirmation" type="password" class="mt-1 block w-full"
                             v-model="form.password_confirmation" required autocomplete="new-password" />
-
                         <InputError class="mt-2" :message="form.errors.password_confirmation" />
                     </div>
 
@@ -320,27 +277,63 @@ onMounted(() => {
 
 
 
-
-                    <div class="flex">
+                    <div class=" flex mb-10">
                         <div class="w-full mr-4">
-                            <InputLabel for="pais" value="Pais" />
+                            <InputLabel for="province_id" value="Provincia" />
 
-                            <TextInput id="pais" type="text" class="mt-1 block w-full" v-model="form.pais" required
-                                autocomplete="pais" />
+                            <select id="province_id"
+                                class="mt-1 block w-full provincia border-gray-300 custom-focus-border custom-focus-ring rounded-md shadow-sm"
+                                v-model="form.province_id" required>
+                                <option value="" disabled selected>Seleccione una provincia</option>
+                                <option value="1">Azúa</option>
+                                <option value="2">Baoruco</option>
+                                <option value="3">Barahona</option>
+                                <option value="4">Dajabón</option>
+                                <option value="5">Distrito Nacional</option>
+                                <option value="6">Duarte</option>
+                                <option value="7">Elías Piña</option>
+                                <option value="8">El Seibo</option>
+                                <option value="9">Espaillat</option>
+                                <option value="10">Hato Mayor</option>
+                                <option value="11">Independencia</option>
+                                <option value="11">La Altagracia</option>
+                                <option value="12">La Romana</option>
+                                <option value="13">La Vega</option>
+                                <option value="14">María Trinidad Sánchez</option>
+                                <option value="15">Monseñor Nouel</option>
+                                <option value="16">Monte Cristi</option>
+                                <option value="17">Monte Plata</option>
+                                <option value="18">Pedernales</option>
+                                <option value="19">Peravia</option>
+                                <option value="20">Puerto Plata</option>
+                                <option value="21">Salcedo</option>
+                                <option value="22">Samaná</option>
+                                <option value="23">Sánchez Ramírez</option>
+                                <option value="24">San Cristobal</option>
+                                <option value="25">San José de Ocoa</option>
+                                <option value="26">San Juan</option>
+                                <option value="27">San Pedro de Macorís</option>
+                                <option value="28">Santiago de los Caballeros</option>
+                                <option value="29">Santiago Rodríguez</option>
+                                <option value="30">Santo Domingo</option>
+                                <option value="31">Valverde</option>
+                            </select>
 
-                            <InputError class="mt-2" :message="form.errors.pais" />
+                            <InputError class="mt-2" :message="form.errors.province_id" />
                         </div>
 
 
-                        <div class="w-full  ml-4">
-                            <InputLabel for="Sector" value="Sector" />
-
-                            <TextInput id="Sector" type="text" class="mt-1 block w-full" v-model="form.Sector" required
-                                autocomplete="Sector" />
-
-                            <InputError class="mt-2" :message="form.errors.Sector" />
-                        </div>
                     </div>
+
+
+
+                    <div class="mt-4">
+                        <InputLabel for="company_name" value="Nombre de la organización" />
+                        <TextInput id="company_name" type="text" class="mt-1 block w-full" v-model="form.company_name"
+                            required />
+                        <InputError class="mt-2" :message="form.errors.company_name" />
+                    </div>
+
 
 
 
@@ -366,9 +359,6 @@ onMounted(() => {
 
 
                 </form>
-
-
-
 
 
 
@@ -406,11 +396,11 @@ onMounted(() => {
     overflow: hidden;
 }
 
-.fondo{
-position: absolute;
-width: 1200px;
-top: 45%;
-left: 20%;
+.fondo {
+    position: absolute;
+    width: 1200px;
+    top: 45%;
+    left: 20%;
 
 
 }
