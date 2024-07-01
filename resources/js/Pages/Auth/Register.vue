@@ -40,6 +40,8 @@ const onEstudiante = () => {
     form.type_user_id = 1;
 
     console.log('tipo cambiado a estudiante' + form.type_user_id);
+
+    form.reset( 'first_name' , 'last_name', 'email', 'password', 'password_confirmation' , 'province_id', );
 };
 
 const onOrganizacion = () => {
@@ -50,6 +52,8 @@ const onOrganizacion = () => {
     form.type_user_id = 2;
 
     console.log('tipo cambiado a Organización ' + form.type_user_id);
+    form.reset('first_name', 'last_name', 'email', 'password', 'password_confirmation', 'province_id' );
+
 };
 
 onMounted(() => {
