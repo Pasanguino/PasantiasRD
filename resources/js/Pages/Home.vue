@@ -1,5 +1,4 @@
 <template>
-
   <Head title="Home" />
 
   <div class="todo">
@@ -15,7 +14,7 @@
         <nav class="nav-container">
           <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Encuentra Pasantías</a></li>
+            <li><a href="#encuentra-pasantias">Encuentra Pasantías</a></li>
             <li><a href="#">Soporte Técnico</a></li>
           </ul>
         </nav>
@@ -46,37 +45,34 @@
           </div>
         </section>
 
+        <!-- Incluyendo el componente de carrusel -->
+        <section id="encuentra-pasantias" class="carousel-section">
+          <FindInternships />
+        </section>
 
         <!-- Contenido principal aquí -->
 
-
-
-
       </main>
-  </div>
+    </div>
 
-  <Vacantes />
+    <Vacantes />
 
-  <!-- Footer ajustado sin posición absoluta -->
-
-  <Footer />
+    <!-- Footer ajustado sin posición absoluta -->
+    <Footer />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import HomeScript from '/resources/js/Home.js';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import Footer from '@/Components/Footer.vue';
 import Vacantes from '@/Components/Vacantes_provincias.vue';
-
-// Si HomeScript tiene dependencias externas o necesita ser instanciado de manera específica,
-// asegúrate de manejar eso adecuadamente aquí o en su archivo original.
+import FindInternships from '@/Components/FindInternships.vue';
 
 onMounted(() => {
   HomeScript.mounted.call(this);
 });
 </script>
-
 
 <style scoped src="/resources/css/Home.css"></style>
