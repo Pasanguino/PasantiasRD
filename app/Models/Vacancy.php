@@ -16,7 +16,7 @@ class Vacancy extends Model
         'company_name',
         'company_id',
         'user_id',
-        'pronvice_id',
+        'province_id',
         'area_id',
         'position_id'
     ];

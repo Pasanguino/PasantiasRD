@@ -31,7 +31,7 @@ class VacancyController extends Controller
             'company_name' => 'required|max:150',
             'company_id' => 'required|integer',
             'user_id' => 'required|integer',
-            'pronvice_id' => 'required|integer',
+            'province_id' => 'required|integer',
             'area_id' => 'required|integer',
             'position_id' => 'required|integer',
         ]);
@@ -52,7 +52,7 @@ class VacancyController extends Controller
             'company_name' => $request->company_name,
             'company_id' => $request->company_id,
             'user_id' => $request->user_id,
-            'pronvice_id' => $request->pronvice_id,
+            'province_id' => $request->province_id,
             'area_id' => $request->area_id,
             'position_id' => $request->position_id,
         ]);
@@ -76,6 +76,48 @@ class VacancyController extends Controller
     public function getVacancyById($id) 
     {
         $vacancy = Vacancy::find($id);
+
+        if (!$vacancy) {
+            $data = [
+                'message' => 'Vacante no encontrada',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'vacante' => $vacancy,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+        
+    }
+
+    public function getVacancyByArea($area_id) 
+    {
+        $vacancy = Vacancy::where('area_id', $area_id)->get();
+
+        if (!$vacancy) {
+            $data = [
+                'message' => 'Vacante no encontrada',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'vacante' => $vacancy,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+        
+    }
+
+    public function getVacancyByProvinceId($province_id) 
+    {
+        $vacancy = Vacancy::where('province_id', $province_id)->get();
 
         if (!$vacancy) {
             $data = [
@@ -134,7 +176,7 @@ class VacancyController extends Controller
             'salary' => 'required|integer',
             'company_name' => 'required|max:150',
             'company_id' => 'required|integer',
-            'pronvice_id' => 'required|integer',
+            'province_id' => 'required|integer',
             'area_id' => 'required|integer',
             'position_id' => 'required|integer',
         ]);
@@ -153,7 +195,7 @@ class VacancyController extends Controller
         $vacancy->salary = $request->salary;
         $vacancy->company_name = $request->company_name;
         $vacancy->company_id = $request->company_id;
-        $vacancy->pronvice_id = $request->pronvice_id;
+        $vacancy->province_id = $request->province_id;
         $vacancy->area_id = $request->area_id;
         $vacancy->position_id = $request->position_id;
 
@@ -186,7 +228,7 @@ class VacancyController extends Controller
             'salary' => 'required|integer',
             'company_name' => 'required|max:150',
             'company_id' => 'required|integer',
-            'pronvice_id' => 'required|integer',
+            'province_id' => 'required|integer',
             'area_id' => 'required|integer',
             'position_id' => 'required|integer',
         ]);
@@ -220,8 +262,8 @@ class VacancyController extends Controller
             $vacancy->company_id = $request->company_id;
         }
 
-        if ($request->has('pronvice_id')) {
-            $vacancy->pronvice_id = $request->pronvice_id;
+        if ($request->has('province_id')) {
+            $vacancy->province_id = $request->province_id;
         }
 
         if ($request->has('area_id')) {
