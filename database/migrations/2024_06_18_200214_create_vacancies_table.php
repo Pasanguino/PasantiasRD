@@ -25,6 +25,48 @@ return new class extends Migration
             $table->foreignId('position_id');
             $table->timestamps();
         });
+
+        DB::table('vacancies')->insert([
+            [
+                'vacancy_name' => 'Software Developer',
+                'vacancy_description' => 'Looking for experienced software developers.',
+                'salary' => 80000,
+                'company_name' => 'Tech Solutions Inc.',
+                'company_id' => 1, 
+                'user_id' => 1, 
+                'province_id' => 1, 
+                'area_id' => 1, 
+                'position_id' => 1, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'vacancy_name' => 'Marketing Manager',
+                'vacancy_description' => 'Seeking a skilled marketing manager.',
+                'salary' => 60000,
+                'company_name' => 'Marketing Experts Ltd.',
+                'company_id' => 2, 
+                'user_id' => 1, 
+                'province_id' => 2, 
+                'area_id' => 2, 
+                'position_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'vacancy_name' => 'Programer',
+                'vacancy_description' => 'Seeking a skilled programer full stack',
+                'salary' => 70000,
+                'company_name' => 'Facebook',
+                'company_id' => 3, 
+                'user_id' => 2, 
+                'province_id' => 5, 
+                'area_id' => 3, 
+                'position_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 
     /**
