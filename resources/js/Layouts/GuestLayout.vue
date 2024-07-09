@@ -15,7 +15,7 @@ import { Link } from '@inertiajs/vue3';
     </div>
 </template>
 
-<style>
+<style scoped>
 .contenido {
     background: rgb(89, 44, 3);
     background: linear-gradient(0deg, rgba(89, 44, 3, 1) 0%, rgba(191, 95, 7, 1) 100%);

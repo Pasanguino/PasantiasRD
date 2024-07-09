@@ -107,7 +107,7 @@ const submit = () => {
 
 </template>
 
-<style>
+<style scoped>
 
 @font-face {
     font-family: 'MyFont';
