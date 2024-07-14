@@ -51,7 +51,7 @@ import HomeScript from '/resources/js/Home.js';
 export default {
   name: 'Home',
   mounted() {
-    HomeScript.mounted.call(this); // Llama al método mounted de Home.js y pasa el contexto de Vue
+    HomeScript.mounted.call(this);
   }
 };
 </script>
