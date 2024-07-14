@@ -17,7 +17,7 @@ const props = defineProps({
             <img :src="imagen" :alt="titulo">
         </div>
         <h1>{{ titulo }}</h1>
-        <p>{{ contenido }}</p>
+        <!-- <p>{{ contenido }}</p> -->
 
         <div class="datos">
             <div class="vacantes">{{ vacantes }} Vacantes</div>
@@ -26,7 +26,7 @@ const props = defineProps({
     </div>
 </template>
 
-<style>
+<style scoped>
 .tarjeta {
     background-color: #f57b08ce;
     padding: 20px;
@@ -40,13 +40,6 @@ const props = defineProps({
     transform: scale(1.1);
 }
 
-.tarjeta:hover h1{
-    
-    color: #617cdf;
-    transform: scale(1.01);
-}
-
-
 .tarjeta img {
     width: 100%;
     height: 250px;
@@ -59,7 +52,13 @@ const props = defineProps({
 .tarjeta h1 {
     font-size: 30px;
     font-weight: bold;
-    color: #9BABE3;
+    color: #ffffff;
+}
+
+.tarjeta:hover h1 {
+
+    color: #ffffff;
+    transform: scale(1.01);
 }
 
 .datos {

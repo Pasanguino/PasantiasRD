@@ -1,42 +1,4 @@
 <template>
-    <!--   <footer class="text-white py-2 text-xs ">
-        <div class="container mx-auto flex flex-wrap justify-between">
-
-            <div class="w-full sm:w-1/3 px-4 mb-4 sm:mb-0 p-2">
-            <div class="flex items-center mb-2">
-                    <h1 class="text-xl font-bold">Pasangüino</h1>
-                </div>
-
-                <p>Mejoramos y facilitamos cada día la búsqueda y aplicación a pasantías en toda la República
-                    Dominicana.</p>
-            </div>
-            <div class="w-full sm:w-1/6 px-4 mb-4 sm:mb-0">
-                <h2 class="text-lg font-semibold mb-2">Información</h2>
-                <ul>
-                    <li class="mb-1"><a href="/about-us" class="hover:underline">Sobre nosotros</a></li>
-                    <li class="mb-1"><a href="/contact-us" class="hover:underline">Contáctanos</a></li>
-                </ul>
-            </div>
-            <div class="w-full sm:w-1/6 px-4">
-                <h2 class="text-lg font-semibold mb-2">Más</h2>
-                <ul>
-                    <li class="mb-1"><a href="/privacy" class="hover:underline">Privacidad</a></li>
-                    <li class="mb-1"><a href="/terms" class="hover:underline">Términos y condiciones</a></li>
-                    <li class="mb-1"><a href="/help" class="hover:underline">Ayuda</a></li>
-                    <li class="mb-1"><a href="/faq" class="hover:underline">FAQ</a></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="border-t border-white/50 my-2">
-        <div class="text-center mt-2 text-white/70">
-            &copy; 2024 Pasangüino. Todos los derechos reservados.
-        </div>
-    </footer> -->
-
-
-
-
-
     <footer class="bg-white dark:bg-gray-900 mt-6">
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
             <div class="md:flex md:justify-between">
@@ -44,7 +6,7 @@
                     <a href="/" class="flex items-center">
                         <img src="/images/favicon.ico" class=" logo" alt="FlowBite Logo" />
                         <span
-                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pasangüino</span>
+                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">tecnomarket_srl</span>
                     </a>
                     <p class="mt-2 ">Mejoramos y facilitamos cada día<br> la búsqueda y aplicación a pasantías<br> en
                         toda la
