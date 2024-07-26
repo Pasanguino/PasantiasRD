@@ -1,22 +1,21 @@
 <template>
   <div class="container">
-    <div class="profile-card" v-for="(profile, index) in profiles" :key="index">
+    <div class="profile-card" v-for="(vacancy, index) in vacancies" :key="index">
       <div class="flex justify-end px-4 pt-4">
       </div>
       <div class="flex flex-col items-center pb-10">
         <img
           class="w-24 h-24 mb-3 rounded-full shadow-lg"
-          :src="profile.imageUrl"
-          :alt="profile.name + ' image'"
+          src="/images/favicon.ico"
         />
         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          {{ profile.name }}
+          {{ vacancy.vacancy_name }}
         </h5>
         <span class="text-sm text-gray-500 dark:text-gray-400">
-          {{ profile.role }}
+          {{ vacancy.company_name }}
         </span>
         <span class="text-sm text-gray-500 dark:text-gray-400">
-          {{ profile.date }}
+          {{ new Date(vacancy.created_at).toLocaleDateString() }}
         </span>
         <div class="flex mt-4 md:mt-6">
           <a
@@ -31,65 +30,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
-const profiles = ref([
-  {
-    name: "Bonnie Green",
-    role: "Visual Designer",
-    imageUrl: "/docs/images/people/profile-picture-3.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "Alice Blue",
-    role: "Frontend Developer",
-    imageUrl: "/docs/images/people/profile-picture-1.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "John Doe",
-    role: "Backend Developer",
-    imageUrl: "/docs/images/people/profile-picture-2.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "Bonnie Green",
-    role: "Visual Designer",
-    imageUrl: "/docs/images/people/profile-picture-3.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "Alice Blue",
-    role: "Frontend Developer",
-    imageUrl: "/docs/images/people/profile-picture-1.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "John Doe",
-    role: "Backend Developer",
-    imageUrl: "/docs/images/people/profile-picture-2.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "Bonnie Green",
-    role: "Visual Designer",
-    imageUrl: "/docs/images/people/profile-picture-3.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "Alice Blue",
-    role: "Frontend Developer",
-    imageUrl: "/docs/images/people/profile-picture-1.jpg",
-    date: "17/01/2023",
-  },
-  {
-    name: "John Doe",
-    role: "Backend Developer",
-    imageUrl: "/docs/images/people/profile-picture-2.jpg",
-    date: "17/01/2023",
-  },
-]);
+const vacancies = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('/vacancies_data');
+    vacancies.value = response.data;
+  } catch (error) {
+    console.error('Error fetching vacancies:', error);
+  }
+});
 </script>
+
 
 <style scoped>
 .container {

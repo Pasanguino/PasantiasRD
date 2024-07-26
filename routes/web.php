@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\VacancyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +25,23 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return Inertia::render('Home');
 })->name('home');
+
+Route::get('/vacancies', function () {
+    return Inertia::render('Find_internship');
+});
+
+Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
+Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
+Route::get('/vacancies_area', [AreaController::class, 'index']);
+
+
+Route::get(
+    '/vacancies_province/{province_id}',
+    [ProvinceController::class, 'showProvinceVacancies']
+)->name('vacancies_province');
+
+Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -57,4 +77,4 @@ Route::get('/terms', function () {
     return Inertia::render('TermsAndConditions');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
