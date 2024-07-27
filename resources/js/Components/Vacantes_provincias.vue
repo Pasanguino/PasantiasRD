@@ -128,13 +128,13 @@ const toggleMostrarTodo = () => {
     </div>
 </template>
 
-<style>
+<style scoped>
 * {
     transition: 0.5s;
 }
 
 .cantidad_vacantes {
-    margin-top: 200px;
+    /* margin-top: 200px; */
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
