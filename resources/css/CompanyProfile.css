@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.profile-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 28%;
+  background-color: #E2F0F7;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar el contenido horizontalmente */
+  position: relative;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.sidebar.slide-in {
+  transform: translateX(0);
+}
+
+.return-text {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #B71C1C;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.return-text.visible {
+  opacity: 1;
+}
+
+.return-text button {
+  background-color: #B71C1C;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: 'Lilita One', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.return-text button:hover {
+  background-color: #9A1A13;
+}
+
+.return-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #BF5F07;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInOut 5s infinite;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.return-home a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1em;
+  font-family: 'Lilita One', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.return-home a:hover {
+  background-color: #9A1A13;
+}
+
+@keyframes fadeInOut {
+  0%, 60%, 100% {
+    opacity: 0;
+  }
+  30%, 50% {
+    opacity: 1;
+  }
+}
+
+.profile-info {
+  display: flex;
+  justify-content: center; /* Centrar el contenido horizontalmente */
+  align-items: center;
+  margin-top: 80px;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 10px;
+}
+
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.sidebar-title {
+  font-family: 'Lilita One', sans-serif;
+  font-size: 1.4em;
+  color: #BF5F07;
+}
+
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.menu li {
+  width: 100%;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 13px 5px; /* Espacio alrededor del texto */
+  justify-content: flex-start; /* Alinear el contenido a la izquierda */
+}
+
+.menu li:not(:last-child) {
+  border-bottom: 1px solid #8c8c8c8e; /* Línea separadora */
+  width: 80%; /* Hacer la línea más corta */
+  margin-left: 10%; /* Centrar la línea */
+}
+
+.menu li:first-child {
+  border-bottom: none; /* Quitar línea separadora encima de la primera opción */
+}
+
+.menu li:last-child {
+  border-bottom: 1px solid #8c8c8c8e; /* Línea separadora debajo de la última opción */
+  width: 80%; /* Hacer la línea más corta */
+  margin-left: 10%; /* Centrar la línea */
+}
+
+.logo-upload {
+  width: 70%; /* Hacer el campo más pequeño */
+  text-align: center;
+  border: 2px dashed #ddd;
+  padding: 15px; /* Reducir el área de arrastre */
+  margin: 0 auto 40px; /* Centrar el elemento y añadir espacio inferior */
+  cursor: pointer;
+}
+
+.logo-upload p {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9em;
+  color: #BF5F07; /* Cambiar el color de las letras */
+}
+
+.main-content {
+  width: 70%;
+  padding: 20px;
+}
+
+.header-background {
+  background: url('/images/building1.jpg') no-repeat center center; /* Añadir la imagen de fondo */
+  background-size: cover; /* Ajustar la imagen de fondo para cubrir todo el área */
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.65em;
+}
+
+.header h1 {
+  margin: 0;
+  color: black;
+}
+
+.settings {
+  margin-top: 20px;
+  font-family: 'Lilita One', sans-serif;
+  font-size: 1em;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.about-us,
+.location,
+.contact-info {
+  margin-bottom: 10px;
+}
+
+.contact-info h2 {
+  margin-top: 13px;
+}
+
+.contact-info label {
+  display: block;
+  margin-top: 10px;
+}
+
+textarea,
+input {
+  width: calc(100% - 20px);
+  padding: 5px;
+  font-size: 0.9em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 10px;
+}
+
+.btn-outline {
+  background-color: white;
+  color: #BF5F07;
+  border: 2px solid #BF5F07;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: 'Lilita One', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline:hover {
+  background-color: #BF5F07;
+  color: white;
+}
+
+.success-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+hr {
+  border: none;
+  height: 3px;
+  color: #333;
+  background-color: #333;
+}
