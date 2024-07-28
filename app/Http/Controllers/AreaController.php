@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
 
@@ -13,7 +14,10 @@ class AreaController extends Controller
      */
     public function index()
     {
-        //
+        $areas = Area::withCount('vacancies')->get();
+
+        // Retornar en formato JSON
+        return response()->json($areas);
     }
 
     /**

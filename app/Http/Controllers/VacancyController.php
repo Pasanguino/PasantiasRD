@@ -14,12 +14,9 @@ class VacancyController extends Controller
     {
         $vacancies = Vacancy::all();
 
-        $data = [
-            'vacancies' => $vacancies,
-            'status' => 200
-        ];
+     
 
-        return response()->json($data, 200);
+        return response()->json($vacancies);
     }
 
     public function postVacancy(Request $request)
@@ -285,5 +282,7 @@ class VacancyController extends Controller
         return response()->json($data, 200);      
 
     }
+
+    
     
 }

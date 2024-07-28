@@ -1,10 +1,10 @@
 <template>
   <div class="container">
 
-    <div class="circle" v-for="(data, index) in circleData" :key="index">
+    <div class="circle" v-for="(item, index) in circleData" :key="index">
       <a href="#">
-      <h3>{{ data.title }}</h3>
-      <p>{{ data.vacancies }}</p>
+      <h3>{{ item.area_name }}</h3>
+      <p>{{ item.vacancies_count }}</p>
 </a>
     </div>
 
@@ -12,61 +12,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
-const circleData = ref([
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-  { title: "Frontend Developer", vacancies: 5 },
-  { title: "Backend Developer", vacancies: 3 },
-  { title: "UI/UX Designer", vacancies: 2 },
-  { title: "Project Manager", vacancies: 1 },
-]);
+const circleData = ref([]);
+
+const fetchVacancies = async () => {
+  try {
+    const response = await axios.get('/vacancies_area');
+    circleData.value = response.data;
+  } catch (error) {
+    console.error('Error fetching vacancies:', error);
+  }
+};
+
+onMounted(() => {
+  fetchVacancies();
+});
 
 const updateVacancies = (index, newVacancies) => {
-  circleData.value[index].vacancies = newVacancies;
+  circleData.value[index].vacancies_count = newVacancies;
 };
 </script>
 
