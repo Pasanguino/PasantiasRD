@@ -6,6 +6,8 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\VacancyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
 use Inertia\Inertia;
 
 
@@ -26,13 +28,9 @@ Route::get('/home', function () {
     return Inertia::render('Home');
 })->name('home');
 
-Route::get('/vacancies', function () {
-    return Inertia::render('Find_internship');
-});
 
-Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
-Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
-Route::get('/vacancies_area', [AreaController::class, 'index']);
+
+
 
 
 Route::get(
@@ -43,9 +41,42 @@ Route::get(
 Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
 
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard' , function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+
+Route::middleware(['estudiante' , 'auth'])->group(function () {
+
+    Route::get('/estudiante', function () {
+        return Inertia::render('Find_internship');
+    })->name('estudiante');
+    
+    Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
+    Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
+    Route::get('/vacancies_area', [AreaController::class, 'index']);
+
+});
+Route::middleware(['empresa', 'auth'])->group(function () {
+    Route::get('/empresa', function () {
+        return Inertia::render('Find_interns');
+    })->name('empresa');
+  
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
