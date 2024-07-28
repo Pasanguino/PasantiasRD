@@ -4,8 +4,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+
 use Inertia\Inertia;
 
 // Página principal
@@ -24,10 +26,13 @@ Route::get('/vacancies_province/{province_id}', [ProvinceController::class, 'sho
 // Datos de provincias
 Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
 
-// Dashboard con middleware de autenticación
-Route::get('/dashboard', function () {
+// // Dashboard con middleware de autenticación
+Route::get('/dashboard_prueva', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
 
 // Rutas para estudiantes con autenticación
 Route::middleware(['estudiante', 'auth'])->group(function () {

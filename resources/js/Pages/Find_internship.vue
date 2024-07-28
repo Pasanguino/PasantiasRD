@@ -1,8 +1,16 @@
 <template>
   <main>
-  <Head title="Home" />
+  <Head title="Encuentra Pasantias" />
+
+
+
+  <Nav></Nav>
+
+
 
   <Titulos titulo="Encuentra Pasantias" />
+
+
 
   <div class="Menu">
     <div class="container-left">
@@ -94,6 +102,7 @@ import SecondaryButton from "@/Components/PrimaryButton.vue";
 import Area from "@/Components/busqueda/Area.vue";
 import Footer from "@/Components/Footer.vue";
 import Vacantes from '@/Components/Vacantes_provincias.vue';
+import Nav from "./Nav.vue";
 
 import Publicacion from '@/Components/busqueda/Fecha.vue';
 
