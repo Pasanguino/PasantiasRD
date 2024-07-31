@@ -7,11 +7,11 @@
     <div class="carousel-container">
       <div class="custom-carousel-wrapper">
         <div class="custom-carousel">
-          <Carousel :settings="carouselSettings" :breakpoints="carouselBreakpoints" autoplay autoplayTimeout="5000">
+          <Carousel :autoplay="5000" :wrap-around="true" :settings="carouselSettings" :breakpoints="carouselBreakpoints">
             <template #addons>
               <div class="carousel-navigation">
-                <Navigation class="nav-left" />
-                <Navigation class="nav-right" />
+                <Navigation class="nav-left" @click="prevSlide" />
+                <Navigation class="nav-right" @click="nextSlide" />
               </div>
             </template>
 
@@ -71,6 +71,17 @@ const carouselBreakpoints = {
     itemsToShow: 2,
     wrapAround: true,
   },
+};
+
+// Funciones para navegar por el carrusel
+const carouselRef = ref(null);
+
+const nextSlide = () => {
+  carouselRef.value.next();
+};
+
+const prevSlide = () => {
+  carouselRef.value.prev();
 };
 
 </script>
@@ -184,21 +195,22 @@ const carouselBreakpoints = {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  z-index: 10; /* Asegura que esté sobre el carrusel */
+  z-index: 100; /* Asegura que esté sobre el carrusel */
 }
 
-.nav-left, .nav-right {
+.carousel-navigation .nav-left,
+.carousel-navigation .nav-right {
   font-size: 24px; /* Tamaño de las flechas */
   color: #333; /* Color de las flechas */
   cursor: pointer; /* Cambia el cursor a mano */
 }
 
-.nav-left {
-  left: 10px; /* Ajusta la posición de la flecha izquierda */
+.carousel-navigation .nav-left {
+  left: 20px; /* Ajusta la posición de la flecha izquierda */
 }
 
-.nav-right {
-  right: 10px; /* Ajusta la posición de la flecha derecha */
+.carousel-navigation .nav-right {
+  right: 20px; /* Ajusta la posición de la flecha derecha */
 }
 
 .ver-mas {
@@ -224,6 +236,11 @@ const carouselBreakpoints = {
   background-color: #5a78c8;
 }
 </style>
+
+
+
+
+
 
 
 
