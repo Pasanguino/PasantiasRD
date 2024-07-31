@@ -2,65 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserProfile;
-use App\Http\Requests\StoreUserProfileRequest;
-use App\Http\Requests\UpdateUserProfileRequest;
+use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Inertia\Response;
 
-class UserProfileController extends Controller
+class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the user's profile form.
      */
-    public function index()
+    public function edit(Request $request): Response
     {
-        //
+        return Inertia::render('Profile/Edit', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Update the user's profile information.
      */
-    public function create()
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        //
+        $request->user()->fill($request->validated());
+
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Delete the user's account.
      */
-    public function store(StoreUserProfileRequest $request)
+    public function destroy(Request $request): RedirectResponse
     {
-        //
-    }
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(UserProfile $userProfile)
-    {
-        //
-    }
+        $user = $request->user();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserProfile $userProfile)
-    {
-        //
-    }
+        Auth::logout();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserProfileRequest $request, UserProfile $userProfile)
-    {
-        //
-    }
+        $user->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(UserProfile $userProfile)
-    {
-        //
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }
