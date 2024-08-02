@@ -138,6 +138,9 @@ Route::get('/terms', function () {
     return Inertia::render('TermsAndConditions');
 });
 
+Route::get('/vacancies-company', function () {
+    return Inertia::render('VacanciesCompany');
+});
 
 
 
