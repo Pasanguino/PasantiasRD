@@ -13,6 +13,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+// User
+Route::get('/user', [AuthController::class, 'viewUser'])->middleware(['auth', 'verified']);
+
+
 Route::post('register',[AuthController::class, 'register']);
 Route::post('login',[AuthController::class, 'login']);
 
