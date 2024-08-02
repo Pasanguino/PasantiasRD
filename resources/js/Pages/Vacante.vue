@@ -93,7 +93,7 @@ const applyForVacancy = async () => {
     })
 Swal.fire({
   title: '¡Éxito!',
-  text: response.data.message || '¡Aplicación enviada exitosamente!',
+  text: response.data.message || '¡Vacante aplicada exitosamente!',
   icon: 'success',
   confirmButtonText: 'OK',
   showCancelButton: true,

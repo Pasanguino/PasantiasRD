@@ -86,7 +86,7 @@ const applyForVacancy = async () => {
 
 Swal.fire({
   title: '¡Éxito!',
-  text: response.data.message || '¡Aplicación enviada exitosamente!',
+  text: response.data.message || '¡Vacante aplicada exitosamente!',
   icon: 'success',
   confirmButtonText: 'OK',
   cancelButtonText: 'Ir a Postulacion',
@@ -95,7 +95,7 @@ Swal.fire({
 }).then((result) => {
   if (result.isConfirmed) {
     // Usuario hizo clic en "OK"
-    console.log('Aplicación enviada exitosamente.');
+    console.log('¡Vacante aplicada exitosamente!');
   } else if (result.dismiss === Swal.DismissReason.cancel) {
     // Usuario hizo clic en "Ir a Postulacion"
     window.location.href = '/applications';
