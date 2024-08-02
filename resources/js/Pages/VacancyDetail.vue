@@ -58,12 +58,12 @@
                   {{ application.application.user.last_name }}
                 </p>
                 <div class="text-center">
-                  <button
+                  <!-- <button
                     @click="viewApplication(application.application.id)"
                     class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition"
                   >
                     Ver Detalles
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>

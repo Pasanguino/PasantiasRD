@@ -30,11 +30,6 @@ Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
 Route::get('/vacante/search/buscar', [VacancyController::class, 'searchVacancy']) ->name('search');
 Route::get('/vacante/{id}', [VacancyController::class, 'show']);
 
-Route::post('/applications', [ApplicationController::class, 'store'])
-    ->middleware('auth')
-    ->name('applications.store');
-
-Route::get('/applications', [ApplicationController::class, 'index']);
 
 
 Route::get('/support', function () {
@@ -69,6 +64,11 @@ Route::middleware(['estudiante', 'auth'])->group(function () {
     Route::get('/areas/{id}/vacancies', [AreaController::class, 'searchVacancies']);
 
 
+    Route::post('/applications', [ApplicationController::class, 'store'])
+    ->middleware('auth')
+    ->name('applications.store');
+
+    Route::get('/applications', [ApplicationController::class, 'index']);
 
 
     Route::post('/aplicar', [ApplicationController::class, 'store']);
