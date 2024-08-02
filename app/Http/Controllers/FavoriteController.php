@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateFavoriteRequest;
 use DragonCode\Contracts\Cashier\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FavoriteController extends Controller
 {
@@ -16,10 +17,29 @@ class FavoriteController extends Controller
      */
     public function getFavorites()
     {
-        $request = Favorite::all();
+        // Obtener el ID del usuario autenticado
+        $userId = auth()->id();
 
-        return response()->json($request);
+        // Obtener todos los favoritos del usuario autenticado con los datos de la vacante y del usuario
+        $favorites = Favorite::where('user_id', $userId)->with(['vacancy', 'user'])->get();
+
+        // Transformar los datos para devolver la vacante y el usuario en lugar de vacancy_id y user_id
+        $favorites = $favorites->map(function ($favorite) {
+            return [
+                'id' => $favorite->id,
+                'user' => $favorite->user, // Incluir los datos completos del usuario
+                'vacancy' => $favorite->vacancy, // Incluir los datos completos de la vacante
+                'created_at' => $favorite->created_at,
+                'updated_at' => $favorite->updated_at,
+            ];
+        });
+
+        // return response()->json($favorites);
+        return Inertia::render('Favorite', [
+            'applications' => $favorites,
+        ]);
     }
+
 
     public function ErrorValidator(Request $request)
     {
@@ -87,11 +107,9 @@ class FavoriteController extends Controller
     
         // Eliminar el recurso
         $favorite->delete();
-    
+
         // Responder con éxito
-        return response()->json([
-            'message' => 'Recurso eliminado exitosamente',
-            'status' => 200
-        ], 200);
+        return redirect()->route('Favorite')->with('status', 'Recurso eliminado exitosamente');
+
     }
 }

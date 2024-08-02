@@ -89,6 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
 // Rutas públicas
 Route::get('/test', function () {
     return Inertia::render('Test');
