@@ -63,6 +63,19 @@ class AuthController extends Controller
         ]);
     }
 
+    public function viewUser(){
+        $userId = auth()->id();
+        $user = User::find($userId);
+
+        $data = [
+            'user' => $user,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+    }
+
+
     public function logout (Request $request){
         $request->user()->tokens()->delete();
         return [

@@ -1,50 +1,56 @@
 <template>
   <main>
-    <Head title="Encuentra Pasantias" />
+  <Head title="Encuentra Pasantias" />
 
-    <Nav></Nav>
 
-    <Titulos titulo="Encuentra Pasantias" />
 
-    <div class="Menu">
-      <div class="container-left">
-        <form class="max-w-md mx-auto">
-          <label
-            for="default-search"
-            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+  <Nav></Nav>
+
+
+
+  <Titulos titulo="Encuentra Pasantias" />
+
+
+
+  <div class="Menu">
+    <div class="container-left">
+      <form class="max-w-md mx-auto">
+        <label
+          for="default-search"
+          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+        >
+          Search
+        </label>
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
           >
-            Search
-          </label>
-          <div class="relative">
-            <div
-              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+            <svg
+              class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
             >
-              <svg
-                class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
-            <input
-              type="search"
-              id="default-search"
-              class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Buscar..."
-              required
-            />
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
           </div>
-        </form>
-      </div>
+          <input
+            type="search"
+            id="default-search"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Buscar..."
+            required
+          />
+        </div>
+      </form>
+    </div>
 
       <div class="container-right">
         <SecondaryButton
@@ -94,12 +100,12 @@
 
 <script setup>
 import { ref } from "vue";
-import { Head } from "@inertiajs/vue3";
+import { Head , router } from "@inertiajs/vue3";
 import Titulos from "@/Components/Titulos.vue";
 import SecondaryButton from "@/Components/PrimaryButton.vue";
 import Area from "@/Components/busqueda/Area.vue";
 import Footer from "@/Components/Footer.vue";
-import Vacantes from '@/Components/Vacantes_provincias.vue';
+import Vacantes from '@/Components/Vacantes_provincias2.vue';
 import Nav from "./Nav.vue";
 import Publicacion from '@/Components/busqueda/Fecha.vue';
 
@@ -114,16 +120,26 @@ const vacantesPorFecha = ref([
 const setActiveButton = (button) => {
   activeButton.value = button;
 };
+
+const searchQuery = ref('');
+
+const handleSearch = () => {
+  if (searchQuery.value.trim()) {
+    router.get('/vacante/search/buscar', { buscar: searchQuery.value });
+  }
+  
+  console.log("Search query submitted:", searchQuery.value);
+};
 </script>
 
 
 <style scoped>
 main {
-  padding: 0px 100px;
+  padding: 0px 50px;
 }
-.ss{
-  height: 50vh;
-}
+/* .ss{
+  height: 100vh;
+} */
 
 .Menu {
   display: flex;
@@ -178,7 +194,7 @@ main {
 }
 
 .input-container {
-  margin-top: 20px;
+  margin: 20px 0 100px 0;
 }
 
 /* Estilos adicionales para las vacantes */

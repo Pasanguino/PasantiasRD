@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('vacancy_id');
+            $table->enum('status', ['en proceso', 'aceptado', 'rechazado'])->default('en proceso');
             $table->timestamps();
         });
     }

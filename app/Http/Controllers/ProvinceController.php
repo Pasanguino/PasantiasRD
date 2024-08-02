@@ -30,9 +30,11 @@ class ProvinceController extends Controller
     public function showProvinceVacancies($province_id)
     {
         $vacancies = Vacancy::where('province_id', $province_id)->get();
+        $province = Province::find($province_id);
 
-        return Inertia::render('vacancies_province', [
+        return Inertia::render('Seach', [
             'vacancies' => $vacancies,
+            'entrada' => $province["province_name"]
         ]);
     }
 }

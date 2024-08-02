@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class VacancyController extends Controller
 {
@@ -18,6 +19,24 @@ class VacancyController extends Controller
 
         return response()->json($vacancies);
     }
+
+    public function searchVacancy(Request $request)
+    {
+        // Obtener el término de búsqueda de la solicitud, utilizando 'buscar' como clave
+        $searchTerm = $request->query('buscar', '');
+
+        // Filtrar las vacantes por el término de búsqueda
+        $vacancies = Vacancy::where('vacancy_name', 'LIKE', "%{$searchTerm}%")->get();
+
+        // Devolver las vacantes filtradas como respuesta JSON
+        return Inertia::render('Seach', [
+            'vacancies' => $vacancies,
+            'entrada' => $searchTerm
+        ]);
+    }
+
+
+    
 
     public function postVacancy(Request $request)
     {
@@ -70,25 +89,18 @@ class VacancyController extends Controller
         return response()->json($data, 201);
     }
 
-    public function getVacancyById($id) 
+    public function getVacancyById($id)
     {
         $vacancy = Vacancy::find($id);
 
-        if (!$vacancy) {
-            $data = [
-                'message' => 'Vacante no encontrada',
-                'status' => 404
-            ];
-            return response()->json($data, 404);
-        }
+        // Cargar relaciones para obtener los datos completos
+        $vacancy->load(['users', 'areas', 'positions', 'favorites', 'provinces']);
 
         $data = [
             'vacante' => $vacancy,
-            'status' => 200
         ];
 
-        return response()->json($data, 200);
-        
+        return response()->json($data);
     }
 
     public function getVacancyByArea($area_id) 
@@ -115,6 +127,27 @@ class VacancyController extends Controller
     public function getVacancyByProvinceId($province_id) 
     {
         $vacancy = Vacancy::where('province_id', $province_id)->get();
+
+        if (!$vacancy) {
+            $data = [
+                'message' => 'Vacante no encontrada',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'vacante' => $vacancy,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+        
+    }
+
+    public function getVacancyByCompanyId($company_id) 
+    {
+        $vacancy = Vacancy::where('company_id', $company_id)->get();
 
         if (!$vacancy) {
             $data = [
@@ -283,6 +316,12 @@ class VacancyController extends Controller
 
     }
 
-    
-    
+    public function show($id)
+    {
+        $vacancy = Vacancy::with(['users', 'area', 'position', 'favorites', 'province'])->findOrFail($id);
+
+        return Inertia::render('Vacante', [
+            'vacancy' => $vacancy
+        ]);
+    }
 }
