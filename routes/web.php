@@ -52,9 +52,6 @@ Route::get('/dashboard_prueva', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/vacancies', function () {
-    return Inertia::render('Find_internship');
-});
 
 // Rutas para estudiantes con autenticación
 Route::middleware(['estudiante', 'auth'])->group(function () {
@@ -138,6 +135,9 @@ Route::get('/terms', function () {
     return Inertia::render('TermsAndConditions');
 });
 
+Route::get('/vacancies-company', function () {
+    return Inertia::render('VacanciesCompany');
+});
 
 
 
