@@ -14,6 +14,13 @@ class UserProfileController extends Controller
 
         return response()->json($profile);
     }
+    
+    public function getProfileDataById($id)
+    {
+        $profile = UserProfile::find($id);
+
+        return response()->json($profile);
+    }
 
     public function postProfileData(Request $request)
     {
