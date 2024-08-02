@@ -26,4 +26,12 @@ class DashboardController extends Controller
         }
 
     }
+
+    public function user()
+    {
+        // Pasa el usuario registrado a la vista de Inertia
+        return Inertia::render('Dashboard', [
+            'user' => Auth::user(),
+        ]);
+    }
 }

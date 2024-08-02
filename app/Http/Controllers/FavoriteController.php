@@ -40,12 +40,23 @@ class FavoriteController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+     */ public function create(Request $request)
     {
         $validationResponse = $this->ErrorValidator($request);
         if ($validationResponse) {
             return $validationResponse;
+        }
+
+        // Verifica si ya existe un favorito con los mismos user_id y vacancy_id
+        $existingFavorite = Favorite::where('user_id', $request->input('user_id'))
+            ->where('vacancy_id', $request->input('vacancy_id'))
+            ->first();
+
+        if ($existingFavorite) {
+            return response()->json([
+                'message' => 'Este favorito ya existe.',
+                'status' => 409 // Conflict
+            ], 409);
         }
 
         // Asume que el modelo Favorite tiene user_id y vacancy_id

@@ -17,6 +17,7 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
+Route::get('/user', [DashboardController::class, 'user']);
 
 Route::get('/auth/status', function () {
     return response()->json(['authenticated' => Auth::check()]);
@@ -140,3 +141,4 @@ Route::get('/terms', function () {
 
 // Cargar rutas de autenticación
 require __DIR__ . '/auth.php';
+require __DIR__ .'/api.php';
