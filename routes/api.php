@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VacancyController;
 use Illuminate\Http\Request;
@@ -23,3 +24,7 @@ Route::get('/vacancies/province/{province_id}', [VacancyController::class, 'getV
 Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById']);
 Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy']);
 Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy']);
+
+//Favoritos
+Route::get('/favorites', [FavoriteController::class, 'getFavorites']);
+Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites']);
