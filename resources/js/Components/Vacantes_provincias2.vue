@@ -5,7 +5,6 @@ import axios from "axios";
 import Provincias from "@/Components/Specific/Provincias.vue";
 
 const datosTarjetas = ref([]);
-const mostrarTodo = ref(false);
 
 const fetchProvinceData = async () => {
     try {
@@ -26,19 +25,13 @@ const fetchProvinceData = async () => {
 };
 
 onMounted(fetchProvinceData);
-
-const toggleMostrarTodo = () => {
-    mostrarTodo.value = !mostrarTodo.value;
-};
 </script>
 
 <template>
     <div class="cantidad_vacantes">
-
         <div class="contenedor-provincias">
-            <Provincias v-for="(tarjeta, indice) in mostrarTodo
-                    ? datosTarjetas
-                    : datosTarjetas.slice(0, 3)"
+            <Provincias
+                v-for="(tarjeta, indice) in datosTarjetas"
                 :key="indice"
                 :id="tarjeta.id"
                 :imagen="tarjeta.imagen"
@@ -48,24 +41,8 @@ const toggleMostrarTodo = () => {
                 :companias="tarjeta.companias" />
         </div>
     </div>
-    <div class="ver-mas">
-        <button @click="toggleMostrarTodo" class="flex items-center">
-            <span>
-                {{
-                    mostrarTodo
-                        ? "Mostrar menos"
-                        : "Ver todas las localizaciones"
-                }}
-            </span>
-            <svg xmlns="http://www.w3.org/2000/svg" :class="{ 'transform rotate-180': mostrarTodo }"
-                class="h-5 w-5 ml-2 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10.293 13.293a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L10 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4z"
-                    clip-rule="evenodd" />
-            </svg>
-        </button>
-    </div>
 </template>
+
 
 <style scoped>
 * {

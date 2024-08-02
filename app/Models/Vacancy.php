@@ -29,14 +29,13 @@ class Vacancy extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function areas()
+    public function area()
     {
-        return $this->belongsTo(Area::class, 'area_id');
+        return $this->belongsTo(Area::class, 'area_id'); // Reemplaza 'area_id' si el nombre del campo es diferente
     }
-
-    public function positions()
+    public function position()
     {
-        return $this->belongsTo(Position::class, 'position_id');
+        return $this->belongsTo(Position::class, 'position_id'); // Reemplaza 'position_id' si el nombre del campo es diferente
     }
 
     public function favorites()
@@ -44,8 +43,8 @@ class Vacancy extends Model
         return $this->hasMany(Favorite::class, 'vacancy_id');
     }
 
-    public function provinces()
+    public function province()
     {
-        return $this->belongsTo(Province::class, 'province_id');
+        return $this->belongsTo(Province::class, 'province_id'); // Reemplaza 'province_id' si el nombre del campo es diferente
     }
 }

@@ -12,6 +12,8 @@ class Application extends Model
         'id',
         'user_id', // String
         'vacancy_id',
+        'status',
+
     ];
 
     public function vacancy()
@@ -23,7 +25,9 @@ class Application extends Model
         return $this->hasOne(Application_detail::class); 
     }
 
-    public function users(){
-        return $this->belongsTo(User::class); 
+   
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

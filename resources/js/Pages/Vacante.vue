@@ -91,13 +91,20 @@ const applyForVacancy = async () => {
     const response = await axios.post('/applications', {
       vacancy_id: props.vacancy.id,
     })
-
-    Swal.fire({
-      title: '¡Éxito!',
-      text: response.data.message || '¡Aplicación enviada exitosamente!',
-      icon: 'success',
-      confirmButtonText: 'OK'
-    })
+Swal.fire({
+  title: '¡Éxito!',
+  text: response.data.message || '¡Aplicación enviada exitosamente!',
+  icon: 'success',
+  confirmButtonText: 'OK',
+  showCancelButton: true,
+  cancelButtonText: 'Ir a enlace',
+  preConfirm: (isConfirm) => {
+    if (!isConfirm) {
+      // Aquí puedes definir la URL a la que se redirigirá el usuario
+      window.location.href = 'https://ejemplo.com';
+    }
+  }
+});
   } catch (error) {
     Swal.fire({
       title: '¡Error!',

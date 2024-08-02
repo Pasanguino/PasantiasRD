@@ -84,19 +84,43 @@ const applyForVacancy = async () => {
       vacancy_id: props.id,
     });
 
-    Swal.fire({
-      title: '¡Éxito!',
-      text: response.data.message || '¡Aplicación enviada exitosamente!',
-      icon: 'success',
-      confirmButtonText: 'OK'
-    });
+Swal.fire({
+  title: '¡Éxito!',
+  text: response.data.message || '¡Aplicación enviada exitosamente!',
+  icon: 'success',
+  confirmButtonText: 'OK',
+  cancelButtonText: 'Ir a Postulacion',
+  showCancelButton: true,
+  reverseButtons: true // Opcional, para cambiar el orden de los botones
+}).then((result) => {
+  if (result.isConfirmed) {
+    // Usuario hizo clic en "OK"
+    console.log('Aplicación enviada exitosamente.');
+  } else if (result.dismiss === Swal.DismissReason.cancel) {
+    // Usuario hizo clic en "Ir a Postulacion"
+    window.location.href = '/applications';
+  }
+});
   } catch (error) {
-    Swal.fire({
-      title: '¡Error!',
-      text: error.response?.data.message || 'Hubo un error al enviar tu aplicación.',
-      icon: 'error',
-      confirmButtonText: 'OK'
-    });
+Swal.fire({
+  title: '¡Error!',
+  text: error.response?.data.message || 'Hubo un error al enviar tu aplicación.',
+  icon: 'error',
+  confirmButtonText: 'OK',
+  cancelButtonText: 'Ver postuladas',
+  showCancelButton: true,
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+    // Usuario eligió "Intentar de nuevo"
+    // Aquí puedes decidir intentar la acción de nuevo o redirigir a otra página si es necesario
+    // Por ejemplo, recargar la página actual
+    window.location.reload();
+  } else if (result.isDismissed) {
+    // Usuario eligió "Volver a inicio"
+    window.location.href = '/applications';
+  }
+});
   }
 };
 
