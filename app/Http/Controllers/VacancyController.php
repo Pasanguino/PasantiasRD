@@ -297,7 +297,7 @@ class VacancyController extends Controller
 
     public function show($id)
     {
-        $vacancy = Vacancy::with(['users', 'areas', 'positions', 'favorites', 'provinces'])->findOrFail($id);
+        $vacancy = Vacancy::with(['users', 'area', 'position', 'favorites', 'province'])->findOrFail($id);
 
         return Inertia::render('Vacante', [
             'vacancy' => $vacancy
