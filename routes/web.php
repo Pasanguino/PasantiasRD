@@ -17,6 +17,7 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
+Route::get('/user', [DashboardController::class, 'user']);
 
 Route::get('/auth/status', function () {
     return response()->json(['authenticated' => Auth::check()]);
@@ -88,6 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
 // Rutas públicas
 Route::get('/test', function () {
     return Inertia::render('Test');
@@ -135,8 +138,12 @@ Route::get('/terms', function () {
     return Inertia::render('TermsAndConditions');
 });
 
+Route::get('/vacancies-company', function () {
+    return Inertia::render('VacanciesCompany');
+});
 
 
 
 // Cargar rutas de autenticación
 require __DIR__ . '/auth.php';
+require __DIR__ .'/api.php';

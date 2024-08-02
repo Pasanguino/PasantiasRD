@@ -15,6 +15,7 @@
         <li><a href="/estudiante">Encuentra Pasantías</a></li>
 
         <li><a href="/applications">Vacantes registradas</a></li>
+          <li><a href="/favorites">Vacantes Guardadas</a></li>
         <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>

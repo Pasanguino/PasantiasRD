@@ -26,24 +26,49 @@
         >
           Aplicar
         </button>
+        <button 
+          @click="toggleFavorite"
+          class=" m-1 inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-400 dark:hover:bg-red-500 dark:focus:ring-red-600"
+        >
+       guardar
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps, computed, ref } from 'vue';
+import { defineProps, computed, ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-// Estado de autenticación
-const isAuthenticated = ref(false);
+// Props del componente
+const props = defineProps({
+  id: Number,
+  vacancyName: String,
+  companyName: String,
+  createdAt: String,
+  imageSrc: {
+    type: String,
+    default: '/images/favicon.ico',
+  }
+});
 
-// Verifica el estado de autenticación al montar el componente
+// Estado de autenticación y datos del usuario
+const isAuthenticated = ref(false);
+const userId = ref(null);
+
+// Verifica el estado de autenticación y obtiene los datos del usuario al montar el componente
 const checkAuthentication = async () => {
   try {
     const response = await axios.get('/auth/status');
     isAuthenticated.value = response.data.authenticated;
+
+    if (isAuthenticated.value) {
+      // Obtener datos del usuario si está autenticado
+      const userResponse = await axios.get('/user');
+      userId.value = userResponse.data.id;
+    }
   } catch (error) {
     console.error('Error checking authentication status:', error);
   }
@@ -58,6 +83,7 @@ const redirectToLogin = () => {
   window.location.href = '/login';
 };
 
+// Función para aplicar a una vacante
 const applyForVacancy = async () => {
   await checkAuthentication(); // Verifica la autenticación antes de proceder
 
@@ -84,59 +110,92 @@ const applyForVacancy = async () => {
       vacancy_id: props.id,
     });
 
-Swal.fire({
-  title: '¡Éxito!',
-  text: response.data.message || '¡Vacante aplicada exitosamente!',
-  icon: 'success',
-  confirmButtonText: 'OK',
-  cancelButtonText: 'Ir a Postulacion',
-  showCancelButton: true,
-  reverseButtons: true // Opcional, para cambiar el orden de los botones
-}).then((result) => {
-  if (result.isConfirmed) {
-    // Usuario hizo clic en "OK"
-    console.log('¡Vacante aplicada exitosamente!');
-  } else if (result.dismiss === Swal.DismissReason.cancel) {
-    // Usuario hizo clic en "Ir a Postulacion"
-    window.location.href = '/applications';
-  }
-});
+    Swal.fire({
+      title: '¡Éxito!',
+      text: response.data.message || '¡Vacante aplicada exitosamente!',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Ir a Postulacion',
+      showCancelButton: true,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('¡Vacante aplicada exitosamente!');
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        window.location.href = '/applications';
+      }
+    });
   } catch (error) {
-Swal.fire({
-  title: '¡Error!',
-  text: error.response?.data.message || 'Hubo un error al enviar tu aplicación.',
-  icon: 'error',
-  confirmButtonText: 'OK',
-  cancelButtonText: 'Ver postuladas',
-  showCancelButton: true,
-  reverseButtons: true
-}).then((result) => {
-  if (result.isConfirmed) {
-    // Usuario eligió "Intentar de nuevo"
-    // Aquí puedes decidir intentar la acción de nuevo o redirigir a otra página si es necesario
-    // Por ejemplo, recargar la página actual
-    window.location.reload();
-  } else if (result.isDismissed) {
-    // Usuario eligió "Volver a inicio"
-    window.location.href = '/applications';
-  }
-});
+    Swal.fire({
+      title: '¡Error!',
+      text: error.response?.data.message || 'Hubo un error al enviar tu aplicación.',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Ver postuladas',
+      showCancelButton: true,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload();
+      } else if (result.isDismissed) {
+        window.location.href = '/applications';
+      }
+    });
   }
 };
 
-const props = defineProps({
-  id: Number,
-  vacancyName: String,
-  companyName: String,
-  createdAt: String,
-  imageSrc: {
-    type: String,
-    default: '/images/favicon.ico',
-  },
-});
+// Función para agregar a favoritos
+const toggleFavorite = async () => {
+  await checkAuthentication(); // Verifica la autenticación antes de proceder
 
+  if (!isAuthenticated.value) {
+    Swal.fire({
+      title: '¡Necesitas estar registrado!',
+      text: 'Por favor, regístrate o inicia sesión para agregar a favoritos.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Registrarse',
+      cancelButtonText: 'Iniciar sesión'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        redirectToRegister();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        redirectToLogin();
+      }
+    });
+    return;
+  }
+
+  try {
+    const response = await axios.post('/favorites', {
+      user_id: userId.value, // Usa el ID del usuario
+      vacancy_id: props.id,
+    });
+
+    Swal.fire({
+      title: '¡Éxito!',
+      text: response.data.message || '¡Vacante añadida a favoritos!',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    });
+  } catch (error) {
+    Swal.fire({
+      title: '¡Error!',
+      text: error.response?.data.message || 'Hubo un error al añadir la vacante a favoritos.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+  }
+};
+
+// Formatear la fecha
 const formattedDate = computed(() => {
   return new Date(props.createdAt).toLocaleDateString();
+});
+
+// Llama a checkAuthentication al montar el componente
+onMounted(() => {
+  checkAuthentication();
 });
 </script>
 
