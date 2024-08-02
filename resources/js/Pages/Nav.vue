@@ -1,9 +1,14 @@
 <template>
   <div class="nav-wrapper">
+      <a href="/">
     <div class="nav-logo">
+
       <img src="/images/logo.png" alt="Logo" class="logo-image" />
+
+
       <span class="logo-title">Pasangüino</span>
     </div>
+          </a>
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>

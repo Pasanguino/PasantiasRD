@@ -36,7 +36,7 @@
         </swiper>
       </div>
       <div class="ver-mas">
-        <button @click="irAPasantias">Ver todas las pasantías</button>
+        <button @click="irAPasantias"> <a href="/estudiante"> Ver todas las pasantías</a> </button>
       </div>
     </div>
   </div>
