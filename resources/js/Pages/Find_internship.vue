@@ -14,7 +14,7 @@
 
   <div class="Menu">
     <div class="container-left">
-      <form class="max-w-md mx-auto">
+      <form class="max-w-md mx-auto" @submit.prevent="handleSearch">
         <label
           for="default-search"
           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -41,7 +41,7 @@
               />
             </svg>
           </div>
-          <input
+          <input v-model="searchQuery"
             type="search"
             id="default-search"
             class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -96,12 +96,12 @@ Vacantes por área
 
 <script setup>
 import { ref } from "vue";
-import { Head } from "@inertiajs/vue3";
+import { Head , router } from "@inertiajs/vue3";
 import Titulos from "@/Components/Titulos.vue";
 import SecondaryButton from "@/Components/PrimaryButton.vue";
 import Area from "@/Components/busqueda/Area.vue";
 import Footer from "@/Components/Footer.vue";
-import Vacantes from '@/Components/Vacantes_provincias.vue';
+import Vacantes from '@/Components/Vacantes_provincias2.vue';
 import Nav from "./Nav.vue";
 
 import Publicacion from '@/Components/busqueda/Fecha.vue';
@@ -111,6 +111,16 @@ const activeButton = ref('date');
 
 const setActiveButton = (button) => {
   activeButton.value = button;
+};
+
+const searchQuery = ref('');
+
+const handleSearch = () => {
+  if (searchQuery.value.trim()) {
+    router.get('/vacante/search/buscar', { buscar: searchQuery.value });
+  }
+  
+  console.log("Search query submitted:", searchQuery.value);
 };
 </script>
 
