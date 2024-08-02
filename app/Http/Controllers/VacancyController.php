@@ -145,6 +145,27 @@ class VacancyController extends Controller
         
     }
 
+    public function getVacancyByCompanyId($company_id) 
+    {
+        $vacancy = Vacancy::where('company_id', $company_id)->get();
+
+        if (!$vacancy) {
+            $data = [
+                'message' => 'Vacante no encontrada',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'vacante' => $vacancy,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+        
+    }
+
     public function deleteVacanteById($id)
     {
         $vacancy = Vacancy::find($id);

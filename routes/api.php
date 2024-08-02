@@ -21,6 +21,7 @@ Route::post('/vacancies', [VacancyController::class, 'postVacancy']);
 Route::get('/vacancies/{id}', [VacancyController::class, 'getVacancyById']);
 Route::get('/vacancies/area/{area_id}', [VacancyController::class, 'getVacancyByArea']);
 Route::get('/vacancies/province/{province_id}', [VacancyController::class, 'getVacancyByProvinceId']);
+Route::get('/vacancies/company/{company_id}', [VacancyController::class, 'getVacancyByCompanyId']);
 Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById']);
 Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy']);
 Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy']);
