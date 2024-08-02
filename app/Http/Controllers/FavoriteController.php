@@ -41,7 +41,7 @@ class FavoriteController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function createFavorite(Request $request)
     {
         $validationResponse = $this->ErrorValidator($request);
         if ($validationResponse) {
