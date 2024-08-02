@@ -30,17 +30,20 @@
             <h2><b><span>Rápidamente</span> a Pasantías</b></h2>
             <p>Cada mes tienes la oportunidad de<br>encontrar nuevas vacantes en tu área<br>de estudio.</p>
             <div class="search-bar-container">
+            <form @submit.prevent="handleSearch">
+
               <div class="search-bar">
                 <div class="search-input">
-                  <input type="text" placeholder="Localización" />
+                  <input  type="text" placeholder="Localización" />
                 </div>
                 <div class="search-input">
-                  <input type="text" placeholder="Puesto" />
+                  <input v-model="searchQuery" type="search" id="default-search" ffff  placeholder="Puesto" />
                 </div>
-                <button>
+                <button  type="submit">
                   <span class="search-icon">🔍</span> Buscar
                 </button>
               </div>
+                </form>
             </div>
           </div>
         </section>
@@ -65,7 +68,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import HomeScript from '/resources/js/Home.js';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm , router } from '@inertiajs/vue3';
 import Footer from '@/Components/Footer.vue';
 import Vacantes from '@/Components/Vacantes_provincias.vue';
 import FindInternships from '@/Components/FindInternships.vue';
@@ -73,6 +76,16 @@ import FindInternships from '@/Components/FindInternships.vue';
 onMounted(() => {
   HomeScript.mounted.call(this);
 });
+
+const searchQuery = ref('');
+
+const handleSearch = () => {
+  if (searchQuery.value.trim()) {
+    router.get('/vacante/search/buscar', { buscar: searchQuery.value });
+  }
+  
+  console.log("Search query submitted:", searchQuery.value);
+};
 </script>
 
 <style scoped src="/resources/css/Home.css"></style>

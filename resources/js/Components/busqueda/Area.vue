@@ -1,28 +1,27 @@
 <template>
   <div class="container">
-
     <div class="circle" v-for="(item, index) in circleData" :key="index">
-      <a href="#">
-      <h3>{{ item.area_name }}</h3>
-      <p>{{ item.vacancies_count }}</p>
-</a>
+      <a :href="'/areas/' + item.id + '/vacancies'">
+      
+        <h3>{{ item.area_name }}</h3>
+        <p>{{ item.vacancies_count }}</p>
+      </a>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 const circleData = ref([]);
 
 const fetchVacancies = async () => {
   try {
-    const response = await axios.get('/vacancies_area');
+    const response = await axios.get("/vacancies_area");
     circleData.value = response.data;
   } catch (error) {
-    console.error('Error fetching vacancies:', error);
+    console.error("Error fetching vacancies:", error);
   }
 };
 
@@ -59,7 +58,7 @@ const updateVacancies = (index, newVacancies) => {
   transition: 0.3s;
 }
 
-.circle:hover{
+.circle:hover {
   background-color: #f8724a;
   cursor: pointer;
   transform: scale(1.1);

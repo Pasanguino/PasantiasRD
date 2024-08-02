@@ -5,6 +5,7 @@ use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,13 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Home');
 });
+
+
+//http://pasantiasrd.test/t/search/buscar?buscar=Software
+Route::get('/vacante/search/buscar', [VacancyController::class, 'searchVacancy']) ->name('search');
+Route::get('/vacante/{id}', [VacancyController::class, 'getVacancyById']);
+
+
 
 // Página de inicio con nombre 'home'
 Route::get('/home', function () {
@@ -42,6 +50,12 @@ Route::middleware(['estudiante', 'auth'])->group(function () {
 
     Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
     Route::get('/vacancies_area', [AreaController::class, 'index']);
+    Route::get('/areas/{id}/vacancies', [AreaController::class, 'searchVacancies']);
+
+
+
+
+    Route::post('/aplicar', [ApplicationController::class, 'store']);
 });
 
 // Rutas para empresas con autenticación

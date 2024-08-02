@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class VacancyController extends Controller
 {
@@ -18,6 +19,24 @@ class VacancyController extends Controller
 
         return response()->json($vacancies);
     }
+
+    public function searchVacancy(Request $request)
+    {
+        // Obtener el término de búsqueda de la solicitud, utilizando 'buscar' como clave
+        $searchTerm = $request->query('buscar', '');
+
+        // Filtrar las vacantes por el término de búsqueda
+        $vacancies = Vacancy::where('vacancy_name', 'LIKE', "%{$searchTerm}%")->get();
+
+        // Devolver las vacantes filtradas como respuesta JSON
+        return Inertia::render('Seach', [
+            'vacancies' => $vacancies,
+            'entrada' => $searchTerm
+        ]);
+    }
+
+
+    
 
     public function postVacancy(Request $request)
     {
@@ -74,20 +93,13 @@ class VacancyController extends Controller
     {
         $vacancy = Vacancy::find($id);
 
-        if (!$vacancy) {
-            $data = [
-                'message' => 'Vacante no encontrada',
-                'status' => 404
-            ];
-            return response()->json($data, 404);
-        }
-
+      
         $data = [
             'vacante' => $vacancy,
-            'status' => 200
+
         ];
 
-        return response()->json($data, 200);
+        return response()->json($data);
         
     }
 

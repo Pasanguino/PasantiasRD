@@ -29,7 +29,19 @@ class ApplicationController extends Controller
      */
     public function store(StoreApplicationRequest $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'vacancy_id' => 'required|exists:vacancies,id',
+        ]);
+
+        // Crear una nueva instancia de Application
+        Application::create([
+            'user_id' => $request->input('user_id'),
+            'vacancy_id' => $request->input('vacancy_id'),
+        ]);
+
+        // Redirigir a una página con un mensaje de éxito
+        return redirect()->route('dashboard')->with('success', 'Application created successfully.');
     }
 
     /**
