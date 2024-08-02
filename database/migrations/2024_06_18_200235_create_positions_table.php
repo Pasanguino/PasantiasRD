@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -16,6 +17,11 @@ return new class extends Migration
             $table->string('position_name');
             $table->timestamps();
         });
+
+        // Insertar una posición específica
+        DB::table('positions')->insert([
+            ['position_name' => 'Pasante', 'created_at' => now(), 'updated_at' => now()],
+        ]);
     }
 
     /**
