@@ -15,11 +15,24 @@ class UserProfileController extends Controller
         return response()->json($profile);
     }
     
-    public function getProfileDataById($id)
+    public function getProfileDataByUserId($user_id)
     {
-        $profile = UserProfile::find($id);
+        $profile = UserProfile::where('user_id', $user_id)->get();
 
-        return response()->json($profile);
+        if (!$profile) {
+            $data = [
+                'message' => 'Perfil no encontrado',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $data = [
+            'profile' => $profile,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
     }
 
     public function postProfileData(Request $request)
@@ -35,8 +48,8 @@ class UserProfileController extends Controller
             'identification_path' => 'required|string',
             'cv_path' => 'required|string',
             'profession_id' => 'required|integer',
-            'type_user_id' => 'required|integer',
             'province_id' => 'required|integer',
+            'user_id' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -89,8 +102,8 @@ class UserProfileController extends Controller
             'identification_path' => 'sometimes|required|string',
             'cv_path' => 'sometimes|required|string',
             'profession_id' => 'sometimes|required|integer',
-            'type_user_id' => 'sometimes|required|integer',
             'province_id' => 'sometimes|required|integer',
+            'user_id' => 'sometimes|required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -142,12 +155,12 @@ class UserProfileController extends Controller
             $profile->profession_id = $request->profession_id;
         }
 
-        if ($request->has('type_user_id')) {
-            $profile->type_user_id = $request->type_user_id;
-        }
-
         if ($request->has('province_id')) {
             $profile->province_id = $request->province_id;
+        }
+
+        if ($request->has('user_id')) {
+            $profile->user_id = $request->user_id;
         }
 
         $profile->save();

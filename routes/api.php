@@ -40,7 +40,9 @@ Route::post('/favorites', [FavoriteController::class, 'createFavorites'])->middl
 Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites'])->middleware(['auth', 'verified']);
 
 //User Profile
-Route::get('/profile', [UserProfileController::class, 'getProfileData'])->middleware(['auth', 'verified']);
-Route::get('/profile/{id}', [UserProfileController::class, 'getProfileDataById'])->middleware(['auth', 'verified']);
-Route::post('/profile', [UserProfileController::class, 'postProfileData'])->middleware(['auth', 'verified']);
-Route::put('/profile/{id}', [UserProfileController::class, 'updatePartialProfile'])->middleware(['auth', 'verified']);
+
+
+Route::get('/profile', [UserProfileController::class, 'getProfileData']);
+Route::get('/profile/{user_id}', [UserProfileController::class, 'getProfileDataByUserId']);
+Route::post('/profile', [UserProfileController::class, 'postProfileData']);
+Route::put('/profile/{id}', [UserProfileController::class, 'updatePartialProfile']);

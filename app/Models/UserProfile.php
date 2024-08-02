@@ -20,8 +20,8 @@ class UserProfile extends Model
         'identification_path',
         'cv_path',
         'profession_id',
-        'type_user_id',
         'province_id',
+        'user_id'
     ];
 
     
