@@ -20,7 +20,6 @@
     "dependencies": {
         "@inertiajs/inertia-vue3": "^0.6.0",
         "swiper": "^11.1.4",
-        "vue-router": "^4.0.13",
         "vue3-carousel": "^0.3.3",
         "vueperslides": "^3.5.1"
     }
