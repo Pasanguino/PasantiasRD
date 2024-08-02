@@ -14,8 +14,9 @@ class Application extends Model
         'vacancy_id',
     ];
 
-    public function vacancies(){
-        return $this->belongsTo(Vacancy::class); 
+    public function vacancy()
+    {
+        return $this->belongsTo(Vacancy::class);
     }
     
     public function application_details(){

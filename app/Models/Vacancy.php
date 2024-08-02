@@ -24,23 +24,28 @@ class Vacancy extends Model
     public function application(){
         return $this->hasMany(Application::class);
     }
-    public function users(){
-        return $this->belongsTo(User::class);
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function areas(){
-        return $this->belongsTo(Area::class);
+    public function areas()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
     }
 
-    public function positions(){
-        return $this->belongsTo(Position::class);
+    public function positions()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
     }
 
-    public function favorites(){
-        return $this->belongsTo(Favorite::class);
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'vacancy_id');
     }
 
-    public function provinces(){
-        return $this->belongsTo(Province::class);
+    public function provinces()
+    {
+        return $this->belongsTo(Province::class, 'province_id');
     }
 }

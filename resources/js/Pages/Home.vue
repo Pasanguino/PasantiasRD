@@ -14,8 +14,8 @@
         <nav class="nav-container">
           <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="#encuentra-pasantias">Encuentra Pasantías</a></li>
-            <li><a href="#">Soporte Técnico</a></li>
+            <li><a href="/estudiante">Encuentra Pasantías</a></li>
+            <li><a href="/support">Soporte Técnico</a></li>
           </ul>
         </nav>
         <div class="auth-links">

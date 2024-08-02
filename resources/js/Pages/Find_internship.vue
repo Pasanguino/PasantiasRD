@@ -1,5 +1,5 @@
 <template>
-  <main>
+
   <Head title="Encuentra Pasantias" />
 
 
@@ -7,11 +7,12 @@
   <Nav></Nav>
 
 
+<br>
 
   <Titulos titulo="Encuentra Pasantias" />
 
 
-
+  <main>
   <div class="Menu">
     <div class="container-left">
       <form class="max-w-md mx-auto" @submit.prevent="handleSearch">
@@ -126,11 +127,11 @@ const handleSearch = () => {
 
 <style scoped>
 main {
-  padding: 0px 100px;
+  padding: 0px 50px;
 }
-.ss{
-  height: 50vh;
-}
+/* .ss{
+  height: 100vh;
+} */
 
 .Menu {
   display: flex;
@@ -188,6 +189,6 @@ main {
 }
 
 .input-container {
-  margin-top: 20px;
+  margin: 20px 0 100px 0;
 }
 </style>

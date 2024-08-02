@@ -3,6 +3,7 @@
     <ProfileCard
       v-for="(vacancy, index) in vacancies"
       :key="index"
+      :id="vacancy.id"
       :vacancyName="vacancy.vacancy_name"
       :companyName="vacancy.company_name"
       :createdAt="vacancy.created_at"

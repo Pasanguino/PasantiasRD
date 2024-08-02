@@ -27,10 +27,11 @@
       </div>
       <hr>
       <div class="settings">
-        <h3 class="big-text">John Doe</h3><br>
+<h3 class="big-text">{{ user.first_name }} {{ user.last_name }}</h3><br>
+
         <a href="#" @click="showChangeUsernameModal = true" class="inter-font">Cambiar nombre de usuario</a><br><br>
         <a href="#" @click="showChangePasswordModal = true" class="inter-font">Cambiar contraseña</a><br><br>
-        <p>Correo de recuperación actual: <span class="inter-font">johndoe@test.com</span></p><br>
+        <p>Correo de recuperación actual: <span class="inter-font">{{ user.email }}</span></p><br>
         <a href="#" @click="showAddRecoveryEmailModal = true" class="inter-font">Añadir correo de recuperación</a><br><br>
         <a href="#" @click="showChangeRecoveryEmailModal = true">Cambiar correo de recuperación</a>
       </div>
@@ -150,6 +151,12 @@ import SettingsScript from '/resources/js/Settings.js';
 
 export default {
   name: 'Settings',
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return SettingsScript.data();
   },

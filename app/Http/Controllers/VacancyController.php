@@ -89,18 +89,18 @@ class VacancyController extends Controller
         return response()->json($data, 201);
     }
 
-    public function getVacancyById($id) 
+    public function getVacancyById($id)
     {
         $vacancy = Vacancy::find($id);
 
-      
+        // Cargar relaciones para obtener los datos completos
+        $vacancy->load(['users', 'areas', 'positions', 'favorites', 'provinces']);
+
         $data = [
             'vacante' => $vacancy,
-
         ];
 
         return response()->json($data);
-        
     }
 
     public function getVacancyByArea($area_id) 
@@ -295,6 +295,12 @@ class VacancyController extends Controller
 
     }
 
-    
-    
+    public function show($id)
+    {
+        $vacancy = Vacancy::with(['users', 'areas', 'positions', 'favorites', 'provinces'])->findOrFail($id);
+
+        return Inertia::render('Vacante', [
+            'vacancy' => $vacancy
+        ]);
+    }
 }

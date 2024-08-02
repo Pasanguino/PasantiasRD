@@ -39,7 +39,7 @@
                         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4">
-                                <a href="/privacy" class="hover:underline text-white">Privacidad</a>
+                                <a href="https://www.egeda.do/documentos/Dec-No-362-01%20Reglamento%20Aplicacion-Ley%20No65-00.pdf" class="hover:underline text-white">Privacidad</a>
                             </li>
                             <li class="mb-4">
                                 <a href="/terms" class="hover:underline text-white">Términos y condiciones</a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use Inertia\Inertia;
 
@@ -17,10 +18,28 @@ Route::get('/', function () {
 });
 
 
+Route::get('/auth/status', function () {
+    return response()->json(['authenticated' => Auth::check()]);
+});
+
+Route::get('/vacancies_province/{province_id}', [ProvinceController::class, 'showProvinceVacancies'])->name('vacancies_province');
+
+// Datos de provincias
+Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
 //http://pasantiasrd.test/t/search/buscar?buscar=Software
 Route::get('/vacante/search/buscar', [VacancyController::class, 'searchVacancy']) ->name('search');
-Route::get('/vacante/{id}', [VacancyController::class, 'getVacancyById']);
+Route::get('/vacante/{id}', [VacancyController::class, 'show']);
 
+Route::post('/applications', [ApplicationController::class, 'store'])
+    ->middleware('auth')
+    ->name('applications.store');
+
+Route::get('/applications', [ApplicationController::class, 'index']);
+
+
+Route::get('/support', function () {
+    return Inertia::render('ContactUs');
+})->name('support');
 
 
 // Página de inicio con nombre 'home'
@@ -29,10 +48,7 @@ Route::get('/home', function () {
 })->name('home');
 
 // Mostrar vacantes por provincia
-Route::get('/vacancies_province/{province_id}', [ProvinceController::class, 'showProvinceVacancies'])->name('vacancies_province');
 
-// Datos de provincias
-Route::get('/province-data', [ProvinceController::class, 'getProvinceData']);
 
 // // Dashboard con middleware de autenticación
 Route::get('/dashboard_prueva', function () {
@@ -78,7 +94,9 @@ Route::get('/test', function () {
 })->name('test');
 
 Route::get('/settings', function () {
-    return Inertia::render('Settings');
+    return Inertia::render('Settings', [
+        'user' => Auth::user()
+    ]);
 })->name('settings');
 
 Route::get('/profile', function () {
@@ -116,6 +134,9 @@ Route::get('/privacy', function () {
 Route::get('/terms', function () {
     return Inertia::render('TermsAndConditions');
 });
+
+
+
 
 // Cargar rutas de autenticación
 require __DIR__ . '/auth.php';

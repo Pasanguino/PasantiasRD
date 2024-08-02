@@ -1,38 +1,56 @@
 <template>
   <div class="nav-wrapper">
     <div class="nav-logo">
-      <img src="/images/logo.png" alt="Logo" class="logo-image">
+      <img src="/images/logo.png" alt="Logo" class="logo-image" />
       <span class="logo-title">Pasangüino</span>
     </div>
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <li><a href="#">Encuentra Pasantías</a></li>
+        <li><a href="/estudiante">Encuentra Pasantías</a></li>
+
         <li><a href="#">Bandeja de Mensajes</a></li>
-        <li><a href="#">Soporte Técnico</a></li>
+        <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>
     <div class="user-dropdown">
-      <i class="material-icons user-icon" style="font-size: 45px; color: black;">&#xe853;</i>
+      <i class="material-icons user-icon" style="font-size: 45px; color: black"
+        >&#xe853;</i
+      >
       <div class="dropdown-content">
-        <a href="profile">Editar perfil</a>
-        <a href="settings">Configuración</a>
-        <a href="#">Cerrar sesión</a>
+        <a :href="route('profile')" as="a">Editar perfil</a>
+        <a :href="route('settings')" as="a">Configuración</a>
+        <a href="#" @click.prevent="logout" class="dropdown-item">Cerrar sesión</a>
       </div>
     </div>
   </div>
-<hr class="nav-divider">
-
+  <hr class="nav-divider" />
 </template>
 
-<script>
-export default {
-  name: 'Nav'
+<script setup>
+import DropdownLink from "@/Components/DropdownLink.vue";
+import { ref } from "vue";
+
+const logout = () => {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = route("logout");
+
+  const csrfToken = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute("content");
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "_token";
+  input.value = csrfToken;
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  form.submit();
 };
 </script>
 
 <style scoped>
-
 .nav-wrapper {
   position: relative;
   display: flex;
@@ -50,12 +68,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/building1.jpg');
+  background-image: url("/images/building1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   transform: scaleX(-1); /* Invierte solo la imagen de fondo */
-  z-index: -1; 
+  z-index: -1;
 }
 
 .nav-logo {
@@ -89,11 +107,11 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   padding: 18px 20px;
-  background-color: #BF5F07;
+  background-color: #bf5f07;
   border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 25px 0;
-  opacity: 0; 
+  opacity: 0;
   animation: slideIn 1s ease-out forwards; /* Aplica la animación */
 }
 
@@ -115,13 +133,13 @@ export default {
 
 .user-icon {
   cursor: pointer;
-  color: black; 
+  color: black;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 45px; 
+  top: 45px;
   right: 0;
   background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -147,7 +165,7 @@ export default {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px); 
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -158,7 +176,7 @@ export default {
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-20px); 
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
@@ -168,15 +186,14 @@ export default {
 
 .nav-divider {
   border: none;
-  border-top: 4px solid #BF5F07; 
+  border-top: 4px solid #bf5f07;
   margin: 0;
   width: 100%;
   position: relative;
-  top: -4px; 
+  top: -4px;
   border-radius: 4px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 0;
-  animation: fadeIn 0.5s ease-out forwards; 
+  animation: fadeIn 0.5s ease-out forwards;
 }
-
 </style>
