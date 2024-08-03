@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\UserProfileController;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,11 @@ Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy
 // Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
 Route::post('/favorites', [FavoriteController::class, 'createFavorites'])->middleware(['auth', 'verified']);
 Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites'])->middleware(['auth', 'verified']);
-Route::get('/favorites', [FavoriteController::class, 'getFavorites']) ->name('Favorite');
-Route::post('/favorites', [FavoriteController::class, 'create']);
-Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites']);
+
+//User Profile
+
+
+Route::get('/profile', [UserProfileController::class, 'getProfileData']);
+Route::get('/profile/{user_id}', [UserProfileController::class, 'getProfileDataByUserId']);
+Route::post('/profile', [UserProfileController::class, 'postProfileData']);
+Route::put('/profile/{id}', [UserProfileController::class, 'updatePartialProfile']);

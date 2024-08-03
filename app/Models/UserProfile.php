@@ -9,6 +9,21 @@ class UserProfile extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'description',
+        'age',
+        'photo_path',
+        'identification_path',
+        'cv_path',
+        'profession_id',
+        'province_id',
+        'user_id'
+    ];
+
     
 public function profession(){
     return $this->hasOne(Profession::class);

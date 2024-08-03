@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PHPUnit\Framework\Constraint\Constraint;
 
 return new class extends Migration
 {
@@ -23,8 +24,8 @@ return new class extends Migration
             $table->string('identification_path');
             $table->string('cv_path');
             $table->foreignId('profession_id');
-            $table->foreignId('type_user_id');
             $table->foreignId('province_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

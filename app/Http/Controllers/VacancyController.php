@@ -323,5 +323,6 @@ class VacancyController extends Controller
         return Inertia::render('Vacante', [
             'vacancy' => $vacancy
         ]);
+        
     }
 }
