@@ -21,16 +21,16 @@ Route::get('/user', function (Request $request) {
 // Route::post('register',[AuthController::class, 'register']);
 // Route::post('login',[AuthController::class, 'login']);
 
-// // Vacancy
-// Route::get('/vacancies', [VacancyController::class, 'getAllVacancy']);
-// Route::post('/vacancies', [VacancyController::class, 'postVacancy'])->middleware(['auth', 'verified']);
-// Route::get('/vacancies/{id}', [VacancyController::class, 'getVacancyById']);
-// Route::get('/vacancies/area/{area_id}', [VacancyController::class, 'getVacancyByArea']);
-// Route::get('/vacancies/province/{province_id}', [VacancyController::class, 'getVacancyByProvinceId']);
-// Route::get('/vacancies/company/{company_id}', [VacancyController::class, 'getVacancyByCompanyId']);
-// Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById'])->middleware(['auth', 'verified']);
-// Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy'])->middleware(['auth', 'verified']);
-// Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy'])->middleware(['auth', 'verified']);
+// Rutas de vacantes
+Route::get('/vacancies', [VacancyController::class, 'getAllVacancy']);
+Route::post('/vacancies', [VacancyController::class, 'postVacancy'])->middleware(['auth:sanctum', 'verified']);
+Route::get('/vacancies/{id}', [VacancyController::class, 'getVacancyById']);
+Route::get('/vacancies/area/{area_id}', [VacancyController::class, 'getVacancyByArea']);
+Route::get('/vacancies/province/{province_id}', [VacancyController::class, 'getVacancyByProvinceId']);
+Route::get('/vacancies/company/{company_id}', [VacancyController::class, 'getVacancyByCompanyId']);
+Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById'])->middleware(['auth:sanctum', 'verified']);
+Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy'])->middleware(['auth:sanctum', 'verified']);
+Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy'])->middleware(['auth:sanctum', 'verified']);
 
 
 //Favoritos

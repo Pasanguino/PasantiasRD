@@ -3,7 +3,7 @@
     <Nav></Nav>
     <div class="navigation-panel">
       <button class="nav-button" @click="currentView = 'PublicarVacantes'">Publicar vacantes</button>
-      <button class="nav-button" @click="currentView = ''">Vacantes añadidas</button>
+      <button class="nav-button" @click="currentView = 'VacantesAñadidas'">Vacantes añadidas</button>
       <button class="nav-button" @click="currentView = 'EliminarVacantes'">Vacantes eliminadas</button>
     </div>
     <div class="main-content">
@@ -19,6 +19,7 @@
         </div>
       </div>
       <div class="right-panel">
+        <!-- Formulario para publicar vacantes -->
         <div v-if="currentView === 'PublicarVacantes'" class="form-container">
           <form @submit.prevent="submitForm">
             <div class="form-group">
@@ -50,13 +51,33 @@
             <button type="submit" class="submit-button">Añadir</button>
           </form>
         </div>
-        <!-- Agrega otros paneles aquí según sea necesario para editar y eliminar -->
+
+        <!-- Mostrar vacantes añadidas -->
+        <div v-if="currentView === 'VacantesAñadidas'" class="vacantes-list">
+          <div v-for="vacante in vacantes" :key="vacante.id" class="vacante-item">
+            <h3>{{ vacante.vacancy_name }}</h3>
+            <p>{{ vacante.vacancy_description }}</p>
+            <p>Salario: {{ vacante.salary }}</p>
+            <button @click="deleteVacante(vacante.id)">Eliminar</button>
+          </div>
+        </div>
+
+        <!-- Mostrar vacantes eliminadas -->
+        <div v-if="currentView === 'EliminarVacantes'" class="vacantes-list">
+          <div v-for="vacante in vacantesEliminadas" :key="vacante.id" class="vacante-item">
+            <h3>{{ vacante.vacancy_name }}</h3>
+            <p>{{ vacante.vacancy_description }}</p>
+            <p>Área: {{ vacante.area }}</p>
+            <p>Salario: {{ vacante.salary }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import Nav from './Nav.vue'; // Importa el componente Nav
 
 export default {
@@ -72,14 +93,102 @@ export default {
         descripcionPuesto: '',
         area: '',
         remuneracion: ''
-      }
+      },
+      vacantes: [], // Vacantes activas
+      vacantesEliminadas: [], // Vacantes eliminadas
+      selectedVacancy: null // Vacante seleccionada para edición
     };
   },
   methods: {
-    submitForm() {
-      console.log('Formulario enviado:', this.form);
-      // Aquí muchacho pueden poner logica para enviar al backend...
+    async submitForm() {
+      try {
+        const response = await axios.post('/vacancies', {
+          vacancy_name: this.form.nombrePuesto,
+          vacancy_description: this.form.descripcionPuesto,
+          salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
+          company_name: 'Default Company', // Ajusta según la lógica de la empresa
+          company_id: 1, // Ajusta según la lógica de la empresa
+          user_id: 1, // Ajusta según la lógica del usuario
+          province_id: 1, // Ajusta según la lógica de la provincia
+          area_id: 1, // Ajusta según la lógica del área
+          position_id: 1 // Ajusta según la lógica de la posición
+        });
+
+        this.vacantes.push(response.data.vacante);
+        console.log('Vacante añadida:', response.data.vacante);
+        this.resetForm();
+      } catch (error) {
+        console.error('Error al añadir la vacante:', error);
+      }
+    },
+    async fetchVacantes() {
+      try {
+        const response = await axios.get('/vacancies');
+        this.vacantes = response.data;
+      } catch (error) {
+        console.error('Error al obtener las vacantes:', error);
+      }
+    },
+    async editVacante(id) {
+      try {
+        const response = await axios.get(`/vacancies/${id}`);
+        this.selectedVacancy = response.data.vacante;
+        this.currentView = 'EditarVacantes';
+      } catch (error) {
+        console.error('Error al obtener la vacante para editar:', error);
+      }
+    },
+    async updateVacante() {
+      try {
+        const response = await axios.put(`/vacancies/${this.selectedVacancy.id}`, {
+          vacancy_name: this.selectedVacancy.vacancy_name,
+          vacancy_description: this.selectedVacancy.vacancy_description,
+          salary: this.selectedVacancy.salary,
+          company_name: 'Default Company', // Ajusta según la lógica de la empresa
+          company_id: 1, // Ajusta según la lógica de la empresa
+          user_id: 1, // Ajusta según la lógica del usuario
+          province_id: 1, // Ajusta según la lógica de la provincia
+          area_id: 1, // Ajusta según la lógica del área
+          position_id: 1 // Ajusta según la lógica de la posición
+        });
+
+        // Actualiza la vacante en la lista
+        const index = this.vacantes.findIndex(vacante => vacante.id === this.selectedVacancy.id);
+        if (index !== -1) {
+          this.vacantes[index] = response.data.vacante;
+        }
+
+        this.selectedVacancy = null;
+        this.currentView = 'VacantesAñadidas';
+        console.log('Vacante actualizada:', response.data.vacante);
+      } catch (error) {
+        console.error('Error al actualizar la vacante:', error);
+      }
+    },
+    async deleteVacante(id) {
+      try {
+        await axios.delete(`/vacancies/${id}`);
+        this.vacantes = this.vacantes.filter(vacante => vacante.id !== id);
+        console.log('Vacante eliminada:', id);
+      } catch (error) {
+        console.error('Error al eliminar la vacante:', error);
+      }
+    },
+    selectVacante(vacante) {
+      this.selectedVacancy = { ...vacante };
+      this.currentView = 'EditarVacantes';
+    },
+    resetForm() {
+      this.form = {
+        nombrePuesto: '',
+        descripcionPuesto: '',
+        area: '',
+        remuneracion: ''
+      };
     }
+  },
+  mounted() {
+    this.fetchVacantes(); // Cargar vacantes al iniciar
   }
 }
 </script>

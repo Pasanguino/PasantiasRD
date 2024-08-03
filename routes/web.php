@@ -78,7 +78,7 @@ Route::middleware(['estudiante', 'auth'])->group(function () {
 // Rutas para empresas con autenticación
 Route::middleware(['empresa', 'auth'])->group(function () {
     Route::get('/empresa', function () {
-        return Inertia::render('Find_interns');
+        return Inertia::render('VacanciesCompany');
     })->name('empresa');
 });
 
