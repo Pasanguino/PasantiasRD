@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 use Inertia\Inertia;
 
+// Cargar rutas de autenticación
+require __DIR__ . '/auth.php';
+require __DIR__ . '/api.php';
+
 // Página principal
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -144,6 +148,3 @@ Route::get('/vacancies-company', function () {
 
 
 
-// Cargar rutas de autenticación
-require __DIR__ . '/auth.php';
-require __DIR__ .'/api.php';
