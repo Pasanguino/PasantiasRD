@@ -35,7 +35,7 @@ Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy
 
 
 //Favoritos
-// Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
+Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
 Route::post('/favorites', [FavoriteController::class, 'create'])->middleware(['auth', 'verified']);
 Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites'])->middleware(['auth', 'verified']);
 
