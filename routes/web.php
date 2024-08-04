@@ -10,6 +10,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 use Inertia\Inertia;
 
 // Cargar rutas de autenticación
@@ -21,7 +22,7 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::get('/user', [DashboardController::class, 'user']);
+Route::get('/userr', [DashboardController::class, 'index']);
 
 Route::get('/auth/status', function () {
     return response()->json(['authenticated' => Auth::check()]);
@@ -145,6 +146,5 @@ Route::get('/terms', function () {
 Route::get('/vacancies-company', function () {
     return Inertia::render('VacanciesCompany');
 });
-
 
 

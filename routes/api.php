@@ -16,7 +16,7 @@ Route::get('/user', function (Request $request) {
 
 
 // User
-Route::get('/user', [AuthController::class, 'viewUser'])->middleware(['auth']);
+
 
 
 // Route::post('register',[AuthController::class, 'register']);
