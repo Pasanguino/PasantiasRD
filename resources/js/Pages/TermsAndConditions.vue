@@ -34,10 +34,11 @@
   </div>
 
   <Footer></Footer>
+  
 </template>
 
 <script>
-import Nav from './Nav.vue';
+import Nav from './Nav_student.vue';
 import Footer from '@/Components/Footer.vue';
 
 export default {

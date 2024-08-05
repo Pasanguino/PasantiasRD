@@ -74,12 +74,13 @@
   </div>
 
   <Footer></Footer>
+  
 </template>
 
 <script setup>
 import { defineProps } from "vue";
 import { Head } from "@inertiajs/inertia-vue3";
-import Nav from "./Nav.vue";
+import Nav from "./Nav_student.vue";
 import Footer from "@/Components/Footer.vue";
 import Titulos from "@/Components/Titulos.vue";
 

@@ -95,6 +95,9 @@ Vacantes por área
 
 </template>
 
+
+
+
 <script setup>
 import { ref } from "vue";
 import { Head , router } from "@inertiajs/vue3";
@@ -103,8 +106,7 @@ import SecondaryButton from "@/Components/PrimaryButton.vue";
 import Area from "@/Components/busqueda/Area.vue";
 import Footer from "@/Components/Footer.vue";
 import Vacantes from '@/Components/Vacantes_provincias2.vue';
-import Nav from "./Nav.vue";
-
+import Nav from "./Nav_student.vue";
 import Publicacion from '@/Components/busqueda/Fecha.vue';
 
 
@@ -127,54 +129,43 @@ const handleSearch = () => {
 
 <style scoped>
 main {
-  padding: 0px 50px;
+  padding: 0 20px; 
 }
-/* .ss{
-  height: 100vh;
-} */
 
 .Menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 20px; /* Espaciado entre columnas, opcional */
-  height: 200px;
+  gap: 20px;
+  align-items: start; 
+  padding: 20px 0;
+  height: auto; 
 }
 
 .container-left {
-  grid-column: span 2;
+  grid-column: span 3; 
 }
 
-.container-left input {
-  width: 100%;
-}
 .container-right {
-  grid-column: span 10;
+  grid-column: span 9; 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 100px;
+  flex-wrap: wrap; 
+  gap: 10px;
+  justify-content: flex-start; 
+  padding: 20px 0; 
 }
 
 .container-right button {
- 
-  background-color: #7D98F8;
+  background-color: #7d98f8;
   transition: 0.5s;
 }
 
 .container-right button:focus {
-
-    background-color: #A54B07;
-    transform: scale(1.1);
-
+  background-color: #a54b07;
+  transform: scale(1.1);
 }
 
 .secondary-button {
-  background-color: lightgray; /* Color por defecto */
+  background-color: lightgray;
   border: 1px solid transparent;
   padding: 10px;
   cursor: pointer;
@@ -182,13 +173,37 @@ main {
 }
 
 .secondary-button.active {
-  background-color: blue; /* Estilo para botón activo */
+  background-color: blue;
   color: white;
   border: none;
-  outline: none;
 }
 
 .input-container {
   margin: 20px 0 100px 0;
 }
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  .Menu {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .container-left {
+    grid-column: span 12; 
+    margin-bottom: 10px; 
+  }
+
+  .container-right {
+    grid-column: span 12; 
+    justify-content: center; 
+  }
+
+  .container-right button {
+    width: 100%; 
+    margin-bottom: 10px; 
+  }
+}
+
 </style>

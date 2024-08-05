@@ -47,7 +47,7 @@
 <script setup>
 import { defineProps, ref, watch } from "vue";
 import { Head } from "@inertiajs/inertia-vue3";
-import Nav from "./Nav.vue";
+import Nav from "./Nav_student.vue";
 import Footer from "@/Components/Footer.vue";
 import Titulos from "@/Components/Titulos.vue";
 import ProfileCard from "@/Components/Specific/ProfileCard.vue"; // Asegúrate de importar el componente ProfileCard

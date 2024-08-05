@@ -78,7 +78,7 @@
 
 <script>
 import axios from 'axios';
-import Nav from './Nav.vue'; // Importa el componente Nav
+import Nav from './Nav_company.vue'; 
 
 export default {
   name: 'VacantesComponent',
@@ -253,6 +253,7 @@ export default {
   width: 100%;
   display: flex;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 /* Estilo del panel izquierdo con los botones de las vistas */
@@ -287,7 +288,6 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-/* Estilo para el círculo activo (color azul) */
 .circle.active {
   background-color: #5a8dee;
 }
@@ -382,6 +382,94 @@ p {
 
 .submit-button:hover {
   background-color: #555;
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .navigation-panel {
+    width: 80%;
+    gap: 50px;
+  }
+
+  .left-panel {
+    flex: 0 0 200px;
+    margin-right: 20px;
+  }
+
+  .form-container {
+    width: 70%;
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation-panel {
+    width: 90%;
+    gap: 30px;
+    padding: 10px 5px;
+    flex-wrap: wrap;
+  }
+
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-panel {
+    flex: 0 0 auto;
+    margin-right: 0;
+    align-items: center;
+  }
+
+  .circle {
+    width: 120px;
+    height: 120px;
+    font-size: 14px;
+  }
+
+  .form-container {
+    width: 80%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation-panel {
+    width: 100%;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .nav-button {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .left-panel {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .circle {
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+  }
+
+  .form-container {
+    width: 90%;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 12px;
+  }
+
+  .submit-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 }
 
 </style>
