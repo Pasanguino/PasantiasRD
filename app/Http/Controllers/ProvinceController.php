@@ -9,6 +9,11 @@ use Inertia\Inertia;
 
 class ProvinceController extends Controller
 {
+    public function index()
+    {
+        $provinces = Province::all();
+        return response()->json($provinces);
+    }
     public function getProvinceData()
     {
         $provinces = Province::withCount('vacancies')->get();
