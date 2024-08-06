@@ -1,10 +1,11 @@
 <template>
   <div class="container">
     <div class="circle" v-for="(item, index) in circleData" :key="index">
-      <a :href="'/areas/' + item.id + '/vacancies'">
-      
-        <h3>{{ item.area_name }}</h3>
-        <p>{{ item.vacancies_count }}</p>
+      <a :href="'/areas/' + item.id + '/vacancies'" class="circle-link">
+        <div class="circle-content">
+          <h3>{{ item.area_name }}</h3>
+          <p>{{ item.vacancies_count }}</p>
+        </div>
       </a>
     </div>
   </div>
@@ -39,38 +40,71 @@ const updateVacancies = (index, newVacancies) => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 30px;
-  grid-auto-rows: min-content;
-  max-height: 50vh;
-  overflow-y: auto;
   padding: 20px;
+  justify-items: center; /* Centrando los items en el contenedor */
 }
 
 .circle {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  background-color: #7d98f8;
+  background: linear-gradient(135deg, #7d98f8, #a4c2f4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
-  transition: 0.3s;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.circle-link {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  transition: color 0.3s ease;
 }
 
 .circle:hover {
-  background-color: #f8724a;
-  cursor: pointer;
+  background: linear-gradient(135deg, #f8724a, #fc9b6d);
   transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.circle-link:hover {
+  color: #fff;
+}
+
+.circle-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.circle:hover .circle-content {
+  opacity: 0.9;
+  transform: translateY(-5px);
 }
 
 .circle h3 {
   margin: 0;
   font-size: 1.2em;
+  font-weight: 600;
+  color: #fff;
+  transition: color 0.3s ease;
 }
 
 .circle p {
   margin: 0;
   font-size: 2em;
+  font-weight: 700;
+  color: #fff;
+  transition: color 0.3s ease;
 }
 </style>
