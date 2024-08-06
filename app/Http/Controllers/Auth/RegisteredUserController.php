@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -35,14 +36,16 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'type_user_id' => 'required|',
-            'province_id' => 'required|',
-            'company_id' => 'required|',
-            'company_name' => 'required|string',
+            'type_user_id' => 'required|integer',
+            'province_id' => 'required|integer',
+            'company_id' => 'required|integer',
         ]);
 
+        // Obtener el nombre de la compañía basado en el company_id
+        $company = Company::findOrFail($request->company_id);
+        $company_name = $company->company_name;
+
         $user = User::create([
-    
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -50,8 +53,7 @@ class RegisteredUserController extends Controller
             'type_user_id' => $request->type_user_id,
             'province_id' => $request->province_id,
             'company_id' => $request->company_id,
-            'company_name' => $request->company_name,
-
+            'company_name' => $company_name, // Asignar el nombre de la compañía
         ]);
 
         event(new Registered($user));

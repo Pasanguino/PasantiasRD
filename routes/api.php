@@ -16,33 +16,33 @@ Route::get('/user', function (Request $request) {
 
 
 // User
-// Route::get('/user', [AuthController::class, 'viewUser'])->middleware(['auth', 'verified']);
+
 
 
 // Route::post('register',[AuthController::class, 'register']);
 // Route::post('login',[AuthController::class, 'login']);
 
-// // Vacancy
+// Rutas de vacantes
 Route::get('/vacancies', [VacancyController::class, 'getAllVacancy']);
-// Route::post('/vacancies', [VacancyController::class, 'postVacancy'])->middleware(['auth', 'verified']);
-// Route::get('/vacancies/{id}', [VacancyController::class, 'getVacancyById']);
-// Route::get('/vacancies/area/{area_id}', [VacancyController::class, 'getVacancyByArea']);
-// Route::get('/vacancies/province/{province_id}', [VacancyController::class, 'getVacancyByProvinceId']);
-// Route::get('/vacancies/company/{company_id}', [VacancyController::class, 'getVacancyByCompanyId']);
-Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById']);/* ->middleware(['auth', 'verified']); */
-// Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy'])->middleware(['auth', 'verified']);
-// Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy'])->middleware(['auth', 'verified']);
+Route::post('/vacancies', [VacancyController::class, 'postVacancy'])->middleware(['auth:sanctum', 'verified']);
+Route::get('/vacancies/{id}', [VacancyController::class, 'getVacancyById']);
+Route::get('/vacancies/area/{area_id}', [VacancyController::class, 'getVacancyByArea']);
+Route::get('/vacancies/province/{province_id}', [VacancyController::class, 'getVacancyByProvinceId']);
+Route::get('/vacancies/company/{company_id}', [VacancyController::class, 'getVacancyByCompanyId']);
+Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById'])->middleware(['auth:sanctum', 'verified']);
+Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy'])->middleware(['auth:sanctum', 'verified']);
+Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy'])->middleware(['auth:sanctum', 'verified']);
 
 
 //Favoritos
-// Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
-Route::post('/favorites', [FavoriteController::class, 'createFavorites'])->middleware(['auth', 'verified']);
+Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
+Route::post('/favorites', [FavoriteController::class, 'create'])->middleware(['auth', 'verified']);
 Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites'])->middleware(['auth', 'verified']);
 
 //User Profile
 
 
-Route::get('/profile', [UserProfileController::class, 'getProfileData']);
+// Route::get('/profile', [UserProfileController::class, 'getProfileData']);
 Route::get('/profile/{user_id}', [UserProfileController::class, 'getProfileDataByUserId']);
 Route::post('/profile', [UserProfileController::class, 'postProfileData']);
 Route::put('/profile/{id}', [UserProfileController::class, 'updatePartialProfile']);

@@ -12,10 +12,10 @@
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
-        <li><a href="/estudiante">Encuentra Pasantías</a></li>
-
-        <li><a href="/applications">Vacantes registradas</a></li>
-          <li><a href="/favorites">Vacantes Guardadas</a></li>
+        <li><a href="#">Buscar Pasantes</a></li>
+        <li><a href="#">Bandeja de Mensajes</a></li>
+        <!--<li><a href="/applications">Vacantes registradas</a></li>-->
+          <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
         <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>
@@ -31,7 +31,7 @@
     </div>
   </div>
   <hr class="nav-divider" />
-  
+
 </template>
 
 <script setup>
@@ -65,7 +65,8 @@ const logout = () => {
   justify-content: space-between;
   width: 100%;
   padding: 0 20px;
-  animation: fadeIn 1s ease-out; /* Aplica la animación al contenedor */
+  animation: fadeIn 1s ease-out;
+  flex-wrap: wrap; 
 }
 
 .nav-wrapper::before {
@@ -79,13 +80,14 @@ const logout = () => {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transform: scaleX(-1); /* Invierte solo la imagen de fondo */
+  transform: scaleX(-1);
   z-index: -1;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .logo-image {
@@ -98,14 +100,15 @@ const logout = () => {
   font-size: 24px;
   font-weight: bold;
   color: white;
-  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+  text-shadow: 1px 1px 
+  2px black, -1px -1px 2px black;
 }
+
 
 .nav-container {
   flex: 1;
   display: flex;
   justify-content: center;
-  margin-left: -150px;
 }
 
 .nav-links {
@@ -120,10 +123,11 @@ const logout = () => {
   margin: 25px 0;
   opacity: 0;
   animation: slideIn 1s ease-out forwards;
+  margin-left: -140px;
 }
 
 .nav-links li {
-  margin: 5px 10px;
+  margin: 7px 10px;
 }
 
 .nav-links li a {
@@ -136,6 +140,7 @@ const logout = () => {
   position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 10px; 
 }
 
 .user-icon {
@@ -203,4 +208,129 @@ const logout = () => {
   opacity: 0;
   animation: fadeIn 0.5s ease-out forwards;
 }
+
+/* Estilos responsivos para dispositivos móviles */
+@media screen and (max-width: 768px) {
+  .nav-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-logo {
+    margin-bottom: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .logo-image {
+    width: 120px;
+  }
+
+.logo-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+}
+
+
+
+  .nav-container {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .user-dropdown {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .dropdown-content {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+/* Media Queries específicas para Responsive*/
+
+/* iPad Air */
+@media screen and (min-width: 820px) and (max-width: 834px) and (min-height: 1180px) and (max-height: 1194px) {
+  .logo-title {
+    display: none;
+  }
+
+  .nav-links {
+    margin-left: 15px;
+  }
+}
+
+/* iPad Pro 12.9" */
+@media screen and (min-width: 1024px) and (max-width: 1024px) and (min-height: 1366px) and (max-height: 1366px) {
+  .logo-title {
+    display: none;
+  }
+
+  .nav-links {
+    margin-left: 20px;
+  }
+}
+
+/* iPad Pro 11" */
+@media screen and (min-width: 834px) and (max-width: 834px) and (min-height: 1194px) and (max-height: 1194px) {
+  .logo-title {
+    display: none;
+  }
+
+  .nav-links {
+    margin-left: 20px;
+  }
+}
+
+/* Surface Pro 7 */
+@media screen and (min-width: 912px) and (max-width: 912px) and (min-height: 1368px) and (max-height: 1368px) {
+  .logo-title {
+    display: none;
+  }
+
+   .nav-links {
+    margin-left: -60px;
+  }
+}
+
+/* Asus Zenbook Fold */
+@media screen and (min-width: 1920px) and (max-width: 1920px) and (min-height: 1280px) and (max-height: 1280px) {
+  .logo-title {
+    display: none;
+  }
+
+  .nav-links {
+    margin-left: 20px;
+  }
+}
+
+
+/* Google Nest Hub */
+@media screen and (min-width: 1024px) and (max-width: 1024px) and (min-height: 600px) and (max-height: 600px) {
+  .logo-title {
+    display: none;
+  }
+}
+
+
 </style>

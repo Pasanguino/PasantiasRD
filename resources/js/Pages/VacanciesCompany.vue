@@ -3,7 +3,7 @@
     <Nav></Nav>
     <div class="navigation-panel">
       <button class="nav-button" @click="currentView = 'PublicarVacantes'">Publicar vacantes</button>
-      <button class="nav-button" @click="currentView = ''">Vacantes añadidas</button>
+      <button class="nav-button" @click="currentView = 'VacantesAñadidas'">Vacantes añadidas</button>
       <button class="nav-button" @click="currentView = 'EliminarVacantes'">Vacantes eliminadas</button>
     </div>
     <div class="main-content">
@@ -19,6 +19,7 @@
         </div>
       </div>
       <div class="right-panel">
+        <!-- Formulario para publicar vacantes -->
         <div v-if="currentView === 'PublicarVacantes'" class="form-container">
           <form @submit.prevent="submitForm">
             <div class="form-group">
@@ -50,14 +51,34 @@
             <button type="submit" class="submit-button">Añadir</button>
           </form>
         </div>
-        <!-- Agrega otros paneles aquí según sea necesario para editar y eliminar -->
+
+        <!-- Mostrar vacantes añadidas -->
+        <div v-if="currentView === 'VacantesAñadidas'" class="vacantes-list">
+          <div v-for="vacante in vacantes" :key="vacante.id" class="vacante-item">
+            <h3>{{ vacante.vacancy_name }}</h3>
+            <p>{{ vacante.vacancy_description }}</p>
+            <p>Salario: {{ vacante.salary }}</p>
+            <button @click="deleteVacante(vacante.id)">Eliminar</button>
+          </div>
+        </div>
+
+        <!-- Mostrar vacantes eliminadas -->
+        <div v-if="currentView === 'EliminarVacantes'" class="vacantes-list">
+          <div v-for="vacante in vacantesEliminadas" :key="vacante.id" class="vacante-item">
+            <h3>{{ vacante.vacancy_name }}</h3>
+            <p>{{ vacante.vacancy_description }}</p>
+            <p>Área: {{ vacante.area }}</p>
+            <p>Salario: {{ vacante.salary }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Nav from './Nav.vue'; // Importa el componente Nav
+import axios from 'axios';
+import Nav from './Nav_company.vue'; 
 
 export default {
   name: 'VacantesComponent',
@@ -72,14 +93,102 @@ export default {
         descripcionPuesto: '',
         area: '',
         remuneracion: ''
-      }
+      },
+      vacantes: [], // Vacantes activas
+      vacantesEliminadas: [], // Vacantes eliminadas
+      selectedVacancy: null // Vacante seleccionada para edición
     };
   },
   methods: {
-    submitForm() {
-      console.log('Formulario enviado:', this.form);
-      // Aquí muchacho pueden poner logica para enviar al backend...
+    async submitForm() {
+      try {
+        const response = await axios.post('/vacancies', {
+          vacancy_name: this.form.nombrePuesto,
+          vacancy_description: this.form.descripcionPuesto,
+          salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
+          company_name: 'Default Company', // Ajusta según la lógica de la empresa
+          company_id: 1, // Ajusta según la lógica de la empresa
+          user_id: 1, // Ajusta según la lógica del usuario
+          province_id: 1, // Ajusta según la lógica de la provincia
+          area_id: 1, // Ajusta según la lógica del área
+          position_id: 1 // Ajusta según la lógica de la posición
+        });
+
+        this.vacantes.push(response.data.vacante);
+        console.log('Vacante añadida:', response.data.vacante);
+        this.resetForm();
+      } catch (error) {
+        console.error('Error al añadir la vacante:', error);
+      }
+    },
+    async fetchVacantes() {
+      try {
+        const response = await axios.get('/vacancies');
+        this.vacantes = response.data;
+      } catch (error) {
+        console.error('Error al obtener las vacantes:', error);
+      }
+    },
+    async editVacante(id) {
+      try {
+        const response = await axios.get(`/vacancies/${id}`);
+        this.selectedVacancy = response.data.vacante;
+        this.currentView = 'EditarVacantes';
+      } catch (error) {
+        console.error('Error al obtener la vacante para editar:', error);
+      }
+    },
+    async updateVacante() {
+      try {
+        const response = await axios.put(`/vacancies/${this.selectedVacancy.id}`, {
+          vacancy_name: this.selectedVacancy.vacancy_name,
+          vacancy_description: this.selectedVacancy.vacancy_description,
+          salary: this.selectedVacancy.salary,
+          company_name: 'Default Company', // Ajusta según la lógica de la empresa
+          company_id: 1, // Ajusta según la lógica de la empresa
+          user_id: 1, // Ajusta según la lógica del usuario
+          province_id: 1, // Ajusta según la lógica de la provincia
+          area_id: 1, // Ajusta según la lógica del área
+          position_id: 1 // Ajusta según la lógica de la posición
+        });
+
+        // Actualiza la vacante en la lista
+        const index = this.vacantes.findIndex(vacante => vacante.id === this.selectedVacancy.id);
+        if (index !== -1) {
+          this.vacantes[index] = response.data.vacante;
+        }
+
+        this.selectedVacancy = null;
+        this.currentView = 'VacantesAñadidas';
+        console.log('Vacante actualizada:', response.data.vacante);
+      } catch (error) {
+        console.error('Error al actualizar la vacante:', error);
+      }
+    },
+    async deleteVacante(id) {
+      try {
+        await axios.delete(`/vacancies/${id}`);
+        this.vacantes = this.vacantes.filter(vacante => vacante.id !== id);
+        console.log('Vacante eliminada:', id);
+      } catch (error) {
+        console.error('Error al eliminar la vacante:', error);
+      }
+    },
+    selectVacante(vacante) {
+      this.selectedVacancy = { ...vacante };
+      this.currentView = 'EditarVacantes';
+    },
+    resetForm() {
+      this.form = {
+        nombrePuesto: '',
+        descripcionPuesto: '',
+        area: '',
+        remuneracion: ''
+      };
     }
+  },
+  mounted() {
+    this.fetchVacantes(); // Cargar vacantes al iniciar
   }
 }
 </script>
@@ -144,6 +253,7 @@ export default {
   width: 100%;
   display: flex;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 /* Estilo del panel izquierdo con los botones de las vistas */
@@ -178,7 +288,6 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-/* Estilo para el círculo activo (color azul) */
 .circle.active {
   background-color: #5a8dee;
 }
@@ -273,6 +382,94 @@ p {
 
 .submit-button:hover {
   background-color: #555;
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .navigation-panel {
+    width: 80%;
+    gap: 50px;
+  }
+
+  .left-panel {
+    flex: 0 0 200px;
+    margin-right: 20px;
+  }
+
+  .form-container {
+    width: 70%;
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation-panel {
+    width: 90%;
+    gap: 30px;
+    padding: 10px 5px;
+    flex-wrap: wrap;
+  }
+
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-panel {
+    flex: 0 0 auto;
+    margin-right: 0;
+    align-items: center;
+  }
+
+  .circle {
+    width: 120px;
+    height: 120px;
+    font-size: 14px;
+  }
+
+  .form-container {
+    width: 80%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation-panel {
+    width: 100%;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .nav-button {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .left-panel {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .circle {
+    width: 100px;
+    height: 100px;
+    font-size: 12px;
+  }
+
+  .form-container {
+    width: 90%;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 12px;
+  }
+
+  .submit-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 }
 
 </style>

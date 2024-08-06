@@ -47,7 +47,7 @@
 <script setup>
 import { ref , onMounted } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
-import Nav from './Nav.vue';
+import Nav from './Nav_student.vue';
 import Titulos from '@/Components/Titulos.vue';
 import ProfileCard from '@/Components/Specific/ProfileCard.vue';
 import Footer from '@/Components/Footer.vue';
