@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
@@ -35,8 +36,48 @@ class UserProfileController extends Controller
         return response()->json($data, 200);
     }
 
+    /// Metodos para subir archivos cargados por el usuario:
+
+    public function postPhoto(Request $request){
+        $photo_path = $request->file('photo_path')->store('public/photo');
+        return $photo_path;
+    }
+
+    public function postIdentification(Request $request){
+        $identification_path = $request->file('identification_path')->store('public/identification'); 
+        return $identification_path;
+    }
+
+    public function postCV(Request $request){
+        $cv_path = $request->file('cv_path')->store('public/cv');
+        return $cv_path;
+    }
+
+/// Metodos para obtener archivos cargados por el usuario:
+
+    // public function getPhoto(Request $request){
+    //     $photo_path = $request->file('photo_path')->store('public/photo');
+    //     return $photo_path;
+    // }
+
+    // public function getIdentification(Request $request){
+    //     $identification_path = $request->file('identification_path')->store('public/identification'); 
+    //     return $identification_path;
+    // }
+
+    // public function getCV(Request $request){
+    //     $cv_path = $request->file('cv_path')->store('public/cv');
+    //     return $cv_path;
+    // }
+
+
+
+
+
+
     public function postProfileData(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -61,7 +102,20 @@ class UserProfileController extends Controller
             return response()->json($data, 400);
         }
 
-        $profile = UserProfile::create($request->all());
+        $profile = UserProfile::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'description' => $request->description,
+            'age' => $request->age,
+            'photo_path' => $this->postPhoto($request),
+            'identification_path' => $this->postIdentification($request),
+            'cv_path' => $this->postCV($request),
+            'profession_id' => $request->profession_id,
+            'province_id' => $request->profession_id,
+            'user_id' => $request->user_id,
+        ]);
 
         if (!$profile) {
             $data = [
