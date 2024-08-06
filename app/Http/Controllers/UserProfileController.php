@@ -71,10 +71,6 @@ class UserProfileController extends Controller
     // }
 
 
-
-
-
-
     public function postProfileData(Request $request)
     {
 
