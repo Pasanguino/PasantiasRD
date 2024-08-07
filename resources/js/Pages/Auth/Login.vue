@@ -30,9 +30,11 @@ const submit = () => {
 </script>
 
 <template>
+
     <Head title="Inicio de sesión" />
 
     <div class="login-page">
+
         <div class="container">
             <div class="logo">
                 <div class="item">
@@ -43,8 +45,14 @@ const submit = () => {
             </div>
             <div class="login">
                 <div class="container">
+
+
+
+
+
+
                     <div class="form">
-                        <h1>Inicio de sesión</h1>
+                        <h1>Inicio de sesión </h1>
                         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
                             {{ status }}
                         </div>
@@ -52,15 +60,19 @@ const submit = () => {
                         <form @submit.prevent="submit">
                             <div>
                                 <InputLabel for="email" value="Email" />
+
                                 <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email"
                                     required autofocus autocomplete="username" />
+
                                 <InputError class="mt-2" :message="form.errors.email" />
                             </div>
 
                             <div class="mt-4">
                                 <InputLabel for="password" value="Contraseña" />
+
                                 <TextInput id="password" type="password" class="mt-1 block w-full"
                                     v-model="form.password" required autocomplete="current-password" />
+
                                 <InputError class="mt-2" :message="form.errors.password" />
                             </div>
 
@@ -79,7 +91,7 @@ const submit = () => {
 
                                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                     :disabled="form.processing">
-                                    Inicio de sesión
+                                    inicio de sesión
                                 </PrimaryButton>
                             </div>
                         </form>
@@ -87,25 +99,38 @@ const submit = () => {
                 </div>
             </div>
         </div>
+
+
+
+
     </div>
+
 </template>
 
-<style scoped>
+<style >
+
 @font-face {
     font-family: 'MyFont';
-    src: url('../fonts/Retosta.otf') format('opentype');
+    src: url('../fonts/Retosta.otf') format('woff2'),
+
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 .login-page {
     background: rgb(89, 44, 3);
     background: linear-gradient(0deg, rgba(89, 44, 3, 1) 0%, rgba(191, 95, 7, 1) 100%);
-    height: 100vh;
+    height: 100vh; 
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* padding: 60px 0px 60px 0px; */
+    
 }
 
 .container {
@@ -117,6 +142,7 @@ const submit = () => {
     margin: auto;
     position: relative;
     top: 50px;
+
 }
 
 .container>div {
@@ -124,6 +150,7 @@ const submit = () => {
     text-align: center;
 }
 
+/* Media query para ocultar el primer div cuando el contenedor es pequeño */
 @media only screen and (max-width: 1000px) {
     .container .logo {
         display: none;
@@ -154,13 +181,16 @@ const submit = () => {
     transform: scale(1.2);
 }
 
-.logo .item .marca h1 {
-    transform: translate(0px, -70px);
+
+.logo .item .marca h1{
+    transform:translate(0px, -70px);
     color: #fff;
+    /* font-weight: 900; */
     font-size: 70px;
     font-family: "MyFont";
     letter-spacing: 0px;
-    margin: 20px;
+    margin: 20px
+
 }
 
 .login {
@@ -169,7 +199,9 @@ const submit = () => {
     align-items: center;
     background: #fff;
     width: 100%;
+    /* Asegura que el ancho sea 100% */
     box-sizing: border-box;
+    /* Asegura que el padding no afecte el tamaño total */
 }
 
 .login .container {
@@ -181,7 +213,9 @@ const submit = () => {
     top: -10px;
 }
 
-.login .container .titulo {
+
+
+.login .container .titulo  {
     text-align: center;
     margin: 40px;
     height: 20px;
@@ -192,7 +226,8 @@ const submit = () => {
     font-weight: 900;
     padding: 20px;
     text-align: center;
-    color: rgba(191, 95, 7, 1);
+    color: rgba(191, 95, 7, 1) ;
+
 }
 
 .login .container .form {

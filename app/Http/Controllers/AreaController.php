@@ -42,6 +42,9 @@ class AreaController extends Controller
         // Obtener las vacantes asociadas al área
         $vacancies = $area->vacancies;
 
+        // Cargar las relaciones deseadas
+        $vacancies->load(['users', 'area', 'position', 'favorites', 'province']);
+
         // Retornar las vacantes en formato JSON
         // return response()->json($vacancies);
 

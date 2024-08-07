@@ -25,16 +25,21 @@
     >
            <swiper-slide v-for="(slide, index) in slides" :key="index">
               <div class="slide-content">
+             <a :href="'/vacante/' + slide.id">
                 <div class="header">
+
                   <img :src="slide.image" alt="Company logo" class="logo">
                   <div>
+         
                     <h3 class="title">{{ slide.title }}</h3>
                     <p class="company">{{ slide.company }}</p>
+
                   </div>
                 </div>
                 <p class="content">{{ slide.content }}</p>
                 <p class="location">{{ slide.location }}</p>
                 <p class="date">{{ slide.date }}</p>
+                </a>
               </div>
             </swiper-slide>
     </swiper>
