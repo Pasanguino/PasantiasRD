@@ -10,7 +10,7 @@ use App\Http\Controllers\CompanyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\FavoriteController;
 
 use Inertia\Inertia;
 
@@ -60,6 +60,7 @@ Route::get('/dashboard_prueva', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/favoritess', [FavoriteController::class, 'showFavorites'])->middleware(['auth', 'verified']);
 
 Route::get('/estudiante', function () {
     return Inertia::render('Find_internship');
@@ -79,6 +80,8 @@ Route::middleware(['estudiante', 'auth'])->group(function () {
     ->name('applications.store');
 
     Route::get('/applications', [ApplicationController::class, 'index']);
+
+    Route::get('/applicationss', [ApplicationController::class, 'misAplicaciones']);
 
 
     Route::post('/aplicar', [ApplicationController::class, 'store']);

@@ -112,4 +112,13 @@ class FavoriteController extends Controller
         return redirect()->route('Favorite')->with('status', 'Recurso eliminado exitosamente');
 
     }
+
+
+    public function showFavorites()
+    {
+        $favorite = Favorite::all();
+
+
+        return response()->json($favorite);
+    }
 }

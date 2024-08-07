@@ -19,6 +19,13 @@ class ApplicationController extends Controller
 {
 
 
+    public function misAplicaciones()
+    {
+        $userId = auth()->id(); // Obtener el ID del usuario autenticado
+        $applications = Application::where('user_id', $userId)->get(); // Filtrar las aplicaciones por el ID del usuario
+        return response()->json($applications); // Devolver las aplicaciones en formato JSON
+    }
+
     /**
      * Display a listing of the resource.
      */ public function index()
