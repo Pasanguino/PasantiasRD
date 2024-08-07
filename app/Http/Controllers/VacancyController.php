@@ -13,10 +13,12 @@ class VacancyController extends Controller
 {
     public function getAllVacancy()
     {
-        // Obtener todas las vacantes e incluir las relaciones
-        $vacancies = Vacancy::with(['province', 'area', 'position'])->get();
 
-        // Devolver las vacantes con datos relacionados como respuesta JSON
+        $vacancies = Vacancy::with(['province', 'area', 'position'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
         return response()->json($vacancies);
     }
 

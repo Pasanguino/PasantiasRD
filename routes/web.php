@@ -7,6 +7,7 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CompanyController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,7 @@ Route::get('/', function () {
 });
 
 Route::get('/userr', [DashboardController::class, 'index']);
+Route::get('/count', [DashboardController::class, 'count']);
 
 Route::get('/auth/status', function () {
     return response()->json(['authenticated' => Auth::check()]);
@@ -38,6 +40,7 @@ Route::get('/province', [ProvinceController::class,'index']);
 Route::get('/vacante/search/buscar', [VacancyController::class, 'searchVacancy']) ->name('search');
 Route::get('/vacante/{id}', [VacancyController::class, 'show']);
 
+Route::get('/Area', [AreaController::class, 'index']);
 
 
 Route::get('/support', function () {

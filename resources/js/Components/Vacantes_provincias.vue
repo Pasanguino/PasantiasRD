@@ -51,8 +51,8 @@ const toggleMostrarTodo = () => {
                 :vacantes="tarjeta.vacantes"
                 :companias="tarjeta.companias" />
         </div>
-    </div>
-    <div class="ver-mas">
+
+            <div class="ver-mas">
         <button @click="toggleMostrarTodo" class="flex items-center">
             <span>
                 {{
@@ -69,6 +69,8 @@ const toggleMostrarTodo = () => {
             </svg>
         </button>
     </div>
+    </div>
+
 </template>
 
 <style scoped>
@@ -79,9 +81,10 @@ const toggleMostrarTodo = () => {
 
 .cantidad_vacantes {
     /* margin-top: 200px; */
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(222, 231, 255, 0.233);
     display: flex;
     flex-direction: column;
+    padding: 10px 10px;
 
     /* Centrar el botón */
 }
