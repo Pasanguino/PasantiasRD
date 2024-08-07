@@ -45,8 +45,8 @@ class RegisteredUserController extends Controller
         // Inicializar el nombre de la compañía
         $company_name = 'Sin empresa';
 
-        // Si se proporciona un company_id, obtener el nombre de la compañía
-        if ($request->filled('company_id')) {
+        // Si se proporciona un company_id diferente de 0, obtener el nombre de la compañía
+        if ($request->filled('company_id') && $request->company_id != 0) {
             $company = Company::findOrFail($request->company_id);
             $company_name = $company->company_name;
         }
@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'type_user_id' => $request->type_user_id,
             'province_id' => $request->province_id, // Esto puede ser null
-            'company_id' => $request->company_id, // Esto puede ser null
+            'company_id' => $request->company_id != 0 ? $request->company_id : null, // Convertir 0 a null
             'company_name' => $company_name, // Asignar el nombre de la compañía
         ]);
 
@@ -72,5 +72,4 @@ class RegisteredUserController extends Controller
         // Redireccionar al dashboard
         return redirect()->route('dashboard');
     }
-
 }

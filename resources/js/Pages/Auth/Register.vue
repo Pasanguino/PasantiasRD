@@ -18,7 +18,7 @@ const form = useForm({
   type_user_id: 1,
   province_id: "",
   company_id: 0,
-  company_name: "",
+  company_name: "Null",
 });
 
 const companies = ref([]);
@@ -29,7 +29,7 @@ const img = ref("/images/graduation.svg");
 
 const submit = () => {
   form.post(route("register"), {
-    onFinish: () => form.reset('password', 'password_confirmation'),
+    // onFinish: () => form.reset('password', 'password_confirmation'),
   });
 };
 
