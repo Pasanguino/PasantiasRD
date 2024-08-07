@@ -158,7 +158,6 @@ const checkFavoriteStatus = async () => {
     // Obtén todos los favoritos
     const response = await axios.get('/favoritess');
     const favorites = response.data;
-    console.log(favorites);
 
     // Actualiza la lista de IDs de favoritos
     favoriteIds.value = favorites.map(fav => fav.vacancy_id);

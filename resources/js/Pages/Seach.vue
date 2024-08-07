@@ -27,8 +27,7 @@
       <Titulos :titulo="'Vacantes de ' + entrada" />
 
       <div class="grid-container">
-
-         <ProfileCard
+       <ProfileCard
       v-for="(vacancy, index) in vacancies"
       :key="vacancy.id"
       :id="vacancy.id"
@@ -44,7 +43,6 @@
       :area_id="vacancy.area.area_name"
       :position_id="vacancy.position.position_name"
     />
-
       </div>
       <div v-if="!vacancies.length" class="mt-6 text-center text-gray-600">
         <p>No se encontraron vacantes.</p>
