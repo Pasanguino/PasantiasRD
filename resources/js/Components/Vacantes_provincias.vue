@@ -74,6 +74,7 @@ const toggleMostrarTodo = () => {
 <style scoped>
 * {
     transition: 0.5s;
+
 }
 
 .cantidad_vacantes {

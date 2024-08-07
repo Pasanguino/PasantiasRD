@@ -61,15 +61,17 @@ Route::get('/dashboard_prueva', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::get('/estudiante', function () {
+    return Inertia::render('Find_internship');
+})->name('estudiante');
+Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
+Route::get('/vacancies_area', [AreaController::class, 'index']);
+Route::get('/areas/{id}/vacancies', [AreaController::class, 'searchVacancies']);
 // Rutas para estudiantes con autenticación
 Route::middleware(['estudiante', 'auth'])->group(function () {
-    Route::get('/estudiante', function () {
-        return Inertia::render('Find_internship');
-    })->name('estudiante');
 
-    Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
-    Route::get('/vacancies_area', [AreaController::class, 'index']);
-    Route::get('/areas/{id}/vacancies', [AreaController::class, 'searchVacancies']);
+
+  
 
 
     Route::post('/applications', [ApplicationController::class, 'store'])

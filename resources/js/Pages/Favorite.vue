@@ -20,13 +20,22 @@
             :key="application.id"
             class="w-full md:w-1/2 lg:w-1/3 px-4 mb-6"
           >
-            <ProfileCard
-              :id="application.vacancy.id"
-              :vacancyName="application.vacancy.vacancy_name"
-              :companyName="application.vacancy.company_name"
-              :createdAt="application.vacancy.created_at"
-              :imageSrc="application.vacancy.image_src"
-            />
+              <ProfileCard
+      v-for="(vacancy, index) in vacancies"
+      :key="vacancy.id"
+      :id="vacancy.id"
+      :vacancyName="vacancy.vacancy_name"
+      :companyName="vacancy.company_name"
+      :vacancyDescription="vacancy.vacancy_description"
+      :salary="vacancy.salary"
+      :imageSrc="'/images/favicon.ico'"
+      :createdAt="vacancy.created_at"
+      :company_id="vacancy.company_id"
+      :user_id="vacancy.user_id"
+      :province_id="vacancy.province.province_name"
+      :area_id="vacancy.area.area_name"
+      :position_id="vacancy.position.position_name"
+    />
             <div class="text-center mt-4">
               <button
                 @click="deleteFavorite(application.id)"

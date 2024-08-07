@@ -90,6 +90,9 @@ class ApplicationController extends Controller
         $userId = auth()->id();
         $vacancyId = $validatedData['vacancy_id'];
 
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+
         // Verificar si el usuario ya ha aplicado a esta vacante
         $existingApplication = Application::where('user_id', $userId)
             ->where('vacancy_id', $vacancyId)
@@ -100,15 +103,22 @@ class ApplicationController extends Controller
             return response()->json(['message' => 'Ya has aplicado a esta vacante.'], 422);
         }
 
-        // Crear la aplicación si no existe una anterior
-        Application::create([
-            'user_id' => $userId,
-            'vacancy_id' => $vacancyId,
-        ]);
+        // Verificar si el type_user_id es igual a 1
+        if ($user->type_user_id == 1) {
+            // Crear la aplicación si no existe una anterior y el type_user_id es 1
+            Application::create([
+                'user_id' => $userId,
+                'vacancy_id' => $vacancyId,
+            ]);
+        } else {
+            // Retornar un error en JSON si el type_user_id no es igual a 1
+            return redirect('/');
+        }
 
-        // Retornar un éxito en JSON
-        return response()->json(['message' => 'Aplicación creada exitosamente.']);
+        // Retornar una respuesta de éxito
+        return response()->json(['message' => 'Aplicación creada exitosamente.'], 201);
     }
+
 
 
 

@@ -1,36 +1,26 @@
 <template>
-  <div class="profile-card">
-    <div class="flex justify-end px-4 pt-4"></div>
-    <div class="flex flex-col items-center pb-10">
-      <a :href="'/vacante/' + id">
-        <img
-          class="w-24 h-24 mb-3 rounded-full shadow-lg"
-          :src="imageSrc"
-        />
-      </a>
-      <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-        <a :href="'/vacante/' + id">
-          {{ vacancyName }}
-        </a>
-      </h5>
-      <span class="text-sm text-gray-500 dark:text-gray-400">
-        {{ companyName }}
-      </span>
-      <span class="text-sm text-gray-500 dark:text-gray-400">
-        {{ formattedDate }}
-      </span>
-      <div class="flex mt-4 md:mt-6">
-        <button
-          @click="applyForVacancy"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
+  <div class="vacancy-card">
+
+    <div class="image-section">
+      <img :src="imageSrc" alt="Vacancy Image" class="vacancy-image"/>
+    </div>
+    <div class="details-section">
+     <a :href="'/vacante/' + id">
+      <h2 class="vacancy-title">{{ vacancyName }}</h2>
+    </a>
+      <p class="company-name">{{ companyName }}</p>
+      <p class="salary">Salario: {{ salary | currency }}</p>
+      <p class="location">
+        <span>Provincia: {{ province_id }}</span>
+        <span>Área: {{ area_id }}</span>
+        <span>Posición: {{ position_id }}</span>
+      </p>
+      <p class="date">{{ formattedDate }}</p>
+      <div class="button-group">
+        <button @click="applyForVacancy" class="btn apply-btn">
           Aplicar
         </button>
- 
-            <button
-          @click="toggleFavorite"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ml-2"
-        >
+        <button @click="toggleFavorite" class="btn favorite-btn">
           Favorito
         </button>
       </div>
@@ -52,7 +42,14 @@ const props = defineProps({
   imageSrc: {
     type: String,
     default: '/images/favicon.ico',
-  }
+  },
+  vacancy_description: String,
+  salary: Number,
+  company_id: Number,
+  user_id: Number,
+  province_id: Number,
+  area_id: Number,
+  position_id: Number,
 });
 
 // Estado de autenticación y datos del usuario
@@ -205,38 +202,103 @@ onMounted(() => {
 
 
 
+
 <style scoped>
-.profile-card {
+.vacancy-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  max-width: 350px;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
   width: 100%;
-  max-width: 300px; /* Limita el ancho máximo del perfil */
-  background-color: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
 }
 
-.profile-card h5 {
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+.vacancy-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.profile-card p {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: #4a5568;
+.image-section {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 
-.profile-card img {
-  width: 100px;
-  height: 100px;
-  border-radius: 9999px; /* Asegura que la imagen sea redonda */
+.vacancy-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 2px solid white;
-  box-shadow: 0 0 0 2px #4299e1;
+}
+
+.details-section {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.vacancy-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.company-name {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.salary {
+  font-size: 1.1rem;
+  color: #444;
+  margin: 0.5rem 0;
+}
+
+.location {
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0.5rem 0;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 0.5rem 0;
+}
+
+.button-group {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.apply-btn:hover {
+  background-color: #218838;
+}
+
+.favorite-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.favorite-btn:hover {
+  background-color: #c82333;
 }
 </style>
