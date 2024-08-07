@@ -111,9 +111,9 @@ public function updateCV(Request $request, $profile){
             'phone' => 'required|string',
             'description' => 'required|string',
             'age' => 'required|integer',
-            'photo_path' => 'required|string',
-            'identification_path' => 'required|string',
-            'cv_path' => 'required|string',
+            'photo_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'identification_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'cv_path' => 'required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
             'profession_id' => 'required|integer',
             'province_id' => 'required|integer',
             'user_id' => 'required|integer',
@@ -179,9 +179,9 @@ public function updateCV(Request $request, $profile){
             'phone' => 'sometimes|required|string',
             'description' => 'sometimes|required|string',
             'age' => 'sometimes|required|integer',
-            'photo_path' => 'sometimes|required|string',
-            'identification_path' => 'sometimes|required|string',
-            'cv_path' => 'sometimes|required|string',
+            'photo_path' => 'sometimes|required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'identification_path' => 'sometimes|required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'cv_path' => 'sometimes|required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
             'profession_id' => 'sometimes|required|integer',
             'province_id' => 'sometimes|required|integer',
             'user_id' => 'sometimes|required|integer', // Deben enviar el id del usuario logueado.
