@@ -7,10 +7,11 @@ use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CompanyController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\FavoriteController;
 
 use Inertia\Inertia;
 
@@ -24,6 +25,7 @@ Route::get('/', function () {
 });
 
 Route::get('/userr', [DashboardController::class, 'index']);
+Route::get('/count', [DashboardController::class, 'count']);
 
 Route::get('/auth/status', function () {
     return response()->json(['authenticated' => Auth::check()]);
@@ -38,6 +40,7 @@ Route::get('/province', [ProvinceController::class,'index']);
 Route::get('/vacante/search/buscar', [VacancyController::class, 'searchVacancy']) ->name('search');
 Route::get('/vacante/{id}', [VacancyController::class, 'show']);
 
+Route::get('/Area', [AreaController::class, 'index']);
 
 
 Route::get('/support', function () {
@@ -60,16 +63,19 @@ Route::get('/dashboard_prueva', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/favoritess', [FavoriteController::class, 'showFavorites'])->middleware(['auth', 'verified']);
 
+Route::get('/estudiante', function () {
+    return Inertia::render('Find_internship');
+})->name('estudiante');
+Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
+Route::get('/vacancies_area', [AreaController::class, 'index']);
+Route::get('/areas/{id}/vacancies', [AreaController::class, 'searchVacancies']);
 // Rutas para estudiantes con autenticación
 Route::middleware(['estudiante', 'auth'])->group(function () {
-    Route::get('/estudiante', function () {
-        return Inertia::render('Find_internship');
-    })->name('estudiante');
 
-    Route::get('/vacancies_data', [VacancyController::class, 'getAllVacancy']);
-    Route::get('/vacancies_area', [AreaController::class, 'index']);
-    Route::get('/areas/{id}/vacancies', [AreaController::class, 'searchVacancies']);
+
+  
 
 
     Route::post('/applications', [ApplicationController::class, 'store'])
@@ -77,6 +83,8 @@ Route::middleware(['estudiante', 'auth'])->group(function () {
     ->name('applications.store');
 
     Route::get('/applications', [ApplicationController::class, 'index']);
+
+    Route::get('/applicationss', [ApplicationController::class, 'misAplicaciones']);
 
 
     Route::post('/aplicar', [ApplicationController::class, 'store']);

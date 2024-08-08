@@ -12,15 +12,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Nav from '/resources/js/Pages/Nav_student.vue'; // Asegúrate de que la ruta sea correcta
-
-export default {
-  name: 'Test',
-  components: {
-    Nav
-  }
-};
 </script>
 
 <style scoped>
@@ -35,3 +28,4 @@ export default {
   margin-top: 20px;
 }
 </style>
+

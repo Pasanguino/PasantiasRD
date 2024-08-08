@@ -6,7 +6,8 @@
                     <a href="/" class="flex items-center">
                         <img src="/images/favicon.ico" class=" logo" alt="FlowBite Logo" />
                         <span
-                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">tecnomarket_srl</span>
+                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pasangüino
+</span>
                     </a>
                     <p class="mt-2 ">Mejoramos y facilitamos cada día<br> la búsqueda y aplicación a pasantías<br> en
                         toda la

@@ -20,7 +20,7 @@ return new class extends Migration
 
         // Insertar datos en la tabla `areas`
         DB::table('areas')->insert([
-            ['area_name' => 'Tecnología de la Información (TI)', 'created_at' => now(), 'updated_at' => now()],
+            ['area_name' => 'Tecnología ', 'created_at' => now(), 'updated_at' => now()],
             ['area_name' => 'Marketing', 'created_at' => now(), 'updated_at' => now()],
             ['area_name' => 'Medicina', 'created_at' => now(), 'updated_at' => now()],
             ['area_name' => 'Diseño', 'created_at' => now(), 'updated_at' => now()],

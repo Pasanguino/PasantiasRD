@@ -36,39 +36,69 @@ class UserProfileController extends Controller
         return response()->json($data, 200);
     }
 
-    /// Metodos para subir archivos cargados por el usuario:
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+ /*
+Agregar info
+
+ 1- Se recibe el request con la ruta de la nueva imagen subida
+ 2- Se almacen la ruta
+ 3- Retornamos la ruta
+
+ */
 
     public function postPhoto(Request $request){
-        $photo_path = $request->file('photo_path')->store('public/photo');
+        $photo_path = $request->file('photo_path')->store('public/files/users/' . $request->user_id . '/photo/');
         return $photo_path;
     }
 
     public function postIdentification(Request $request){
-        $identification_path = $request->file('identification_path')->store('public/identification'); 
+        $identification_path = $request->file('identification_path')->store('public/files/users/' . $request->user_id  . '/identification/'); 
         return $identification_path;
     }
 
     public function postCV(Request $request){
-        $cv_path = $request->file('cv_path')->store('public/cv');
+        $cv_path = $request->file('cv_path')->store('public/files/users/' . $request->user_id  . '/cv/');
         return $cv_path;
     }
 
-/// Metodos para obtener archivos cargados por el usuario:
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+ /*
+Actualizar info
 
-    // public function getPhoto(Request $request){
-    //     $photo_path = $request->file('photo_path')->store('public/photo');
-    //     return $photo_path;
-    // }
+ 1- Se recibe el request con la ruta de la nueva imagen subida y la ruta de la imagen actual desde el modelo profile.
+ 2- Valida que el path no este vacio para proceder a eliminar el anteriormente guardado.
+ 3- Elimina el anterior
+ 4- Retorna la nueva ruta
 
-    // public function getIdentification(Request $request){
-    //     $identification_path = $request->file('identification_path')->store('public/identification'); 
-    //     return $identification_path;
-    // }
+ */
 
-    // public function getCV(Request $request){
-    //     $cv_path = $request->file('cv_path')->store('public/cv');
-    //     return $cv_path;
-    // }
+ public function updatePhoto(Request $request, $profile){ //
+    if($profile->photo_path <> ''){ 
+        unlink($profile->photo_path);
+    }
+    $photo_path = $request->file('photo')->store('public/files/users/' . $request->user_id . '/photo/');  
+    return $photo_path; 
+}
+
+public function updateIdentification(Request $request, $profile){
+    if($profile->identification_path <> ''){
+        unlink($profile->identification_path);
+    }
+    $identification_path = $request->file('identification_path')->store('public/files/users/' . $request->user_id . '/identification/'); 
+
+    return $identification_path;
+}
+
+public function updateCV(Request $request, $profile){
+
+    if($profile->cv_path <> ''){
+        unlink($profile->cv_path);
+    }
+    $cv_path = $request->file('cv_path')->store('public/files/users/' . $request->user_id . '/cv/'); 
+
+    return $cv_path;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     public function postProfileData(Request $request)
@@ -81,9 +111,9 @@ class UserProfileController extends Controller
             'phone' => 'required|string',
             'description' => 'required|string',
             'age' => 'required|integer',
-            'photo_path' => 'required|string',
-            'identification_path' => 'required|string',
-            'cv_path' => 'required|string',
+            'photo_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'identification_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'cv_path' => 'required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
             'profession_id' => 'required|integer',
             'province_id' => 'required|integer',
             'user_id' => 'required|integer',
@@ -110,7 +140,7 @@ class UserProfileController extends Controller
             'cv_path' => $this->postCV($request),
             'profession_id' => $request->profession_id,
             'province_id' => $request->profession_id,
-            'user_id' => $request->user_id,
+            'user_id' => $request->user_id, // Deben enviar el id del usuario logueado.
         ]);
 
         if (!$profile) {
@@ -133,6 +163,7 @@ class UserProfileController extends Controller
     {
         $profile = UserProfile::find($id);
 
+
         if (!$profile) {
             $data = [
                 'message' => 'Perfil no encontrado',
@@ -148,12 +179,12 @@ class UserProfileController extends Controller
             'phone' => 'sometimes|required|string',
             'description' => 'sometimes|required|string',
             'age' => 'sometimes|required|integer',
-            'photo_path' => 'sometimes|required|string',
-            'identification_path' => 'sometimes|required|string',
-            'cv_path' => 'sometimes|required|string',
+            'photo_path' => 'sometimes|required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'identification_path' => 'sometimes|required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'cv_path' => 'sometimes|required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
             'profession_id' => 'sometimes|required|integer',
             'province_id' => 'sometimes|required|integer',
-            'user_id' => 'sometimes|required|integer',
+            'user_id' => 'sometimes|required|integer', // Deben enviar el id del usuario logueado.
         ]);
 
         if ($validator->fails()) {
@@ -190,15 +221,15 @@ class UserProfileController extends Controller
         }
 
         if ($request->has('photo_path')) {
-            $profile->photo_path = $request->photo_path;
+            $profile->photo_path = $this->updatePhoto($request, $profile->photo_path);
         }
 
         if ($request->has('identification_path')) {
-            $profile->identification_path = $request->identification_path;
+            $profile->identification_path = $this->updateIdentification($request, $profile->identification_path);
         }
 
         if ($request->has('cv_path')) {
-            $profile->cv_path = $request->cv_path;
+            $profile->cv_path = $this->updateCV($request, $profile->cv_path);
         }
 
         if ($request->has('profession_id')) {

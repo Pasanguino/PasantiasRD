@@ -21,7 +21,9 @@ class FavoriteController extends Controller
         $userId = auth()->id();
 
         // Obtener todos los favoritos del usuario autenticado con los datos de la vacante y del usuario
-        $favorites = Favorite::where('user_id', $userId)->with(['vacancy', 'user'])->get();
+        $favorites = Favorite::where('user_id', $userId)
+            ->with(['vacancy.users', 'vacancy.area', 'vacancy.position', 'vacancy.favorites', 'vacancy.province'])
+            ->get();
 
         // Transformar los datos para devolver la vacante y el usuario en lugar de vacancy_id y user_id
         $favorites = $favorites->map(function ($favorite) {
@@ -34,11 +36,12 @@ class FavoriteController extends Controller
             ];
         });
 
-        // return response()->json($favorites);
+        // Renderizar la vista con Inertia
         return Inertia::render('Favorite', [
             'applications' => $favorites,
         ]);
     }
+
 
 
     public function ErrorValidator(Request $request)
@@ -94,22 +97,19 @@ class FavoriteController extends Controller
 
     public function deleteFavorites($id)
     {
-        // Buscar el recurso por ID
-        $favorite = Favorite::find($id);
-    
-        // Verificar si el recurso existe
-        if (!$favorite) {
-            return response()->json([
-                'message' => 'Recurso no encontrado',
-                'status' => 404
-            ], 404);
-        }
-    
-        // Eliminar el recurso
+        // Eliminar el favorito
+        $favorite = Favorite::where('id', $id)->firstOrFail();
         $favorite->delete();
 
-        // Responder con éxito
-        return redirect()->route('Favorite')->with('status', 'Recurso eliminado exitosamente');
+     
+    }
 
+
+    public function showFavorites()
+    {
+        $favorite = Favorite::all();
+
+
+        return response()->json($favorite);
     }
 }
