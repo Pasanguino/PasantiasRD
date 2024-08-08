@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Application;
 use Inertia\Inertia;
 
 class VacancyController extends Controller
@@ -87,6 +88,50 @@ class VacancyController extends Controller
         ];
 
         return response()->json($data, 201);
+    }
+
+    public function getApplicants($id)
+    {
+        // Obtener todas las postulaciones para la vacante específica con las relaciones necesarias
+        $applications = Application::with('vacancy.area', 'vacancy.position', 'vacancy.province', 'user')
+            ->where('vacancy_id', $id)
+            ->get();
+
+        // Formatear la respuesta
+        $response = $applications->map(function ($application) {
+            return [
+                'application' => [
+                    'id' => $application->id,
+                    'user_id' => $application->user_id,
+                    'vacancy_id' => $application->vacancy_id,
+                    'status' => $application->status,
+                    'vacancy' => [
+                        'id' => $application->vacancy->id,
+                        'vacancy_name' => $application->vacancy->vacancy_name,
+                        'vacancy_description' => $application->vacancy->vacancy_description,
+                        'salary' => $application->vacancy->salary,
+                        'company_name' => $application->vacancy->company_name,
+                        'company_id' => $application->vacancy->company_id,
+                        'area_name' => optional($application->vacancy->area)->area_name ?? 'Área no especificada',
+                        'position_name' => optional($application->vacancy->position)->position_name ?? 'Puesto no especificado',
+                        'province_name' => optional($application->vacancy->province)->province_name ?? 'Provincia no definida',
+                    ],
+                    'user' => [
+                        'id' => $application->user->id,
+                        'first_name' => $application->user->first_name,
+                        'last_name' => $application->user->last_name,
+                        'email' => $application->user->email,
+                        'type_user_id' => $application->user->type_user_id,
+                        'province_id' => $application->user->province_id,
+                        'company_id' => $application->user->company_id,
+                        'company_name' => $application->user->company_name,
+                    ],
+                ],
+            ];
+        });
+
+        // Retornar la respuesta en formato JSON
+        return response()->json($response);
     }
 
     public function getVacancyById($id)
