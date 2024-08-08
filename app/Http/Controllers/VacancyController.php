@@ -101,12 +101,10 @@ class VacancyController extends Controller
 
     public function getApplicants($id)
     {
-        // Obtener todas las postulaciones para la vacante específica con las relaciones necesarias
         $applications = Application::with('vacancy.area', 'vacancy.position', 'vacancy.province', 'user')
             ->where('vacancy_id', $id)
             ->get();
 
-        // Formatear la respuesta
         $response = $applications->map(function ($application) {
             return [
                 'application' => [
@@ -139,8 +137,24 @@ class VacancyController extends Controller
             ];
         });
 
-        // Retornar la respuesta en formato JSON
         return response()->json($response);
+    }
+
+    public function updateApplicationStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:en proceso,aceptado,rechazado',
+        ]);
+
+        $application = Application::findOrFail($id);
+
+        $application->status = $request->status;
+        $application->save();
+
+        return response()->json([
+            'message' => 'Estado de la aplicación actualizado exitosamente.',
+            'application' => $application
+        ]);
     }
 
     public function getVacancyById($id)
