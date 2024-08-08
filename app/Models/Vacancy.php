@@ -24,23 +24,27 @@ class Vacancy extends Model
     public function application(){
         return $this->hasMany(Application::class);
     }
-    public function users(){
-        return $this->belongsTo(User::class);
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function areas(){
-        return $this->belongsTo(Area::class);
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id'); // Reemplaza 'area_id' si el nombre del campo es diferente
+    }
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id'); // Reemplaza 'position_id' si el nombre del campo es diferente
     }
 
-    public function positions(){
-        return $this->belongsTo(Position::class);
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'vacancy_id');
     }
 
-    public function favorites(){
-        return $this->belongsTo(Favorite::class);
-    }
-
-    public function provinces(){
-        return $this->belongsTo(Province::class);
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id'); // Reemplaza 'province_id' si el nombre del campo es diferente
     }
 }

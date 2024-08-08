@@ -16,4 +16,10 @@ class Area extends Model
     public function positions(){
         return $this->hasMany(Position::class); 
     }
+
+    public function vacancies()
+    {
+        return $this->hasMany(Vacancy::class, 'area_id');
+    }
+
 }

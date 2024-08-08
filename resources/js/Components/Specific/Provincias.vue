@@ -3,6 +3,7 @@
 import { defineProps } from 'vue';
 
 const props = defineProps({
+    id: Number,
     imagen: String,
     titulo: String,
     contenido: String,
@@ -12,6 +13,9 @@ const props = defineProps({
 </script>
 
 <template>
+    <a :href="`/vacancies_province/${id}`">
+
+    
     <div class="tarjeta">
         <div class="imagen">
             <img :src="imagen" :alt="titulo">
@@ -24,11 +28,13 @@ const props = defineProps({
             <div class="companias">{{ companias }} Compañias</div>
         </div>
     </div>
+    </a>
+
 </template>
 
 <style scoped>
 .tarjeta {
-    background-color: #f57b08ce;
+    background-color: #f57b083f;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -52,7 +58,7 @@ const props = defineProps({
 .tarjeta h1 {
     font-size: 30px;
     font-weight: bold;
-    color: #ffffff;
+    color: #242424;
 }
 
 .tarjeta:hover h1 {
@@ -71,6 +77,6 @@ const props = defineProps({
 .vacantes,
 .companias {
     font-size: 16px;
-    color: #fff;
+    color: #333333;
 }
 </style>

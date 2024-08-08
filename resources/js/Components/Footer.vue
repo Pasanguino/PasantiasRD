@@ -6,7 +6,8 @@
                     <a href="/" class="flex items-center">
                         <img src="/images/favicon.ico" class=" logo" alt="FlowBite Logo" />
                         <span
-                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">tecnomarket_srl</span>
+                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pasangüino
+</span>
                     </a>
                     <p class="mt-2 ">Mejoramos y facilitamos cada día<br> la búsqueda y aplicación a pasantías<br> en
                         toda la
@@ -39,7 +40,7 @@
                         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4">
-                                <a href="/privacy" class="hover:underline text-white">Privacidad</a>
+                                <a href="https://www.egeda.do/documentos/Dec-No-362-01%20Reglamento%20Aplicacion-Ley%20No65-00.pdf" class="hover:underline text-white">Privacidad</a>
                             </li>
                             <li class="mb-4">
                                 <a href="/terms" class="hover:underline text-white">Términos y condiciones</a>

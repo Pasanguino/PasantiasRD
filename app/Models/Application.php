@@ -12,17 +12,22 @@ class Application extends Model
         'id',
         'user_id', // String
         'vacancy_id',
+        'status',
+
     ];
 
-    public function vacancies(){
-        return $this->belongsTo(Vacancy::class); 
+    public function vacancy()
+    {
+        return $this->belongsTo(Vacancy::class);
     }
     
     public function application_details(){
         return $this->hasOne(Application_detail::class); 
     }
 
-    public function users(){
-        return $this->belongsTo(User::class); 
+   
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

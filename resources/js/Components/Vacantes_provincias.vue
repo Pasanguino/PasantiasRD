@@ -1,92 +1,31 @@
 <!-- ComponentePrincipal.vue -->
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 import Provincias from "@/Components/Specific/Provincias.vue";
 
-const datosTarjetas = [
-    {
-        imagen: "/images/Provincias/Bahoruco.png",
-        titulo: "Bahoruco",
-        contenido: "Contenido de la tarjeta 1.",
-        vacantes: 0,
-        companias: 0,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-    {
-        imagen: "/images/Provincias/San Cristobal.png",
-        titulo: "San Cristobal",
-        contenido: "Contenido de la tarjeta 2.",
-        vacantes: 5,
-        companias: 3,
-    },
-
-    // Añadir más datos de tarjetas según sea necesario
-    // ...
-];
-
+const datosTarjetas = ref([]);
 const mostrarTodo = ref(false);
+
+const fetchProvinceData = async () => {
+    try {
+        const response = await axios.get('/province-data');
+        const data = response.data;
+
+        datosTarjetas.value = data.map(province => ({
+            id: province.province_id,
+            imagen: `/images/Provincias/${province.province_name.replace(/ /g, '')}.png`,
+            titulo: province.province_name,
+            contenido: `Vacantes: ${province.vacancy_count}, Compañías: ${province.company_count}`,
+            vacantes: province.vacancy_count,
+            companias: province.company_count,
+        }));
+    } catch (error) {
+        console.error("Error fetching province data:", error);
+    }
+};
+
+onMounted(fetchProvinceData);
 
 const toggleMostrarTodo = () => {
     mostrarTodo.value = !mostrarTodo.value;
@@ -103,13 +42,17 @@ const toggleMostrarTodo = () => {
         <div class="contenedor-provincias">
             <Provincias v-for="(tarjeta, indice) in mostrarTodo
                     ? datosTarjetas
-                    : datosTarjetas.slice(0, 3)" :key="indice" :imagen="tarjeta.imagen" :titulo="tarjeta.titulo"
-                :contenido="tarjeta.contenido" :vacantes="tarjeta.vacantes" :companias="tarjeta.companias" />
+                    : datosTarjetas.slice(0, 3)"
+                :key="indice"
+                :id="tarjeta.id"
+                :imagen="tarjeta.imagen"
+                :titulo="tarjeta.titulo"
+                :contenido="tarjeta.contenido"
+                :vacantes="tarjeta.vacantes"
+                :companias="tarjeta.companias" />
         </div>
 
-
-    </div>
-    <div class="ver-mas">
+            <div class="ver-mas">
         <button @click="toggleMostrarTodo" class="flex items-center">
             <span>
                 {{
@@ -126,18 +69,22 @@ const toggleMostrarTodo = () => {
             </svg>
         </button>
     </div>
+    </div>
+
 </template>
 
 <style scoped>
 * {
     transition: 0.5s;
+
 }
 
 .cantidad_vacantes {
     /* margin-top: 200px; */
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(222, 231, 255, 0.233);
     display: flex;
     flex-direction: column;
+    padding: 10px 10px;
 
     /* Centrar el botón */
 }

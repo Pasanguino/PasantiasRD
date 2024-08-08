@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
+use Inertia\Inertia;
+
 
 class AreaController extends Controller
 {
@@ -13,7 +16,11 @@ class AreaController extends Controller
      */
     public function index()
     {
-        //
+        $areas = Area::withCount('vacancies')->get();
+
+        // Retornar en formato JSON
+        return response()->json($areas);
+
     }
 
     /**
@@ -22,6 +29,29 @@ class AreaController extends Controller
     public function create()
     {
         //
+    }
+    public function searchVacancies($id)
+    {
+        // Buscar el área por ID
+        $area = Area::find($id);
+
+        if (!$area) {
+            return response()->json(['message' => 'Área no encontrada'], 404);
+        }
+
+        // Obtener las vacantes asociadas al área
+        $vacancies = $area->vacancies;
+
+        // Cargar las relaciones deseadas
+        $vacancies->load(['users', 'area', 'position', 'favorites', 'province']);
+
+        // Retornar las vacantes en formato JSON
+        // return response()->json($vacancies);
+
+        return Inertia::render('Seach', [
+            'vacancies' => $vacancies,
+            'entrada' => $area["area_name"]
+        ]);
     }
 
     /**
