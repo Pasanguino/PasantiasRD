@@ -34,12 +34,24 @@ class ProvinceController extends Controller
 
     public function showProvinceVacancies($province_id)
     {
+        // Obtener las vacantes asociadas a la provincia
         $vacancies = Vacancy::where('province_id', $province_id)->get();
+
+        // Cargar las relaciones deseadas
+        $vacancies->load(['users', 'area', 'position', 'favorites', 'province']);
+
+        // Obtener la provincia
         $province = Province::find($province_id);
 
+        if (!$province) {
+            return response()->json(['message' => 'Provincia no encontrada'], 404);
+        }
+
+        // Renderizar la vista con Inertia
         return Inertia::render('Seach', [
             'vacancies' => $vacancies,
             'entrada' => $province["province_name"]
         ]);
     }
+
 }
