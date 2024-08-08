@@ -15,9 +15,14 @@ class AuthController extends Controller
     public function register(Request $request){
 // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'type_user_id' => 'required|interger',
+            'province_id' => 'required|interger',
+            'company_id' => 'required|interger',
+            'company_name' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -25,9 +30,15 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'type_user_id' => $request->type_user_id,
+            'province_id' => $request->province_id,
+            'company_id' => $request->company_id,
+            'company_name' => $request->company_name,
+
         ]);
 
         $token = $user->createToken('aut_token')->plainTextToken;
@@ -37,19 +48,33 @@ class AuthController extends Controller
 
     public function login(Request $request){
         if (!Auth::attempt($request->only('email', 'password'))){
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Unauthorized', 'login' => False], 401);
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
         $token = $user->createToken('aut_token')->plainTextToken;
         return response()->json([
-            'message' => 'Hi '.$user->name,
+            'user' => $user->first_name,
             'accessToken' => $token,
             'token_type' => 'Bearer',
-            'user'=>$user
+            'login' => True,
+            'message' => 'Authorized'
     
         ]);
     }
+
+    public function viewUser(){
+        $userId = auth()->id();
+        $user = User::find($userId);
+
+        $data = [
+            'user' => $user,
+            'status' => 200
+        ];
+
+        return response()->json($data, 200);
+    }
+
 
     public function logout (Request $request){
         $request->user()->tokens()->delete();

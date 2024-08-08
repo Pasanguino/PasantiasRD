@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -30,22 +31,45 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validación del formulario
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'type_user_id' => 'required|integer',
+            'province_id' => 'nullable|integer',
+            'company_id' => 'nullable|integer', // Hacer que company_id sea opcional
         ]);
 
+        // Inicializar el nombre de la compañía
+        $company_name = 'Sin empresa';
+
+        // Si se proporciona un company_id diferente de 0, obtener el nombre de la compañía
+        if ($request->filled('company_id') && $request->company_id != 0) {
+            $company = Company::findOrFail($request->company_id);
+            $company_name = $company->company_name;
+        }
+
+        // Crear el usuario con los datos del formulario
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'type_user_id' => $request->type_user_id,
+            'province_id' => $request->province_id, // Esto puede ser null
+            'company_id' => $request->company_id != 0 ? $request->company_id : null, // Convertir 0 a null
+            'company_name' => $company_name, // Asignar el nombre de la compañía
         ]);
 
+        // Disparar evento de registro
         event(new Registered($user));
 
+        // Autenticar al usuario
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redireccionar al dashboard
+        return redirect()->route('dashboard');
     }
 }

@@ -31,16 +31,15 @@ const submit = () => {
 
 <template>
 
-    <Head title="Log in" />
+    <Head title="Inicio de sesión" />
 
     <div class="login-page">
 
         <div class="container">
             <div class="logo">
                 <div class="item">
-                    <img src="logo.jpg" alt="">
                     <div class="marca">
-                        <h1>pasangüino </h1>
+                        <img src="/images/favicon.ico" alt="Example Image">
                     </div>
                 </div>
             </div>
@@ -53,7 +52,7 @@ const submit = () => {
 
 
                     <div class="form">
-                        <h1>inicio de sesión </h1>
+                        <h1>Inicio de sesión </h1>
                         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
                             {{ status }}
                         </div>
@@ -104,31 +103,23 @@ const submit = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 
 </template>
 
-<style>
+<style >
+
+@font-face {
+    font-family: 'MyFont';
+    src: url('../fonts/Retosta.otf') format('woff2'),
+
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 .login-page {
@@ -180,15 +171,26 @@ const submit = () => {
     justify-content: center;
     align-items: center;
     width: 50%;
+    transform: translate(0px, 20px);
 }
 
 .logo .item img {
     width: 100%;
+    margin: auto;
+    max-width: 800px;
+    transform: scale(1.2);
 }
 
-.logo .item h1 {
-    font-size: 50px;
-    margin: 10px;
+
+.logo .item .marca h1{
+    transform:translate(0px, -70px);
+    color: #fff;
+    /* font-weight: 900; */
+    font-size: 70px;
+    font-family: "MyFont";
+    letter-spacing: 0px;
+    margin: 20px
+
 }
 
 .login {
@@ -213,7 +215,7 @@ const submit = () => {
 
 
 
-.login .container .titulo {
+.login .container .titulo  {
     text-align: center;
     margin: 40px;
     height: 20px;
