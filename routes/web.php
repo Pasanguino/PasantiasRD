@@ -12,12 +12,42 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ChatController;
+
 
 use Inertia\Inertia;
 
 // Cargar rutas de autenticación
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
+
+
+// api Chat
+Route::get('/chat', function () {
+    return Inertia::render('Chat/index');
+});
+
+
+
+// Rutas para Mensajes
+
+Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat.show');
+Route::post('/chats', [ChatController::class, 'store'])->name('chat.store');
+Route::get('/chats', [ChatController::class, 'index'])->name('chat.index');
+
+
+use App\Http\Controllers\MensajeController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+    Route::get('/chats/{id}', [ChatController::class, 'show'])->name('chats.show');
+
+    Route::get('/chats/{chatId}/mensajes', [MensajeController::class, 'index'])->name('mensajes.index');
+    Route::post('/chats/{chatId}/mensajes', [MensajeController::class, 'store'])->name('mensajes.store');
+});
+
+
 
 // Página principal
 Route::get('/', function () {
