@@ -13,9 +13,11 @@ class VacancyController extends Controller
 {
     public function getAllVacancy()
     {
-        $vacancies = Vacancy::all();
 
-     
+        $vacancies = Vacancy::with(['province', 'area', 'position'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
 
         return response()->json($vacancies);
     }
@@ -25,10 +27,17 @@ class VacancyController extends Controller
         // Obtener el término de búsqueda de la solicitud, utilizando 'buscar' como clave
         $searchTerm = $request->query('buscar', '');
 
-        // Filtrar las vacantes por el término de búsqueda
-        $vacancies = Vacancy::where('vacancy_name', 'LIKE', "%{$searchTerm}%")->get();
+        // Filtrar las vacantes por el término de búsqueda e incluir las relaciones
+        $vacancies = Vacancy::where('vacancy_name', 'LIKE', "%{$searchTerm}%")
+        ->with(['province', 'area', 'position'])
+        ->get();
 
         // Devolver las vacantes filtradas como respuesta JSON
+        // return Inertia::render('Search', [
+        //     'vacancies' => $vacancies,
+        //     'entrada' => $searchTerm
+        // ]);
+
         return Inertia::render('Seach', [
             'vacancies' => $vacancies,
             'entrada' => $searchTerm

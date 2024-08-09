@@ -50,12 +50,10 @@ onMounted(fetchProvinceData);
 }
 
 .cantidad_vacantes {
-    /* margin-top: 200px; */
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
-
-    /* Centrar el botón */
+    width: 100%;
 }
 
 .titulo {
@@ -76,11 +74,10 @@ onMounted(fetchProvinceData);
 
 .contenedor-provincias {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* Ancho aumentado */
     gap: 30px;
     padding: 100px;
     transition: all 0.5s ease;
-    /* Añadir transición para la animación */
 }
 
 @media (max-width: 600px) {
@@ -90,7 +87,6 @@ onMounted(fetchProvinceData);
 }
 
 button {
-
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
@@ -106,13 +102,19 @@ button:hover {
     background-color: #5a78c8;
 }
 
-.ver-mas{
+.ver-mas {
     display: flex;
     justify-content: center;
-
 }
 
 .rotate-180 {
     transform: rotate(180deg);
+}
+
+/* Estilos para las tarjetas, si es necesario */
+.card {
+    padding: 20px; /* Ajusta el padding según sea necesario */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 </style>

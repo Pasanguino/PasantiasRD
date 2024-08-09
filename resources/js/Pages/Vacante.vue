@@ -30,7 +30,7 @@
 <script setup>
 import { defineProps, ref } from 'vue'
 import { Head } from '@inertiajs/inertia-vue3'
-import Nav from './Nav.vue'
+import Nav from './Nav_student.vue';
 import Footer from '@/Components/Footer.vue'
 import axios from 'axios'
 import Swal from 'sweetalert2'

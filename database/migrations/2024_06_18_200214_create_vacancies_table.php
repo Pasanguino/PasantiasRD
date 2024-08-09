@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use PHPUnit\Framework\Constraint\Constraint;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -247,8 +248,48 @@ return new class extends Migration
                 'position_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
+            ],
+            [
+                'vacancy_name' => 'Asistente de Logística',
+                'vacancy_description' => 'Buscamos un asistente de logística para apoyar en la gestión de la cadena de suministro.',
+                'salary' => 35000,
+                'company_name' => 'Logistics Corp.',
+                'company_id' => 18,
+                'user_id' => 18,
+                'province_id' => 6,
+                'area_id' => 10,
+                'position_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'vacancy_name' => 'Especialista en Ciberseguridad',
+                'vacancy_description' => 'Buscando un especialista en ciberseguridad para proteger nuestros sistemas y datos.',
+                'salary' => 95000,
+                'company_name' => 'Cyber Solutions',
+                'company_id' => 19,
+                'user_id' => 19,
+                'province_id' => 5,
+                'area_id' => 1,
+                'position_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'vacancy_name' => 'Técnico en Electrónica',
+                'vacancy_description' => 'Buscamos un técnico en electrónica para mantenimiento de dispositivos electrónicos.',
+                'salary' => 50000,
+                'company_name' => 'Electronics Repair Ltd.',
+                'company_id' => 20,
+                'user_id' => 20,
+                'province_id' => 29,
+                'area_id' => 1,
+                'position_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ]);
+
     }
 
     /**

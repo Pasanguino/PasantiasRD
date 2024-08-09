@@ -39,7 +39,8 @@ body {
 .nav-container {
   flex: 1;
   display: flex;
-  justify-content: center; /* Centra los enlaces horizontalmente */
+  justify-content: center;
+  /* Centra los enlaces horizontalmente */
   position: relative;
 }
 
@@ -47,8 +48,10 @@ body {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centra los enlaces horizontalmente */
-  margin: 0 -100px; /* Ajusta el margen para centrar los enlaces */
+  justify-content: center;
+  /* Centra los enlaces horizontalmente */
+  margin: 0 -100px;
+  /* Ajusta el margen para centrar los enlaces */
   padding: 18px 20px;
   background-color: #BF5F07;
   border-radius: 50px;
@@ -67,6 +70,8 @@ body {
   font-weight: bold;
 }
 
+
+
 .auth-links {
   display: flex;
   align-items: center;
@@ -75,7 +80,7 @@ body {
   position: relative;
   z-index: 10;
   margin-top: 10px;
-  
+
 }
 
 .auth-links a {
@@ -197,8 +202,10 @@ body {
 }
 
 .carousel-section {
-  margin-top: 0; /* Elimina el margen superior */
-  padding-top: 170px; /* Ajusta el relleno superior */
+  margin-top: 0;
+  /* Elimina el margen superior */
+  padding-top: 170px;
+  /* Ajusta el relleno superior */
 }
 
 
@@ -210,9 +217,12 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px; /* Ajusta el valor según sea necesario */
-    margin-left: auto; /* Mueve los enlaces hacia la derecha */
-    margin-right: auto; /* Mueve los enlaces hacia la izquierda */
+    margin-top: 50px;
+    /* Ajusta el valor según sea necesario */
+    margin-left: auto;
+    /* Mueve los enlaces hacia la derecha */
+    margin-right: auto;
+    /* Mueve los enlaces hacia la izquierda */
   }
 }
 
@@ -270,7 +280,9 @@ body {
     padding: 5px 15px;
   }
 
-  .intro h1, .intro h2, .intro p {
+  .intro h1,
+  .intro h2,
+  .intro p {
     text-align: center;
   }
 
@@ -281,23 +293,30 @@ body {
 
 @media (max-width: 480px) {
   .search-input input {
-    width: 80%; /* Ajusta el valor según sea necesario */
-    max-width: 300px; /* Ajusta el valor según sea necesario */
+    width: 80%;
+    /* Ajusta el valor según sea necesario */
+    max-width: 300px;
+    /* Ajusta el valor según sea necesario */
   }
 }
 
 .background-container {
-  position: absolute; /* Posiciona el contenedor de fondo de manera absoluta dentro del encabezado */
-  top: -15px; /* Posición vertical desde la parte superior del encabezado */
-  right: -75px; /* Posición horizontal desde el borde derecho del encabezado */
+  position: absolute;
+  /* Posiciona el contenedor de fondo de manera absoluta dentro del encabezado */
+  top: -15px;
+  /* Posición vertical desde la parte superior del encabezado */
+  right: -75px;
+  /* Posición horizontal desde el borde derecho del encabezado */
   z-index: -0;
 
 
 }
 
 .background_image {
-  width: 95%; /* Por ejemplo, ajusta el tamaño de la imagen al 50% del contenedor */
-  height: auto; /* Para mantener la proporción de la imagen */
+  width: 95%;
+  /* Por ejemplo, ajusta el tamaño de la imagen al 50% del contenedor */
+  height: auto;
+  /* Para mantener la proporción de la imagen */
 }
 
 .slide-in {
@@ -309,6 +328,7 @@ body {
     transform: translateY(-100%);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -324,6 +344,7 @@ body {
     transform: translateY(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -339,6 +360,7 @@ body {
     transform: translateX(-100%);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -354,6 +376,7 @@ body {
     transform: translateX(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -378,74 +401,91 @@ main {
 
 @media (max-width: 1024px) {
   .logo img {
-    height: 38px; /* Ajusta el tamaño del logo */
+    height: 38px;
+    /* Ajusta el tamaño del logo */
   }
 
   .intro {
-    text-align: right; /* Alinea el contenido al centro */
+    text-align: right;
+    /* Alinea el contenido al centro */
     padding: 20px;
   }
 
   .intro h1 {
-    font-size: 1.8em; /* Reduce el tamaño del título principal */
+    font-size: 1.8em;
+    /* Reduce el tamaño del título principal */
   }
 
   .intro h2 {
-    font-size: 1.3em; /* Reduce el tamaño del subtítulo */
+    font-size: 1.3em;
+    /* Reduce el tamaño del subtítulo */
   }
 
 }
 
 @media (max-width: 1024px) {
   .search-input input {
-    width: 90%; /* Aprovecha el ancho disponible */
-    max-width: none; /* Sin límite máximo de ancho */
+    width: 90%;
+    /* Aprovecha el ancho disponible */
+    max-width: none;
+    /* Sin límite máximo de ancho */
   }
 }
 
 @media (max-width: 1024px) {
   .background_image {
-    width: 60%; /* Ajusta el tamaño al 100% del contenedor */
-    
+    width: 60%;
+    /* Ajusta el tamaño al 100% del contenedor */
+
   }
 }
 
 /* Estilos para el fondo de la página */
 body.vacantes-por-localización {
-  background-color: white; /* Fondo blanco para toda la página */
-  font-family: Arial, sans-serif; /* Establecer fuente para todo el documento */
-  padding: 20px; /* Espacio interior para todo el contenido */
+  background-color: white;
+  /* Fondo blanco para toda la página */
+  font-family: Arial, sans-serif;
+  /* Establecer fuente para todo el documento */
+  padding: 20px;
+  /* Espacio interior para todo el contenido */
 }
 
-.encabezado{
+.encabezado {
   margin-top: 15%;
 }
 
 /* Estilos para el contenedor principal */
 .sección-provincias {
-  width: 80%; /* Ancho del 80% del contenido de la página */
+  width: 80%;
+  /* Ancho del 80% del contenido de la página */
   margin: 0 auto;
-  overflow-x: auto; /* Agregar barra de desplazamiento horizontal en dispositivos pequeños */
-  background-color: white; /* Fondo blanco para la sección */
-  padding: 10px; /* Espaciado interior */
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra ligera alrededor del contenedor */
+  overflow-x: auto;
+  /* Agregar barra de desplazamiento horizontal en dispositivos pequeños */
+  background-color: white;
+  /* Fondo blanco para la sección */
+  padding: 10px;
+  /* Espaciado interior */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* Sombra ligera alrededor del contenedor */
 }
 
 /* Estilos para el título de la sección */
 .Título-sección-provincias {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 20px; /* Separación inferior mayor para el título */
+  margin-bottom: 20px;
+  /* Separación inferior mayor para el título */
   font-weight: bold;
   color: #7D98F8;
 }
 
 /* Estilos para el párrafo de bienvenida */
 .Bienvenida-sección-provincias {
-  font-family: Arial,'Times New Roman', Times, serif;
+  font-family: Arial, 'Times New Roman', Times, serif;
   text-align: center;
   font-size: 20px;
-  margin-bottom: 20px; /* Separación inferior mayor para el párrafo */
+  margin-bottom: 20px;
+  /* Separación inferior mayor para el párrafo */
 }
 
 /* Estilos para la tabla de provincias */
@@ -455,7 +495,8 @@ body.vacantes-por-localización {
   width: 70%;
   height: 70%;
   border-collapse: collapse;
-  background-color: white; /* Fondo blanco para la tabla */
+  background-color: white;
+  /* Fondo blanco para la tabla */
 }
 
 table h2 {
@@ -479,21 +520,22 @@ table td img {
 /* Media query para pantallas más pequeñas */
 @media screen and (max-width: 600px) {
   table td img {
-      width: 80px;
-      height: 80px;
+    width: 80px;
+    height: 80px;
   }
 }
 
 /* Media query para pantallas más pequeñas */
 @media screen and (max-width: 1260px) {
   table td img {
-      width: 200px;
-      height: 100px;
+    width: 200px;
+    height: 100px;
   }
 }
 
 .tabla-provincias p {
-  margin: 2px 0; /* Añadir espacio alrededor de los párrafos */
+  margin: 2px 0;
+  /* Añadir espacio alrededor de los párrafos */
 }
 
 /* Estilos para el botón "Ver todas" */
@@ -506,7 +548,8 @@ table td img {
   cursor: pointer;
   text-align: center;
   display: block;
-  margin: 20px auto; /* Centrar el botón */
+  margin: 20px auto;
+  /* Centrar el botón */
 }
 
 #verTodasBtn:hover {
@@ -518,5 +561,133 @@ table td img {
 }
 
 
+.cantidades {
+  position: relative;
+  background-image: url("/images/trabajo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  /* Espacio uniforme entre los divs */
+  align-items: center;
+  /* Centra los divs verticalmente en la sección */
+  padding: 20px;
+}
 
+.cantidades::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Color negro con 50% de opacidad */
+  z-index: 1;
+  /* Asegura que la superposición esté encima de la imagen de fondo */
+}
+
+.cantidades .item {
+  position: relative;
+  z-index: 2;
+  /* Asegura que el contenido esté encima de la superposición */
+  text-align: center;
+  /* Centra el contenido dentro de cada div */
+}
+
+.item {
+  text-align: center;
+}
+
+.item h1 {
+  margin: 0;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+}
+
+.item p {
+  font-family: 'Lilita One', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 0;
+  color: #6699ff;
+}
+
+@media (max-width: 1000px) {
+  .cantidades {
+    flex-direction: column;
+    /* Cambia la disposición a columna */
+    justify-content: center;
+    /* Centra los items verticalmente */
+    height: auto;
+    /* Ajusta la altura según el contenido */
+  }
+
+  .item {
+    margin-bottom: 20px;
+    /* Espacio entre los items */
+  }
+
+  .item:last-child {
+    margin-bottom: 0;
+    /* Sin espacio para el último item */
+  }
+}
+
+.container_preparation {
+  text-align: center;
+
+  padding: 10px;
+  margin: 70px auto;
+  background-color: rgba(168, 168, 168, 0.089);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  height: 600px;
+}
+
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2C3E50;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #E74C3C;
+  padding-bottom: 10px;
+
+}
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  /* 16:9 Aspect Ratio */
+  height: 50px;
+  overflow: hidden;
+  max-width: 60%;
+  /* Reduce el tamaño máximo del iframe */
+  margin: 0 auto;
+  /* Centra el iframe horizontalmente */
+
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+}
+
+.gallery-item {
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
 

@@ -16,7 +16,7 @@ Route::get('/user', function (Request $request) {
 
 
 // User
-// Route::get('/user', [AuthController::class, 'viewUser'])->middleware(['auth', 'verified']);
+
 
 
 // Route::post('register',[AuthController::class, 'register']);
@@ -35,14 +35,14 @@ Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy
 
 
 //Favoritos
-// Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
-Route::post('/favorites', [FavoriteController::class, 'createFavorites'])->middleware(['auth', 'verified']);
+Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
+Route::post('/favorites', [FavoriteController::class, 'create'])->middleware(['auth', 'verified']);
 Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites'])->middleware(['auth', 'verified']);
 
 //User Profile
 
 
-Route::get('/profile', [UserProfileController::class, 'getProfileData']);
+// Route::get('/profile', [UserProfileController::class, 'getProfileData']);
 Route::get('/profile/{user_id}', [UserProfileController::class, 'getProfileDataByUserId']);
 Route::post('/profile', [UserProfileController::class, 'postProfileData']);
 Route::put('/profile/{id}', [UserProfileController::class, 'updatePartialProfile']);

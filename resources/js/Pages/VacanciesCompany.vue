@@ -4,22 +4,10 @@
     <div class="navigation-panel">
       <button class="nav-button" @click="currentView = 'PublicarVacantes'">Publicar vacantes</button>
       <button class="nav-button" @click="currentView = 'VacantesAñadidas'">Vacantes añadidas</button>
-      <button class="nav-button" @click="currentView = 'EliminarVacantes'">Vacantes eliminadas</button>
     </div>
     <div class="main-content">
-      <div class="left-panel">
-        <div class="vacante" @click="currentView = 'PublicarVacantes'">
-          <div :class="{'circle': true, 'active': currentView === 'PublicarVacantes'}">Añadir vacantes</div>
-        </div>
-        <div class="vacante" @click="currentView = 'EditarVacantes'">
-          <div :class="{'circle': true, 'active': currentView === 'EditarVacantes'}">Editar vacantes</div>
-        </div>
-        <div class="vacante" @click="currentView = 'EliminarVacantes'">
-          <div :class="{'circle': true, 'active': currentView === 'EliminarVacantes'}">Eliminar vacantes</div>
-        </div>
-      </div>
       <div class="right-panel">
-        <!-- Formulario para publicar vacantes -->
+        <!-- Formulario para publicar o editar vacantes -->
         <div v-if="currentView === 'PublicarVacantes'" class="form-container">
           <form @submit.prevent="submitForm">
             <div class="form-group">
@@ -48,29 +36,52 @@
               </div>
               <p>Salario a discutir en la entrevista</p>
             </div>
-            <button type="submit" class="submit-button">Añadir</button>
+            <button type="submit" class="submit-button">{{ editingVacante ? 'Actualizar' : 'Añadir' }}</button>
           </form>
         </div>
 
         <!-- Mostrar vacantes añadidas -->
-        <div v-if="currentView === 'VacantesAñadidas'" class="vacantes-list">
-          <div v-for="vacante in vacantes" :key="vacante.id" class="vacante-item">
-            <h3>{{ vacante.vacancy_name }}</h3>
-            <p>{{ vacante.vacancy_description }}</p>
-            <p>Salario: {{ vacante.salary }}</p>
-            <button @click="deleteVacante(vacante.id)">Eliminar</button>
-          </div>
+<div v-if="currentView === 'VacantesAñadidas'" class="vacantes-list">
+  <div v-for="vacante in vacantes" :key="vacante.id" class="vacante-item">
+    <div class="vacante-details">
+      <h3>{{ vacante.vacancy_name }}</h3>
+      <p>{{ vacante.vacancy_description }}</p>
+      <p>Salario: {{ vacante.salary }}</p>
+    </div>
+    <div class="vacante-actions">
+      <button @click="editVacante(vacante)" class="vacante-edit-btn">Editar</button>
+      <button @click="deleteVacante(vacante.id)" class="vacante-delete-btn">Eliminar</button>
+      <button @click="viewEstudiantesPostulados(vacante.id)" class="vacante-view-students-btn">Ver Estudiantes</button> <!-- Nuevo botón -->
+    </div>
+  </div>
+</div>
+
+        <!-- Mostrar cantidad de estudiantes -->
+        <div v-if="currentView === 'Estudiantes'" class="estudiantes-panel">
+          <h2>Cantidad de Estudiantes</h2>
+          <p ref="counter">{{ estudiantesCount }}</p>
         </div>
 
-        <!-- Mostrar vacantes eliminadas -->
-        <div v-if="currentView === 'EliminarVacantes'" class="vacantes-list">
-          <div v-for="vacante in vacantesEliminadas" :key="vacante.id" class="vacante-item">
-            <h3>{{ vacante.vacancy_name }}</h3>
-            <p>{{ vacante.vacancy_description }}</p>
-            <p>Área: {{ vacante.area }}</p>
-            <p>Salario: {{ vacante.salary }}</p>
-          </div>
-        </div>
+        <!-- Mostrar estudiantes postulados -->
+<div v-if="currentView === 'EstudiantesPostulados'" class="estudiantes-postulados-panel">
+  <h2>Estudiantes Postulados</h2>
+  <div v-if="estudiantesPostulados.length">
+    <div v-for="estudiante in estudiantesPostulados" :key="estudiante.id" class="estudiante-item">
+      <div class="estudiante-details">
+        <h4>{{ estudiante.nombre }}</h4>
+        <p>Currículo: {{ estudiante.curriculo }}</p>
+      </div>
+      <div class="estudiante-actions">
+        <button @click="aceptarEstudiante(estudiante.id)" class="estudiante-aceptar-btn">Aceptar</button>
+        <button @click="rechazarEstudiante(estudiante.id)" class="estudiante-rechazar-btn">Rechazar</button>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <p>No hay estudiantes postulados.</p>
+  </div>
+</div>
+
       </div>
     </div>
   </div>
@@ -78,16 +89,17 @@
 
 <script>
 import axios from 'axios';
-import Nav from './Nav.vue'; // Importa el componente Nav
+import Nav from './Nav_company.vue';
+import { CountUp } from 'countup.js'; // Importa CountUp.js
 
 export default {
   name: 'VacantesComponent',
   components: {
-    Nav, 
+    Nav,
   },
   data() {
     return {
-      currentView: '', // Estado inicial vacío
+      currentView: 'PublicarVacantes', // Estado inicial con la vista predeterminada
       form: {
         nombrePuesto: '',
         descripcionPuesto: '',
@@ -95,74 +107,100 @@ export default {
         remuneracion: ''
       },
       vacantes: [], // Vacantes activas
-      vacantesEliminadas: [], // Vacantes eliminadas
-      selectedVacancy: null // Vacante seleccionada para edición
+      editingVacante: null, // Vacante actualmente en edición
+      estudiantesCount: 0, // Conteo de estudiantes
     };
   },
   methods: {
     async submitForm() {
       try {
-        const response = await axios.post('/vacancies', {
-          vacancy_name: this.form.nombrePuesto,
-          vacancy_description: this.form.descripcionPuesto,
-          salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
-          company_name: 'Default Company', // Ajusta según la lógica de la empresa
-          company_id: 1, // Ajusta según la lógica de la empresa
-          user_id: 1, // Ajusta según la lógica del usuario
-          province_id: 1, // Ajusta según la lógica de la provincia
-          area_id: 1, // Ajusta según la lógica del área
-          position_id: 1 // Ajusta según la lógica de la posición
-        });
+        if (this.editingVacante) {
+          // Actualizar vacante existente
+          await axios.put(`/vacancies/${this.editingVacante.id}`, {
+            vacancy_name: this.form.nombrePuesto,
+            vacancy_description: this.form.descripcionPuesto,
+            salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
+            company_name: 'Default Company', // Ajusta según la lógica de la empresa
+            company_id: 1, // Ajusta según la lógica de la empresa
+            user_id: 1, // Ajusta según la lógica de la usuario
+            province_id: 1, // Ajusta según la lógica de la provincia
+            area_id: 1, // Ajusta según la lógica del área
+            position_id: 1 // Ajusta según la lógica de la posición
+          });
+          // Actualizar la vacante en la lista local
+          const index = this.vacantes.findIndex(vacante => vacante.id === this.editingVacante.id);
+          if (index !== -1) {
+            this.vacantes[index] = { ...this.editingVacante, ...this.form };
+          }
+          console.log('Vacante actualizada:', this.editingVacante);
+        } else {
+          // Añadir nueva vacante
+          const response = await axios.post('/vacancies', {
+            vacancy_name: this.form.nombrePuesto,
+            vacancy_description: this.form.descripcionPuesto,
+            salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
+            company_name: 'Default Company', // Ajusta según la lógica de la empresa
+            company_id: 1, // Ajusta según la lógica de la empresa
+            user_id: 1, // Ajusta según la lógica de la usuario
+            province_id: 1, // Ajusta según la lógica de la provincia
+            area_id: 1, // Ajusta según la lógica del área
+            position_id: 1 // Ajusta según la lógica de la posición
+          });
 
-        this.vacantes.push(response.data.vacante);
-        console.log('Vacante añadida:', response.data.vacante);
+          this.vacantes.push(response.data.vacante);
+          console.log('Vacante añadida:', response.data.vacante);
+        }
+
         this.resetForm();
       } catch (error) {
-        console.error('Error al añadir la vacante:', error);
+        console.error('Error al guardar la vacante:', error);
       }
     },
     async fetchVacantes() {
       try {
         const response = await axios.get('/vacancies');
         this.vacantes = response.data;
+        console.log('Vacantes obtenidas:', this.vacantes); // Verifica los datos recibidos
       } catch (error) {
         console.error('Error al obtener las vacantes:', error);
       }
     },
-    async editVacante(id) {
+    async fetchEstudiantes() {
       try {
-        const response = await axios.get(`/vacancies/${id}`);
-        this.selectedVacancy = response.data.vacante;
-        this.currentView = 'EditarVacantes';
+        const response = await axios.get('/api/estudiantes'); // Ruta para obtener estudiantes
+        this.estudiantesCount = response.data.estudiantes;
+        console.log('Estudiantes obtenidos:', this.estudiantesCount); // Verifica los datos recibidos
+        
+        // Configura el Intersection Observer después de actualizar los datos
+        this.setupObserver();
       } catch (error) {
-        console.error('Error al obtener la vacante para editar:', error);
+        console.error('Error al obtener estudiantes:', error);
       }
     },
-    async updateVacante() {
-      try {
-        const response = await axios.put(`/vacancies/${this.selectedVacancy.id}`, {
-          vacancy_name: this.selectedVacancy.vacancy_name,
-          vacancy_description: this.selectedVacancy.vacancy_description,
-          salary: this.selectedVacancy.salary,
-          company_name: 'Default Company', // Ajusta según la lógica de la empresa
-          company_id: 1, // Ajusta según la lógica de la empresa
-          user_id: 1, // Ajusta según la lógica del usuario
-          province_id: 1, // Ajusta según la lógica de la provincia
-          area_id: 1, // Ajusta según la lógica del área
-          position_id: 1 // Ajusta según la lógica de la posición
+    setupObserver() {
+      // Configura el Intersection Observer
+      const options = {
+        root: null, // Observa el viewport
+        rootMargin: '0px',
+        threshold: 0.1, // 10% del elemento debe estar visible
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Inicia la animación si el elemento es visible
+            const element = this.$refs.counter;
+            new CountUp(element, this.estudiantesCount).start();
+            
+            // Deja de observar después de iniciar la animación
+            observer.unobserve(entry.target);
+          }
         });
+      }, options);
 
-        // Actualiza la vacante en la lista
-        const index = this.vacantes.findIndex(vacante => vacante.id === this.selectedVacancy.id);
-        if (index !== -1) {
-          this.vacantes[index] = response.data.vacante;
-        }
-
-        this.selectedVacancy = null;
-        this.currentView = 'VacantesAñadidas';
-        console.log('Vacante actualizada:', response.data.vacante);
-      } catch (error) {
-        console.error('Error al actualizar la vacante:', error);
+      // Observa el elemento con el ref 'counter'
+      if (this.$refs.counter) {
+        observer.observe(this.$refs.counter);
       }
     },
     async deleteVacante(id) {
@@ -174,9 +212,43 @@ export default {
         console.error('Error al eliminar la vacante:', error);
       }
     },
-    selectVacante(vacante) {
-      this.selectedVacancy = { ...vacante };
-      this.currentView = 'EditarVacantes';
+
+    async fetchEstudiantesPostulados(vacanteId) {
+      try {
+        const response = await axios.get(`/vacancies/${vacanteId}/applicants`);
+        this.estudiantesPostulados = response.data;
+        this.currentView = 'EstudiantesPostulados'; // Cambia a la vista de estudiantes postulados
+      } catch (error) {
+        console.error('Error al obtener estudiantes postulados:', error);
+      }
+    },
+
+    async aceptarEstudiante(estudianteId) {
+      try {
+        await axios.post(`/students/${estudianteId}/accept`);
+        this.estudiantesPostulados = this.estudiantesPostulados.filter(estudiante => estudiante.id !== estudianteId);
+        console.log('Estudiante aceptado:', estudianteId);
+      } catch (error) {
+        console.error('Error al aceptar estudiante:', error);
+      }
+    },
+
+    async rechazarEstudiante(estudianteId) {
+      try {
+        await axios.post(`/students/${estudianteId}/reject`);
+        this.estudiantesPostulados = this.estudiantesPostulados.filter(estudiante => estudiante.id !== estudianteId);
+        console.log('Estudiante rechazado:', estudianteId);
+      } catch (error) {
+        console.error('Error al rechazar estudiante:', error);
+      }
+    },
+    editVacante(vacante) {
+      this.editingVacante = vacante;
+      this.form.nombrePuesto = vacante.vacancy_name;
+      this.form.descripcionPuesto = vacante.vacancy_description;
+      this.form.area = vacante.area;
+      this.form.remuneracion = vacante.salary > 0 ? 'Sí' : 'No';
+      this.currentView = 'PublicarVacantes'; // Cambia a la vista de formulario para editar
     },
     resetForm() {
       this.form = {
@@ -185,16 +257,19 @@ export default {
         area: '',
         remuneracion: ''
       };
+      this.editingVacante = null;
     }
   },
   mounted() {
     this.fetchVacantes(); // Cargar vacantes al iniciar
+    this.fetchEstudiantes(); // Cargar estudiantes al iniciar
   }
 }
 </script>
 
-<style scoped>
 
+
+<style scoped>
 .background {
   height: 100vh;
   width: 100vw;
@@ -209,9 +284,9 @@ export default {
   justify-content: center;
   background-color: #FFFFFF;
   padding: 10px 0;
-  width: 60%;
+  width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  margin-top: 10px;
+  margin-top: 0;
   gap: 100px;
   position: relative;
 }
@@ -253,68 +328,28 @@ export default {
   width: 100%;
   display: flex;
   margin-top: 20px;
-}
-
-/* Estilo del panel izquierdo con los botones de las vistas */
-.left-panel {
-  flex: 0 0 250px;
-  padding: 20px;
-  gap: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 30px;
-}
-
-/* Estilo de los contenedores de cada botón de vista */
-.vacante {
-  cursor: pointer;
-  margin-left: 25px;
-}
-
-/* Estilo general para los círculos (bolas) que representan las vistas */
-.circle {
-  background-color: #333;
-  color: white;
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-/* Estilo para el círculo activo (color azul) */
-.circle.active {
-  background-color: #5a8dee;
-}
-
-.circle:hover {
-  background-color: #555;
+  flex-wrap: wrap;
 }
 
 /* Estilo del panel derecho que contiene el formulario */
 .right-panel {
   flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Cambiado para el diseño en columnas */
   align-items: center;
   overflow: hidden;
+  padding: 20px;
 }
 
 /* Estilo del contenedor del formulario */
 .form-container {
-  width: 50%;
-  max-width: 600px;
-  margin: 0 auto;
+  width: 80%; /* Ajusta el ancho del formulario según sea necesario */
+  max-width: 600px; /* Máximo ancho del formulario */
+  margin: 0 auto; /* Centrará el formulario horizontalmente */
   background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin-left: 150px;
 }
 
 /* Estilo de los grupos de formularios */
@@ -342,46 +377,119 @@ export default {
   resize: none;
 }
 
-/* Estilos específicos para la opción de remuneración */
-.radio-group {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 10px;
-}
-
-.radio-item {
-  display: flex;
-  align-items: center;
-}
-
-.radio-item label {
-  margin-right: 5px;
-}
-
-.radio-item input[type="radio"] {
-  margin-left: 5px;
-}
-
-/* Estilo para la nota debajo de las opciones de remuneración */
-p {
-  font-style: italic;
-  font-size: 0.9em;
-}
-
-/* Estilo para el botón de envío del formulario */
+/* Estilo del botón de envío */
 .submit-button {
-  background-color: #333;
-  color: white;
+  background-color: #007BFF;
+  color: #fff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 4px;
   font-size: 16px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
-  background-color: #555;
+  background-color: #0056b3;
 }
 
+/* Estilo de la lista de vacantes */
+.vacantes-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px; /* Ancho máximo para la lista */
+  margin: 0 auto; /* Centrará la lista horizontalmente */
+  padding: 10px; /* Espaciado adicional */
+}
+
+.vacante-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre elementos */
+}
+
+.vacante-details {
+  flex: 1;
+}
+
+.vacante-actions {
+  display: flex;
+  gap: 10px; /* Espaciado entre botones */
+}
+
+.vacante-edit-btn,
+.vacante-delete-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.vacante-edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.vacante-delete-btn {
+  background-color: #dc3545;
+}
+
+.vacante-delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .navigation-panel {
+    width: 90%;
+    gap: 20px;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+
+  .vacantes-list {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation-panel {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-button {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .right-panel {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .form-container {
+    width: 100%;
+  }
+
+  .vacantes-list {
+    width: 100%;
+  }
+}
 </style>

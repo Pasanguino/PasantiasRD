@@ -15,42 +15,22 @@
   <main>
   <div class="Menu">
     <div class="container-left">
-      <form class="max-w-md mx-auto" @submit.prevent="handleSearch">
-        <label
-          for="default-search"
-          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
-          Search
-        </label>
-        <div class="relative">
-          <div
-            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-          >
-            <svg
-              class="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input v-model="searchQuery"
-            type="search"
-            id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Buscar..."
-            required
-          />
+     <div class="container mx-auto p-4">
+  <div class="search-container mb-8">
+    <form @submit.prevent="handleSearch" class="search-form max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+      <div class="relative flex items-center">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/>
+          </svg>
         </div>
-      </form>
+        <input v-model="searchQuery" type="search" id="default-search" class="block w-full pl-12 pr-4 py-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar empleo..." required />
+      </div>
+    </form>
+  </div>
+</div>
+
     </div>
 
     <div class="container-right">
@@ -95,6 +75,9 @@ Vacantes por área
 
 </template>
 
+
+
+
 <script setup>
 import { ref } from "vue";
 import { Head , router } from "@inertiajs/vue3";
@@ -103,8 +86,7 @@ import SecondaryButton from "@/Components/PrimaryButton.vue";
 import Area from "@/Components/busqueda/Area.vue";
 import Footer from "@/Components/Footer.vue";
 import Vacantes from '@/Components/Vacantes_provincias2.vue';
-import Nav from "./Nav.vue";
-
+import Nav from "./Nav_student.vue";
 import Publicacion from '@/Components/busqueda/Fecha.vue';
 
 
@@ -127,54 +109,51 @@ const handleSearch = () => {
 
 <style scoped>
 main {
-  padding: 0px 50px;
+  padding: 0 20px; 
 }
-/* .ss{
-  height: 100vh;
-} */
 
 .Menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 20px; /* Espaciado entre columnas, opcional */
-  height: 200px;
+  gap: 20px;
+
+  padding: 20px 0;
+  height: auto; 
+    grid-column: span 3; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container-left {
-  grid-column: span 2;
+  grid-column: span 3; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.container-left input {
-  width: 100%;
-}
 .container-right {
-  grid-column: span 10;
+  grid-column: span 9; 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 100px;
+  flex-wrap: wrap; 
+  gap: 60px;
+
+  padding: 20px 0; 
 }
 
 .container-right button {
- 
-  background-color: #7D98F8;
+  background-color: none;
+  border-bottom: #a54b07 solid 1px;
   transition: 0.5s;
 }
 
 .container-right button:focus {
-
-    background-color: #A54B07;
-    transform: scale(1.1);
-
+  background-color: #5c2800;
+  transform: scale(1.1);
 }
 
 .secondary-button {
-  background-color: lightgray; /* Color por defecto */
+  background-color: lightgray;
   border: 1px solid transparent;
   padding: 10px;
   cursor: pointer;
@@ -182,13 +161,54 @@ main {
 }
 
 .secondary-button.active {
-  background-color: blue; /* Estilo para botón activo */
+  background-color: blue;
   color: white;
   border: none;
-  outline: none;
 }
 
 .input-container {
   margin: 20px 0 100px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-container > div {
+  /* background-color: #a54b07; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  .Menu {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .container-left {
+    grid-column: span 12; 
+    margin-bottom: 10px; 
+  }
+
+  .container-right {
+    grid-column: span 12; 
+    justify-content: center; 
+  }
+
+  .container-right button {
+    width: 100%; 
+    margin-bottom: 10px; 
+  }
+}
+
 </style>
