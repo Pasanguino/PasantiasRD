@@ -104,59 +104,59 @@ public function updateCV(Request $request, $profile){
     public function postProfileData(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|string|email',
-            'phone' => 'required|string',
-            'description' => 'required|string',
-            'age' => 'required|integer',
-            'photo_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
-            'identification_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
-            'cv_path' => 'required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
-            'profession_id' => 'required|integer',
-            'province_id' => 'required|integer',
-            'user_id' => 'required|integer',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'first_name' => 'required|string',
+        //     'last_name' => 'required|string',
+        //     'email' => 'required|string|email',
+        //     'phone' => 'required|string',
+        //     'description' => 'required|string',
+        //     'age' => 'required|integer',
+        //     'photo_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+        //     'identification_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+        //     'cv_path' => 'required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
+        //     'profession_id' => 'required|integer',
+        //     'province_id' => 'required|integer',
+        //     'user_id' => 'required|integer',
+        // ]);
 
-        if ($validator->fails()) {
-            $data = [
-                'message' => 'Error en la validación de los datos',
-                'errors' => $validator->errors(),
-                'status' => 400
-            ];
-            return response()->json($data, 400);
-        }
+        // if ($validator->fails()) {
+        //     $data = [
+        //         'message' => 'Error en la validación de los datos',
+        //         'errors' => $validator->errors(),
+        //         'status' => 400
+        //     ];
+        //     return response()->json($data, 400);
+        // }
 
-        $profile = UserProfile::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'description' => $request->description,
-            'age' => $request->age,
-            'photo_path' => $this->postPhoto($request),
-            'identification_path' => $this->postIdentification($request),
-            'cv_path' => $this->postCV($request),
-            'profession_id' => $request->profession_id,
-            'province_id' => $request->profession_id,
-            'user_id' => $request->user_id, // Deben enviar el id del usuario logueado.
-        ]);
+        // $profile = UserProfile::create([
+        //     'first_name' => $request->first_name,
+        //     'last_name' => $request->last_name,
+        //     'email' => $request->email,
+        //     'phone' => $request->phone,
+        //     'description' => $request->description,
+        //     'age' => $request->age,
+        //     'photo_path' => $this->postPhoto($request),
+        //     'identification_path' => $this->postIdentification($request),
+        //     'cv_path' => $this->postCV($request),
+        //     'profession_id' => $request->profession_id,
+        //     'province_id' => $request->profession_id,
+        //     'user_id' => $request->user_id, // Deben enviar el id del usuario logueado.
+        // ]);
 
-        if (!$profile) {
-            $data = [
-                'message' => 'Error al guardar los datos',
-                'status' => 500
-            ];
-            return response()->json($data, 500);
-        }
+        // if (!$profile) {
+        //     $data = [
+        //         'message' => 'Error al guardar los datos',
+        //         'status' => 500
+        //     ];
+        //     return response()->json($data, 500);
+        // }
 
-        $data = [
-            'data' => $profile,
-            'status' => 201
-        ];
+        // $data = [
+        //     'data' => $profile,
+        //     'status' => 201
+        // ];
 
-        return response()->json($data, 201);
+        return response()->json($request->all());
     }
 
     public function updatePartialProfile(Request $request, $id)

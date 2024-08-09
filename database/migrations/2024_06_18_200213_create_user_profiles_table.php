@@ -25,6 +25,10 @@ return new class extends Migration
             $table->foreignId('profession_id')->nullable(); // Permitir null
             $table->foreignId('province_id')->nullable(); // Permitir null
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relación con usuarios
+
+            // Añadir una restricción única en province_id
+            $table->unique('province_id');
+
             $table->timestamps();
         });
     }
