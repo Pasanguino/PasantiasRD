@@ -1,6 +1,6 @@
 <template>
   <Head :title="vacancy.vacancy_name" />
-  <Nav></Nav>
+  <Nav :auth="auth"></Nav>
   <div class="w-full tt">
     <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-6">
       <div class="p-6">
@@ -36,14 +36,20 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 const props = defineProps({
-  vacancy: Object
-})
+  auth: {
+    type: Object,
+    required: true
+  },
+  vacancy: {
+    type: Object,
+    required: true
+  }
+});
 
 const formatCurrency = (amount) => {
   if (isNaN(amount)) return 'RD$0.00';
   return `RD$${amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
 }
-
 
 const isAuthenticated = ref(false)
 
@@ -89,20 +95,20 @@ const applyForVacancy = async () => {
     const response = await axios.post('/applications', {
       vacancy_id: props.vacancy.id,
     })
-Swal.fire({
-  title: '¡Éxito!',
-  text: response.data.message || '¡Vacante aplicada exitosamente!',
-  icon: 'success',
-  confirmButtonText: 'OK',
-  showCancelButton: true,
-  cancelButtonText: 'Ir a enlace',
-  preConfirm: (isConfirm) => {
-    if (!isConfirm) {
-      // Aquí puedes definir la URL a la que se redirigirá el usuario
-      window.location.href = 'https://ejemplo.com';
-    }
-  }
-});
+    Swal.fire({
+      title: '¡Éxito!',
+      text: response.data.message || '¡Vacante aplicada exitosamente!',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      showCancelButton: true,
+      cancelButtonText: 'Ir a enlace',
+      preConfirm: (isConfirm) => {
+        if (!isConfirm) {
+          // Aquí puedes definir la URL a la que se redirigirá el usuario
+          window.location.href = 'https://ejemplo.com';
+        }
+      }
+    });
   } catch (error) {
     Swal.fire({
       title: '¡Error!',

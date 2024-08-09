@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <Nav></Nav>
+    <Nav :auth="auth"></Nav>
     <div class="navigation-panel">
       <button class="nav-button" @click="currentView = 'PublicarVacantes'">Publicar vacantes</button>
       <button class="nav-button" @click="currentView = 'VacantesAñadidas'">Vacantes añadidas</button>
@@ -85,6 +85,12 @@ export default {
   components: {
     Nav, 
   },
+  props: {
+    auth: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       currentView: '', // Estado inicial vacío
@@ -105,13 +111,13 @@ export default {
         const response = await axios.post('/vacancies', {
           vacancy_name: this.form.nombrePuesto,
           vacancy_description: this.form.descripcionPuesto,
-          salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
-          company_name: 'Default Company', // Ajusta según la lógica de la empresa
-          company_id: 1, // Ajusta según la lógica de la empresa
-          user_id: 1, // Ajusta según la lógica del usuario
-          province_id: 1, // Ajusta según la lógica de la provincia
-          area_id: 1, // Ajusta según la lógica del área
-          position_id: 1 // Ajusta según la lógica de la posición
+          salary: this.form.remuneracion === 'Sí' ? 80000 : 0, 
+          company_name: this.auth.user.company_name || 'Default Company', // Usar el valor de auth
+          company_id: this.auth.user.company_id || 1, // Usar el valor de auth
+          user_id: this.auth.user.id, // Usar el valor de auth
+          province_id: 1, 
+          area_id: 1, 
+          position_id: 1 
         });
 
         this.vacantes.push(response.data.vacante);
@@ -144,15 +150,14 @@ export default {
           vacancy_name: this.selectedVacancy.vacancy_name,
           vacancy_description: this.selectedVacancy.vacancy_description,
           salary: this.selectedVacancy.salary,
-          company_name: 'Default Company', // Ajusta según la lógica de la empresa
-          company_id: 1, // Ajusta según la lógica de la empresa
-          user_id: 1, // Ajusta según la lógica del usuario
-          province_id: 1, // Ajusta según la lógica de la provincia
-          area_id: 1, // Ajusta según la lógica del área
-          position_id: 1 // Ajusta según la lógica de la posición
+          company_name: this.auth.user.company_name || 'Default Company', 
+          company_id: this.auth.user.company_id || 1, 
+          user_id: this.auth.user.id, 
+          province_id: 1, 
+          area_id: 1, 
+          position_id: 1 
         });
 
-        // Actualiza la vacante en la lista
         const index = this.vacantes.findIndex(vacante => vacante.id === this.selectedVacancy.id);
         if (index !== -1) {
           this.vacantes[index] = response.data.vacante;
@@ -188,10 +193,11 @@ export default {
     }
   },
   mounted() {
-    this.fetchVacantes(); // Cargar vacantes al iniciar
+    this.fetchVacantes(); 
   }
 }
 </script>
+
 
 <style scoped>
 

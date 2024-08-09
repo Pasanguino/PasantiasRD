@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'type_user_id' => 'required|integer',
             'province_id' => 'nullable|integer',
-            'company_id' => 'nullable|integer', // Hacer que company_id sea opcional
+            'company_id' => 'nullable|integer',
         ]);
 
         // Inicializar el nombre de la compañía
@@ -63,6 +64,23 @@ class RegisteredUserController extends Controller
             'company_name' => $company_name, // Asignar el nombre de la compañía
         ]);
 
+        // Crear el perfil de usuario asociado
+        UserProfile::create([
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'phone' => '', // Dejar vacío
+            'description' => '', // Dejar vacío
+            'age' => null, // Dejar null
+            'photo_path' => '', // Dejar vacío
+            'identification_path' => '', // Dejar vacío
+            'cv_path' => '', // Dejar vacío
+            'profession_id' => null, // Dejar null
+            'province_id' => $user->province_id, // Reutilizar la provincia del usuario
+            'user_id' => $user->id, // Asignar el ID del usuario recién creado
+        ]);
+
+        // Disparar evento de registro
         // Disparar evento de registro
         event(new Registered($user));
 

@@ -145,6 +145,13 @@ const submit = () => {
 
 }
 
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+
+    }
+}
+
 .container>div {
     flex: 1;
     text-align: center;

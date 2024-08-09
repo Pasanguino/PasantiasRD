@@ -8,6 +8,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 import Switch from "@/Components/Switch.vue";
 import { ref, onMounted } from "vue";
 import Swal from 'sweetalert2';
+import { Link } from '@inertiajs/vue3'
 
 const form = useForm({
   first_name: "",

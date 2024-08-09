@@ -259,4 +259,7 @@ public function updateCV(Request $request, $profile){
 
     
 
+
+
 }
+
