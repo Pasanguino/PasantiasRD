@@ -329,6 +329,7 @@ export default {
   display: flex;
   margin-top: 20px;
   flex-wrap: wrap;
+  overflow-y: auto;
 }
 
 /* Estilo del panel derecho que contiene el formulario */
@@ -339,6 +340,7 @@ export default {
   align-items: center;
   overflow: hidden;
   padding: 20px;
+  overflow-y: auto;
 }
 
 /* Estilo del contenedor del formulario */
