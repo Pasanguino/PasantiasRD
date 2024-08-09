@@ -5,6 +5,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\TypeUserController;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -48,3 +49,6 @@ Route::delete('/favorites/{id}', [FavoriteController::class, 'deleteFavorites'])
 Route::get('/profile/{user_id}', [UserProfileController::class, 'getProfileDataByUserId']);
 Route::post('/profile', [UserProfileController::class, 'postProfileData']);
 Route::put('/profile/{id}', [UserProfileController::class, 'updatePartialProfile']);
+
+
+Route::get('/IsCompanie', [TypeUserController::class, 'IsCompanie']);
