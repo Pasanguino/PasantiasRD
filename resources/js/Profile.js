@@ -3,8 +3,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      aboutUs: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, mollitia quae tempore veritatis quidem blanditiis vero saepe ad dolores non illo hic fugiat nobis atque ipsa ipsum iste ullam eaque.',
-      location: 'Santo Domingo\n, Distrito Nacional',
+      description: 'Añade una descripcion',
+      identification_path: '000-0000000-0',
       email: 'claro@claro.com',
       phone: '809-000-0000',
       showSuccessMessage: false,
