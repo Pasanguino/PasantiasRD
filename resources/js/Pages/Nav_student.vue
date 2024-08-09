@@ -1,42 +1,58 @@
 <template>
   <div class="nav-wrapper">
-      <a href="/">
-    <div class="nav-logo">
-
-      <img src="/images/logo.png" alt="Logo" class="logo-image" />
-
-
-      <span class="logo-title">Pasangüino</span>
-    </div>
-          </a>
+    <a href="/">
+      <div class="nav-logo">
+        <img src="/images/logo.png" alt="Logo" class="logo-image" />
+        <span class="logo-title">Pasangüino</span>
+      </div>
+    </a>
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/estudiante">Encuentra Pasantías</a></li>
         <li><a href="/estudiante">Bandeja de Mensajes</a></li>
         <li><a href="/applications">Vacantes registradas</a></li>
-          <li><a href="/favorites">Vacantes Guardadas</a></li>
+        <li><a href="/favorites">Vacantes Guardadas</a></li>
         <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>
     <div class="user-dropdown">
-      <i class="material-icons user-icon" style="font-size: 45px; color: black"
-        >&#xe853;</i
-      >
+      <i class="material-icons user-icon" style="font-size: 45px; color: black"> &#xe853; </i>
+      <div class="user-info">
+        <p class="user-name">{{ auth.user.first_name }} {{ auth.user.last_name.charAt(0) }}.</p>
+      </div>
       <div class="dropdown-content">
         <a :href="route('profile')" as="a">Editar perfil</a>
         <a :href="route('settings')" as="a">Configuración</a>
         <a href="#" @click.prevent="logout" class="dropdown-item">Cerrar sesión</a>
       </div>
     </div>
+    <hr class="nav-divider" />
   </div>
-  <hr class="nav-divider" />
-
 </template>
 
 <script setup>
+import { reactive, onMounted } from 'vue';
 import DropdownLink from "@/Components/DropdownLink.vue";
-import { ref } from "vue";
+import SettingsScript from '/resources/js/Settings.js';
+
+const props = defineProps({
+  auth: {
+    type: Object,
+    required: true
+  }
+});
+
+const state = reactive({
+  ...SettingsScript.data()
+});
+
+onMounted(() => {
+  SettingsScript.mounted.call(state);
+});
+
+const methods = SettingsScript.methods;
+Object.assign(state, methods);
 
 const logout = () => {
   const form = document.createElement("form");
@@ -55,6 +71,7 @@ const logout = () => {
   document.body.appendChild(form);
   form.submit();
 };
+
 </script>
 
 <style scoped>
@@ -123,8 +140,6 @@ const logout = () => {
   margin-left: -140px;
 }
 
-
-
 .nav-links li {
   margin: 7px 10px;
 }
@@ -138,8 +153,9 @@ const logout = () => {
 .user-dropdown {
   position: relative;
   display: flex;
-  align-items: center;
-  margin-bottom: 10px; /* Espacio inferior para separar de otros elementos */
+  flex-direction: column; /* Alinea el ícono y la información en una columna */
+  align-items: center; /* Centra el contenido horizontalmente */
+  margin-bottom: 10px;
 }
 
 .user-icon {
@@ -147,10 +163,23 @@ const logout = () => {
   color: black;
 }
 
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px; 
+}
+
+.user-name {
+  font-weight: bold;
+  color: black;
+  font-size: 16px; /* Tamaño de fuente ajustable */
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 45px;
+  top: 60px; /* Ajusta la posición del menú desplegable si es necesario */
   right: 0;
   background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -259,6 +288,15 @@ const logout = () => {
     right: 50%;
     transform: translateX(50%);
   }
+
+  .user-info {
+    margin-left: 0; 
+    margin-top: 5px; 
+  }
+
+  .user-name {
+    font-size: 14px; 
+  }
 }
 
 /* Media Queries específicas para Responsive*/
@@ -301,7 +339,7 @@ const logout = () => {
   .logo-title {
     display: none;
   }
-   .nav-links {
+  .nav-links {
     margin-left: -60px;
   }
 }
@@ -320,8 +358,13 @@ const logout = () => {
 /* Google Nest Hub */
 @media screen and (min-width: 1024px) and (max-width: 1024px) and (min-height: 600px) and (max-height: 600px) {
   .logo-title {
-    display: none;
+   /*  display: none;*/
+  }
+
+  .logo-image {
+    display: none; 
   }
 }
+
 
 </style>
