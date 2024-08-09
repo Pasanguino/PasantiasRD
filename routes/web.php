@@ -19,6 +19,39 @@ use Inertia\Inertia;
 require __DIR__ . '/auth.php';
 require __DIR__ . '/api.php';
 
+
+
+// api Chat
+Route::get('/chat', function () {
+    return Inertia::render('Chat/index');
+});
+
+Route::get('/messages', function () {
+    return Inertia::render('Chat/MyChat');
+})->name('mychat');
+
+// Rutas para Mensajes
+
+// Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat.show');
+// Route::post('/chats', [ChatController::class, 'store'])->name('chat.store');
+// Route::get('/chats', [ChatController::class, 'index'])->name('chat.index');
+
+
+
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::post('/chats', [ChatController::class, 'store'])->name('chats.store');
+    Route::get('/chats/{id}', [ChatController::class, 'show'])->name('chats.show');
+
+    Route::get('/chats/{chatId}/mensajes', [MensajeController::class, 'index'])->name('mensajes.index');
+    Route::post('/chats/{chatId}/mensajes', [MensajeController::class, 'store'])->name('mensajes.store');
+});
+
+
+
 // Página principal
 Route::get('/', function () {
     return Inertia::render('Home');
@@ -102,9 +135,14 @@ Route::post('/companies', [CompanyController::class, 'store']);
 
 // Rutas para autenticación de perfil
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/profile', function () {
+        return Inertia::render('Profile');
+    })->name('profile');
+
 });
 
 
@@ -120,9 +158,7 @@ Route::get('/settings', function () {
     ]);
 })->name('settings');
 
-Route::get('/profile', function () {
-    return Inertia::render('Profile');
-})->name('profile');
+
 
 Route::get('/company-profile', function () {
     return Inertia::render('Company-Profile');
