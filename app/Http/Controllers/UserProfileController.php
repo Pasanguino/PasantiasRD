@@ -253,13 +253,6 @@ public function updateCV(Request $request, $profile){
         ];
 
         return response()->json($data, 200);
-
-        
     }
 
-    
-
-
-
 }
-

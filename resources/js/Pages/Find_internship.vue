@@ -1,47 +1,36 @@
 <template>
+
   <Head title="Encuentra Pasantias" />
-  <Nav :auth="auth"></Nav>
-  <br>
+
+
+
+  <Nav></Nav>
+
+
+<br>
+
   <Titulos titulo="Encuentra Pasantias" />
+
+
   <main>
   <div class="Menu">
     <div class="container-left">
-      <form class="max-w-md mx-auto" @submit.prevent="handleSearch">
-        <label
-          for="default-search"
-          class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
-          Search
-        </label>
-        <div class="relative">
-          <div
-            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-          >
-            <svg
-              class="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input v-model="searchQuery"
-            type="search"
-            id="default-search"
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Buscar..."
-            required
-          />
+     <div class="container mx-auto p-4">
+  <div class="search-container mb-8">
+    <form @submit.prevent="handleSearch" class="search-form max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+      <div class="relative flex items-center">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/>
+          </svg>
         </div>
-      </form>
+        <input v-model="searchQuery" type="search" id="default-search" class="block w-full pl-12 pr-4 py-3 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar empleo..." required />
+      </div>
+    </form>
+  </div>
+</div>
+
     </div>
 
     <div class="container-right">
@@ -83,6 +72,7 @@ Vacantes por área
 
   <!-- Footer ajustado sin posición absoluta -->
   <Footer />
+
 </template>
 
 
@@ -90,7 +80,7 @@ Vacantes por área
 
 <script setup>
 import { ref } from "vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head , router } from "@inertiajs/vue3";
 import Titulos from "@/Components/Titulos.vue";
 import SecondaryButton from "@/Components/PrimaryButton.vue";
 import Area from "@/Components/busqueda/Area.vue";
@@ -99,13 +89,6 @@ import Vacantes from '@/Components/Vacantes_provincias2.vue';
 import Nav from "./Nav_student.vue";
 import Publicacion from '@/Components/busqueda/Fecha.vue';
 
-// Aquí se recibe el user logueado de Nav_stundet.vue
-const props = defineProps({
-  auth: {
-    type: Object,
-    required: true
-  }
-});
 
 const activeButton = ref('date');
 
