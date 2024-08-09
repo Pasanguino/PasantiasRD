@@ -27,5 +27,3 @@ class EstudianteMiddleware
         return redirect()->route('home');
     }
 }
-
-
