@@ -1,7 +1,7 @@
 <template>
   <div>
     <Head title="Aplicaciones" />
-    <Nav />
+    <Nav :auth="auth"></Nav>
     <div class="w-full mt-6">
       <Titulos titulo="Vacantes postuladas" />
       <div class="w-full mx-auto p-8">
@@ -72,10 +72,27 @@ import ProfileCard from "@/Components/Specific/ProfileCard.vue"; // Asegúrate d
 import { Inertia } from "@inertiajs/inertia"; // Asegúrate de importar Inertia
 import Swal from 'sweetalert2'; // Importa SweetAlert2
 
+
+// Combina todas las props en una sola definición
 const props = defineProps({
-  applications: Array,
-  flash: Object, // Asegúrate de que flash sea pasado como prop
+  auth: {
+    type: Object,
+    required: true
+  },
+  applications: {
+    type: Array,
+    required: true
+  },
+  flash: {
+    type: Object,
+    required: true 
+  },
+  type: {
+    type: Object,
+    required: true
+  }
 });
+
 
 const flashMessage = ref(props.flash?.status || '');
 
