@@ -1,4 +1,6 @@
 <template>
+<form action="/profile" method="POST" enctype="multipart/form-data">
+
   <div class="profile-container">
     <div class="sidebar" :class="{ 'slide-in': slideIn }">
       <div class="profile-info">
@@ -30,21 +32,21 @@
       <div class="settings">
         <div class="settings-header">
           <div class="photo_path">
-            <label for="logo-input">Arrastra una foto para cambiar el logo:</label>
-            <div id="logo-drop" @drop.prevent="onLogoFileDrop" @dragover.prevent @click="triggerLogoFileInput">
-              <input type="file" id="logo-input" ref="logoFileInput" @change="onLogoFileChange" style="display: none;" accept="image/*">
+            <label for="photo-input">Arrastra una foto para cambiar el logo:</label>
+            <div id="photo-drop" @drop.prevent="onPhotoFileDrop" @dragover.prevent @click="triggerPhotoFileInput">
+              <input type="file" id="photo-input" name="photo_path" accept="image/*">
               <p>Arrastra una imagen aquí o haz clic para seleccionar un archivo</p>
             </div>
           </div>
           <div class="save-button">
-            <button @click="saveChanges" class="btn btn-outline">Guardar cambios</button>
+            <button type="submit" class="btn btn-outline">Guardar cambios</button>
           </div>
         </div>
 
         <div class="cv_path">
           <label for="cv-input">Arrastra tu CV aquí:</label>
           <div id="cv-drop" @drop.prevent="onCvFileDrop" @dragover.prevent @click="triggerCvFileInput">
-            <input type="file" id="cv-input" ref="cvFileInput" @change="onCvFileChange" style="display: none;" accept=".pdf,.doc,.docx">
+            <input type="file" id="cv-input" name="cv_path" accept=".pdf,.doc,.docx">
             <p>Arrastra tu CV aquí o haz clic para seleccionar un archivo</p>
           </div>
           <div v-if="cvFileName" class="file-preview">
@@ -52,27 +54,33 @@
           </div>
         </div>
 
-        
         <div class="description">
-          <label for="description">Descripcion</label>
-          <textarea id="description" rows="3" v-model="aboutUs"></textarea>
+          <label for="description">Descripción</label>
+          <textarea id="description" name="description" rows="3">{{ aboutUs }}</textarea>
         </div>
 
         <div class="age-us">
           <label for="age">Edad</label>
-          <input type="number" id="Edad" v-model="number">
+          <input type="number" id="age" name="age" value="{{ number }}">
         </div>
-        
+
         <div class="identification_path">
-          <label for="identification_path">Cedula</label>
-          <input type="number" id="Cedula" v-model="number">
+          <label for="identification_path">Cédula</label>
+          <input type="number" id="identification_path" name="identification_path" value="{{ number }}">
         </div>
+
         <div class="contact-info">
-          <label for="profession">Profesion</label>
-          <input type="text" id="profession" v-model="text">
+          <div>
+            <label for="profession">Profesión</label>
+            <select id="profession" name="profession_id" class="block w-full p-2 border border-gray-300 rounded-md">
+              <option v-for="area in areas" :key="area.id" :value="area.id">
+                {{ area.area_name }} (Vacantes: {{ area.vacancies_count }})
+              </option>
+            </select>
+          </div>
 
           <label for="phone">Número de teléfono:</label>
-          <input type="text" id="phone" v-model="phone">
+          <input type="text" id="phone" name="phone" value="{{ phone }}">
         </div>
       </div>
     </div>
@@ -92,20 +100,39 @@
       <p>{{ successMessage }}</p>
     </div>
   </div>
+</form>
+
 </template>
 
 <script>
 import ProfileScript from '/resources/js/Profile.js';
+import axios from 'axios';
 
 export default {
   name: 'Profile',
   data() {
-    return ProfileScript.data();
+    return {
+      selectedProfession: null,
+      areas: [],
+      ...ProfileScript.data(), // Combina los datos con los de ProfileScript
+    };
   },
   mounted() {
-    ProfileScript.mounted.call(this);
+    this.fetchAreas(); // Llama al API para obtener las áreas al montar el componente
+    ProfileScript.mounted.call(this); // Llama al mounted de ProfileScript
   },
-  methods: ProfileScript.methods
+  methods: {
+    
+    async fetchAreas() {
+      try {
+        const response = await axios.get('/Area'); // Realiza la solicitud al API
+        this.areas = response.data; // Almacena los datos obtenidos
+      } catch (error) {
+        console.error('Error al obtener las áreas:', error);
+      }
+    },
+    ...ProfileScript.methods, // Combina los métodos con los de ProfileScript
+  },
 };
 </script>
 
