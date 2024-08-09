@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ChatController;
-
+use App\Http\Controllers\MensajeController;
 
 use Inertia\Inertia;
 
@@ -27,16 +27,20 @@ Route::get('/chat', function () {
     return Inertia::render('Chat/index');
 });
 
-
+Route::get('/messages', function () {
+    return Inertia::render('Chat/MyChat');
+})->name('mychat');
 
 // Rutas para Mensajes
 
-Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat.show');
-Route::post('/chats', [ChatController::class, 'store'])->name('chat.store');
-Route::get('/chats', [ChatController::class, 'index'])->name('chat.index');
+// Route::get('/chat/{id}', [ChatController::class, 'show'])->name('chat.show');
+// Route::post('/chats', [ChatController::class, 'store'])->name('chat.store');
+// Route::get('/chats', [ChatController::class, 'index'])->name('chat.index');
 
 
-use App\Http\Controllers\MensajeController;
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
@@ -50,9 +54,7 @@ Route::middleware('auth')->group(function () {
 
 
 // Página principal
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
+Route::get('/', [DashboardController::class, 'Home']);
 
 Route::get('/userr', [DashboardController::class, 'index']);
 Route::get('/count', [DashboardController::class, 'count']);

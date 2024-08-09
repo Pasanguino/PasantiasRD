@@ -41,7 +41,8 @@ class ChatController extends Controller
 
     public function index()
     {
-        $chats = Chat::where('user1_id', Auth::id())
+        $chats = Chat::with(['user1', 'user2']) // Carga los datos de las relaciones user1 y user2
+            ->where('user1_id', Auth::id())
             ->orWhere('user2_id', Auth::id())
             ->get();
 

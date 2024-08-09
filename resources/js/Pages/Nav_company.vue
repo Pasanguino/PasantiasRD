@@ -1,21 +1,19 @@
 <template>
   <div class="nav-wrapper">
-      <a href="/">
-    <div class="nav-logo">
+    <a href="/">
+      <div class="nav-logo">
+        <img src="/images/logo.png" alt="Logo" class="logo-image" />
 
-      <img src="/images/logo.png" alt="Logo" class="logo-image" />
-
-
-      <span class="logo-title">Pasangüino</span>
-    </div>
-          </a>
+        <span class="logo-title">Pasangüino</span>
+      </div>
+    </a>
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="#">Buscar Pasantes</a></li>
-        <li><a href="#">Bandeja de Mensajes</a></li>
+        <li><a href="/messages">Bandeja de Mensajes</a></li>
         <!--<li><a href="/applications">Vacantes registradas</a></li>-->
-          <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
+        <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
         <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>
@@ -31,7 +29,6 @@
     </div>
   </div>
   <hr class="nav-divider" />
-
 </template>
 
 <script setup>
@@ -66,7 +63,7 @@ const logout = () => {
   width: 100%;
   padding: 0 20px;
   animation: fadeIn 1s ease-out;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .nav-wrapper::before {
@@ -100,10 +97,8 @@ const logout = () => {
   font-size: 24px;
   font-weight: bold;
   color: white;
-  text-shadow: 1px 1px 
-  2px black, -1px -1px 2px black;
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
 }
-
 
 .nav-container {
   flex: 1;
@@ -140,7 +135,7 @@ const logout = () => {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 .user-icon {
@@ -226,14 +221,12 @@ const logout = () => {
     width: 120px;
   }
 
-.logo-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
-}
-
-
+  .logo-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+  }
 
   .nav-container {
     width: 100%;
@@ -308,7 +301,7 @@ const logout = () => {
     display: none;
   }
 
-   .nav-links {
+  .nav-links {
     margin-left: -60px;
   }
 }
@@ -324,13 +317,10 @@ const logout = () => {
   }
 }
 
-
 /* Google Nest Hub */
 @media screen and (min-width: 1024px) and (max-width: 1024px) and (min-height: 600px) and (max-height: 600px) {
   .logo-title {
     display: none;
   }
 }
-
-
 </style>
