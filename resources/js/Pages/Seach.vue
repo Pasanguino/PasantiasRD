@@ -1,6 +1,6 @@
 <template>
   <Head title="Search" />
-  <Nav :auth="auth"></Nav>
+  <Nav />
 
   <div class="container mx-auto p-4">
     <div class="search-container mb-8">
@@ -62,18 +62,8 @@ import ProfileCard from '@/Components/Specific/ProfileCard.vue';
 import Footer from '@/Components/Footer.vue';
 
 const props = defineProps({
-  auth: {
-    type: Object,
-    required: true
-  },
-  vacancies: {
-    type: Array,
-    required: true
-  },
-  entrada: {
-    type: String,
-    required: true
-  }
+  vacancies: Array,
+  entrada: String
 });
 
 const searchQuery = ref('');
@@ -90,7 +80,6 @@ const handleSearch = () => {
   console.log("Search query submitted:", searchQuery.value);
 };
 </script>
-
 
 <style scoped>
 

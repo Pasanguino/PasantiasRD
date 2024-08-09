@@ -1,28 +1,28 @@
 <template>
   <div class="nav-wrapper">
-    <a href="/">
-      <div class="nav-logo">
-        <img src="/images/logo.png" alt="Logo" class="logo-image" />
+      <a href="/">
+    <div class="nav-logo">
 
-        <span class="logo-title">Pasangüino</span>
-      </div>
-    </a>
+      <img src="/images/logo.png" alt="Logo" class="logo-image" />
+
+
+      <span class="logo-title">Pasangüino</span>
+    </div>
+          </a>
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="#">Buscar Pasantes</a></li>
-        <li><a href="/messages">Bandeja de Mensajes</a></li>
+        <li><a href="#">Bandeja de Mensajes</a></li>
         <!--<li><a href="/applications">Vacantes registradas</a></li>-->
-        <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
+          <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
         <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>
     <div class="user-dropdown">
       <i class="material-icons user-icon" style="font-size: 45px; color: black"
-        >&#xe853;</i>
-      <div class="user-info">
-        <p class="user-name">{{ auth.user.company_name }}.</p>
-      </div>       
+        >&#xe853;</i
+      >
       <div class="dropdown-content">
         <a :href="route('profile')" as="a">Editar perfil</a>
         <a :href="route('settings')" as="a">Configuración</a>
@@ -31,30 +31,12 @@
     </div>
   </div>
   <hr class="nav-divider" />
+
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
 import DropdownLink from "@/Components/DropdownLink.vue";
-import SettingsScript from '/resources/js/Settings.js';
-
-const props = defineProps({
-  auth: {
-    type: Object,
-    required: true
-  }
-});
-
-const state = reactive({
-  ...SettingsScript.data()
-});
-
-onMounted(() => {
-  SettingsScript.mounted.call(state);
-});
-
-const methods = SettingsScript.methods;
-Object.assign(state, methods);
+import { ref } from "vue";
 
 const logout = () => {
   const form = document.createElement("form");
@@ -84,7 +66,7 @@ const logout = () => {
   width: 100%;
   padding: 0 20px;
   animation: fadeIn 1s ease-out;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
 }
 
 .nav-wrapper::before {
@@ -114,11 +96,14 @@ const logout = () => {
 }
 
 .logo-title {
+  margin-left: 10px;
   font-size: 24px;
   font-weight: bold;
   color: white;
-  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+  text-shadow: 1px 1px 
+  2px black, -1px -1px 2px black;
 }
+
 
 .nav-container {
   flex: 1;
@@ -154,9 +139,8 @@ const logout = () => {
 .user-dropdown {
   position: relative;
   display: flex;
-  flex-direction: column; /* Alinea el ícono y la información en una columna */
-  align-items: center; /* Centra el contenido horizontalmente */
-  margin-bottom: 10px;
+  align-items: center;
+  margin-bottom: 10px; 
 }
 
 .user-icon {
@@ -164,23 +148,10 @@ const logout = () => {
   color: black;
 }
 
-.user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 5px; 
-}
-
-.user-name {
-  font-weight: bold;
-  color: black;
-  font-size: 16px; /* Tamaño de fuente ajustable */
-}
-
 .dropdown-content {
   display: none;
   position: absolute;
-  top: 60px; /* Ajusta la posición del menú desplegable si es necesario */
+  top: 45px;
   right: 0;
   background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -255,9 +226,14 @@ const logout = () => {
     width: 120px;
   }
 
-  .logo-title {
-    font-size: 20px;
-  }
+.logo-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+}
+
+
 
   .nav-container {
     width: 100%;
@@ -289,15 +265,6 @@ const logout = () => {
     right: 50%;
     transform: translateX(50%);
   }
-
-  .user-info {
-    margin-left: 0; 
-    margin-top: 5px; 
-  }
-
-  .user-name {
-    font-size: 14px; 
-  }
 }
 
 /* Media Queries específicas para Responsive*/
@@ -309,7 +276,7 @@ const logout = () => {
   }
 
   .nav-links {
-    margin-left: -20px;
+    margin-left: 15px;
   }
 }
 
@@ -340,7 +307,8 @@ const logout = () => {
   .logo-title {
     display: none;
   }
-  .nav-links {
+
+   .nav-links {
     margin-left: -60px;
   }
 }
@@ -356,14 +324,13 @@ const logout = () => {
   }
 }
 
+
 /* Google Nest Hub */
 @media screen and (min-width: 1024px) and (max-width: 1024px) and (min-height: 600px) and (max-height: 600px) {
   .logo-title {
-   /*  display: none;*/
-  }
-
-  .logo-image {
-    display: none; 
+    display: none;
   }
 }
+
+
 </style>

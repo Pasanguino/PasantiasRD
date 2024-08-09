@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav :auth="auth"></Nav>
+    <Nav />
     <div class="help-container">
       <h1>Cómo Podemos Ayudarte</h1>
       <section>
@@ -47,16 +47,9 @@ export default {
   components: {
     Nav,
     Footer
-  },
-  props: {
-    auth: {
-      type: Object,
-      required: true
-    }
   }
 }
 </script>
-
 
 <style scoped>
 .help-container {

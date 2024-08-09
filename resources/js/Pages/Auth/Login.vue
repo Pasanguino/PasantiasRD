@@ -122,15 +122,19 @@ const submit = () => {
 
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden; /* Evita el scroll en la página */
+}
+
 .login-page {
     background: rgb(89, 44, 3);
     background: linear-gradient(0deg, rgba(89, 44, 3, 1) 0%, rgba(191, 95, 7, 1) 100%);
-    height: 100vh; 
-    /* display: flex;
+    min-height: 100vh;
+    display: flex;
     justify-content: center;
-    align-items: center; */
-    /* padding: 60px 0px 60px 0px; */
-    
+    align-items: center;
+    padding: 0 20px; /* Para evitar que el contenido toque los bordes en pantallas pequeñas */
 }
 
 .container {

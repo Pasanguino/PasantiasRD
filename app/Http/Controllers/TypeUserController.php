@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\TypeUser;
 use App\Http\Requests\StoreTypeUserRequest;
 use App\Http\Requests\UpdateTypeUserRequest;
-use Illuminate\Support\Facades\Auth;
-
 
 class TypeUserController extends Controller
 {
@@ -17,26 +15,6 @@ class TypeUserController extends Controller
     {
         //
     }
-
-    public function IsCompanie()
-    {
-        $user = Auth::user(); // Obtén el usuario actualmente autenticado
-
-        if (!$user) {
-            return response()->json(['error' => 'No authenticated user'], 401); // Manejo de usuarios no autenticados
-        }
-
-        // Verifica el valor de `type_user_id`
-        if ($user->type_user_id == 1) {
-            return response()->json(['result' => false]);
-        } elseif ($user->type_user_id == 2) {
-            return response()->json(['result' => true]);
-        }
-
-        // Manejo de otros posibles valores de `type_user_id`
-        return response()->json(['result' => false]); // O según sea necesario
-    }
-
 
     /**
      * Show the form for creating a new resource.

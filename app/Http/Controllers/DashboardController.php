@@ -14,17 +14,6 @@ use App\Models\Application;
 
 class DashboardController extends Controller
 {
-    public function Home()
-    {
-        // Verifica si el usuario está autenticado
-        if (Auth::check()) {
-
-            return redirect()->route('dashboard');
-        } else {
-
-            return Inertia::render('Home');
-        }
-    }
     public function index()
     {
 
@@ -39,6 +28,7 @@ class DashboardController extends Controller
 
             return redirect()->route('empresa');
         }
+
     }
 
     public function user()

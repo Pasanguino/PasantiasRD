@@ -12,8 +12,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\MensajeController;
 
 use Inertia\Inertia;
 
@@ -55,7 +53,9 @@ Route::middleware('auth')->group(function () {
 
 
 // Página principal
-Route::get('/', [DashboardController::class, 'Home']);
+Route::get('/', function () {
+    return Inertia::render('Home');
+});
 
 Route::get('/userr', [DashboardController::class, 'index']);
 Route::get('/count', [DashboardController::class, 'count']);
