@@ -8,6 +8,7 @@ use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Application;
+use App\Models\User;
 use Inertia\Inertia;
 
 class VacancyController extends Controller
@@ -155,6 +156,23 @@ class VacancyController extends Controller
             'message' => 'Estado de la aplicación actualizado exitosamente.',
             'application' => $application
         ]);
+    }
+
+    public function getStudentsByVacancy(Request $request, $vacancyId)
+    {
+        $searchTerm = $request->query('name');
+
+        $students = User::where('type_user_id', 1)
+                        ->where(function($query) use ($searchTerm) {
+                            $query->where('first_name', 'like', '%' . $searchTerm . '%')
+                                  ->orWhere('last_name', 'like', '%' . $searchTerm . '%');
+                        })
+                        ->whereHas('applications', function($query) use ($vacancyId) {
+                            $query->where('vacancy_id', $vacancyId);
+                        })
+                        ->get();
+
+        return response()->json($students);
     }
 
     public function getVacancyById($id)

@@ -34,6 +34,7 @@ Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy'])->midd
 Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy'])->middleware(['auth:sanctum', 'verified']);
 Route::get('/vacancies/applications/{vacancy_id}', [VacancyController::class, 'getApplicants']);
 Route::put('/vacancies/applications/{application_id}', [VacancyController::class, 'updateApplicationStatus'])->middleware(['auth', 'verified']);
+Route::get('/vacancies/student/{vacancy_id}', [VacancyController::class, 'getStudentsByVacancy']);
 
 //Favoritos
 Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);
