@@ -32,7 +32,7 @@ Route::get('/vacancies/company/{company_id}', [VacancyController::class, 'getVac
 Route::delete('/vacancies/{id}', [VacancyController::class, 'deleteVacanteById'])->middleware(['auth:sanctum', 'verified']);
 Route::put('/vacancies/{id}', [VacancyController::class, 'updateVacancy'])->middleware(['auth:sanctum', 'verified']);
 Route::patch('/vacancies/{id}', [VacancyController::class, 'updatePartialVacancy'])->middleware(['auth:sanctum', 'verified']);
-
+Route::get('/vacancies/{id}/applicants', [VacancyController::class, 'getApplicants']);
 
 //Favoritos
 Route::get('/favorites', [FavoriteController::class, 'getFavorites'])->middleware(['auth', 'verified']);

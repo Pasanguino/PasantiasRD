@@ -8,6 +8,8 @@ use App\Http\Requests\StoreVacancyRequest;
 use App\Http\Requests\UpdateVacancyRequest;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use App\Models\Application;
+
 
 class VacancyController extends Controller
 {
@@ -154,25 +156,64 @@ class VacancyController extends Controller
         
     }
 
-    public function getVacancyByCompanyId($company_id) 
+    public function getVacanciesByCompanyId()
+{
+    $company_id = auth()->user()->company_id; // Obtén el ID de la empresa del usuario autenticado
+    $vacancies = Vacancy::where('company_id', $company_id)->get();
+
+    if ($vacancies->isEmpty()) {
+        return response()->json([
+            'message' => 'No se encontraron vacantes',
+            'status' => 404
+        ], 404);
+    }
+
+    return response()->json([
+        'vacancies' => $vacancies,
+        'status' => 200
+    ], 200);
+}
+
+
+    public function getApplicants($id)
     {
-        $vacancy = Vacancy::where('company_id', $company_id)->get();
+        $applications = Application::with('vacancy.area', 'vacancy.position', 'vacancy.province', 'user')
+            ->where('vacancy_id', $id)
+            ->get();
 
-        if (!$vacancy) {
-            $data = [
-                'message' => 'Vacante no encontrada',
-                'status' => 404
+        $response = $applications->map(function ($application) {
+            return [
+                'application' => [
+                    'id' => $application->id,
+                    'user_id' => $application->user_id,
+                    'vacancy_id' => $application->vacancy_id,
+                    'status' => $application->status,
+                    'vacancy' => [
+                        'id' => $application->vacancy->id,
+                        'vacancy_name' => $application->vacancy->vacancy_name,
+                        'vacancy_description' => $application->vacancy->vacancy_description,
+                        'salary' => $application->vacancy->salary,
+                        'company_name' => $application->vacancy->company_name,
+                        'company_id' => $application->vacancy->company_id,
+                        'area_name' => optional($application->vacancy->area)->area_name ?? 'Área no especificada',
+                        'position_name' => optional($application->vacancy->position)->position_name ?? 'Puesto no especificado',
+                        'province_name' => optional($application->vacancy->province)->province_name ?? 'Provincia no definida',
+                    ],
+                    'user' => [
+                        'id' => $application->user->id,
+                        'first_name' => $application->user->first_name,
+                        'last_name' => $application->user->last_name,
+                        'email' => $application->user->email,
+                        'type_user_id' => $application->user->type_user_id,
+                        'province_id' => $application->user->province_id,
+                        'company_id' => $application->user->company_id,
+                        'company_name' => $application->user->company_name,
+                    ],
+                ],
             ];
-            return response()->json($data, 404);
-        }
+        });
 
-        $data = [
-            'vacante' => $vacancy,
-            'status' => 200
-        ];
-
-        return response()->json($data, 200);
-        
+        return response()->json($response);
     }
 
     public function deleteVacanteById($id)

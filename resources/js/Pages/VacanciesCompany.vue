@@ -51,7 +51,7 @@
     <div class="vacante-actions">
       <button @click="editVacante(vacante)" class="vacante-edit-btn">Editar</button>
       <button @click="deleteVacante(vacante.id)" class="vacante-delete-btn">Eliminar</button>
-      <button @click="viewEstudiantesPostulados(vacante.id)" class="vacante-view-students-btn">Ver Estudiantes</button> <!-- Nuevo botón -->
+      <button @click="fetchEstudiantesPostulados(vacante.id)" class="vacante-view-students-btn">Ver Estudiantes</button>
     </div>
   </div>
 </div>
@@ -65,6 +65,7 @@
         <!-- Mostrar estudiantes postulados -->
 <div v-if="currentView === 'EstudiantesPostulados'" class="estudiantes-postulados-panel">
   <h2>Estudiantes Postulados</h2>
+  
   <div v-if="estudiantesPostulados.length">
     <div v-for="estudiante in estudiantesPostulados" :key="estudiante.id" class="estudiante-item">
       <div class="estudiante-details">
@@ -109,6 +110,7 @@ export default {
       vacantes: [], // Vacantes activas
       editingVacante: null, // Vacante actualmente en edición
       estudiantesCount: 0, // Conteo de estudiantes
+      estudiantesPostulados: [] // Estado para estudiantes postulados
     };
   },
   methods: {
@@ -158,7 +160,7 @@ export default {
     },
     async fetchVacantes() {
       try {
-        const response = await axios.get('/vacancies');
+        const response = await axios.get('/vacancies/company/{company_id}');
         this.vacantes = response.data;
         console.log('Vacantes obtenidas:', this.vacantes); // Verifica los datos recibidos
       } catch (error) {
@@ -214,14 +216,15 @@ export default {
     },
 
     async fetchEstudiantesPostulados(vacanteId) {
-      try {
-        const response = await axios.get(`/vacancies/${vacanteId}/applicants`);
-        this.estudiantesPostulados = response.data;
-        this.currentView = 'EstudiantesPostulados'; // Cambia a la vista de estudiantes postulados
-      } catch (error) {
-        console.error('Error al obtener estudiantes postulados:', error);
-      }
-    },
+  try {
+    const response = await axios.get(`/vacancies/${vacanteId}/applicants`);
+    this.estudiantesPostulados = response.data;
+    this.currentView = 'EstudiantesPostulados'; // Cambia la vista para mostrar los estudiantes
+  } catch (error) {
+    console.error('Error al obtener estudiantes postulados:', error);
+  }
+},
+
 
     async aceptarEstudiante(estudianteId) {
       try {
@@ -352,6 +355,10 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #007BFF, #00CFFF);
+  border-image-slice: 1;
+
 }
 
 /* Estilo de los grupos de formularios */
@@ -408,12 +415,17 @@ export default {
 .vacante-item {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   padding: 20px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px; /* Espaciado entre elementos */
+
+  /* Bordes con gradiente */
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #007BFF, #00CFFF);
+  border-image-slice: 1;
 }
 
 .vacante-details {
