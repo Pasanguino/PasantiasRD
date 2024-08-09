@@ -55,7 +55,7 @@ export default {
     },
     goToChat(chatId) {
       // Redirigir a la URL del chat usando window.location.href
-      window.location.href = `/chat/${chatId}`;
+      window.location.href = `/chats/${chatId}`;
     },
   },
   created() {

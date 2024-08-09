@@ -3,7 +3,7 @@
 
 .profile-container {
   display: flex;
-  height: 100vh;
+  height: 118vh;
 }
 
 .sidebar {
@@ -17,6 +17,7 @@
   position: relative;
   transform: translateX(-100%);
   transition: transform 0.5s ease-in-out;
+
 }
 
 .sidebar.slide-in {
