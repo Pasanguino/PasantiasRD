@@ -154,12 +154,8 @@ const logout = () => {
 .user-dropdown {
   position: relative;
   display: flex;
-<<<<<<< HEAD
   flex-direction: column; /* Alinea el ícono y la información en una columna */
   align-items: center; /* Centra el contenido horizontalmente */
-=======
-  align-items: center;
->>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
   margin-bottom: 10px;
 }
 
@@ -260,14 +256,7 @@ const logout = () => {
   }
 
   .logo-title {
-<<<<<<< HEAD
     font-size: 20px;
-=======
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 1px 1px 2px black, -1px -1px 2px black;
->>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
   }
 
   .nav-container {
@@ -351,10 +340,6 @@ const logout = () => {
   .logo-title {
     display: none;
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
   .nav-links {
     margin-left: -60px;
   }
@@ -381,8 +366,4 @@ const logout = () => {
     display: none; 
   }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
 </style>
