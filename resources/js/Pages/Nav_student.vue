@@ -3,6 +3,10 @@
     <a href="/">
       <div class="nav-logo">
         <img src="/images/logo.png" alt="Logo" class="logo-image" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
         <span class="logo-title">Pasangüino</span>
       </div>
     </a>
@@ -10,7 +14,7 @@
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/estudiante">Encuentra Pasantías</a></li>
-        <li><a href="/estudiante">Bandeja de Mensajes</a></li>
+        <li><a href="/messages">Bandeja de Mensajes</a></li>
         <li><a href="/applications">Vacantes registradas</a></li>
         <li><a href="/favorites">Vacantes Guardadas</a></li>
         <li><a href="/help">Soporte Técnico</a></li>
@@ -29,6 +33,10 @@
     </div>
     <hr class="nav-divider" />
   </div>
+<<<<<<< HEAD
+=======
+  <hr class="nav-divider" />
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
 </template>
 
 <script setup>
@@ -83,7 +91,7 @@ const logout = () => {
   width: 100%;
   padding: 0 20px;
   animation: fadeIn 1s ease-out;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .nav-wrapper::before {
@@ -365,6 +373,9 @@ const logout = () => {
     display: none; 
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
 </style>

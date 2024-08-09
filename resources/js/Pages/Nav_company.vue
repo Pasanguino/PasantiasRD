@@ -1,21 +1,19 @@
 <template>
   <div class="nav-wrapper">
-      <a href="/">
-    <div class="nav-logo">
+    <a href="/">
+      <div class="nav-logo">
+        <img src="/images/logo.png" alt="Logo" class="logo-image" />
 
-      <img src="/images/logo.png" alt="Logo" class="logo-image" />
-
-
-      <span class="logo-title">Pasangüino</span>
-    </div>
-          </a>
+        <span class="logo-title">Pasangüino</span>
+      </div>
+    </a>
     <nav class="nav-container">
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="#">Buscar Pasantes</a></li>
-        <li><a href="#">Bandeja de Mensajes</a></li>
+        <li><a href="/messages">Bandeja de Mensajes</a></li>
         <!--<li><a href="/applications">Vacantes registradas</a></li>-->
-          <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
+        <!--<li><a href="/favorites">Vacantes Guardadas</a></li>-->
         <li><a href="/help">Soporte Técnico</a></li>
       </ul>
     </nav>
@@ -33,7 +31,6 @@
     </div>
   </div>
   <hr class="nav-divider" />
-
 </template>
 
 <script setup>
@@ -87,7 +84,7 @@ const logout = () => {
   width: 100%;
   padding: 0 20px;
   animation: fadeIn 1s ease-out;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .nav-wrapper::before {
@@ -157,8 +154,12 @@ const logout = () => {
 .user-dropdown {
   position: relative;
   display: flex;
+<<<<<<< HEAD
   flex-direction: column; /* Alinea el ícono y la información en una columna */
   align-items: center; /* Centra el contenido horizontalmente */
+=======
+  align-items: center;
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
   margin-bottom: 10px;
 }
 
@@ -259,7 +260,14 @@ const logout = () => {
   }
 
   .logo-title {
+<<<<<<< HEAD
     font-size: 20px;
+=======
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
   }
 
   .nav-container {
@@ -343,6 +351,10 @@ const logout = () => {
   .logo-title {
     display: none;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
   .nav-links {
     margin-left: -60px;
   }
@@ -369,5 +381,8 @@ const logout = () => {
     display: none; 
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6ec4507a7fdf74736aae9c60257efcc5bd5c38a1
 </style>
