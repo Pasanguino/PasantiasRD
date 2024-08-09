@@ -1,6 +1,6 @@
 <template>
   <div class="background">
-    <Nav></Nav>
+    <Nav :auth="auth"></Nav>
     <div class="navigation-panel">
       <button class="nav-button" @click="currentView = 'PublicarVacantes'">Publicar vacantes</button>
       <button class="nav-button" @click="currentView = 'VacantesAñadidas'">Vacantes añadidas</button>
@@ -89,13 +89,18 @@
 
 <script>
 import axios from 'axios';
-import Nav from './Nav_company.vue';
-import { CountUp } from 'countup.js'; // Importa CountUp.js
+import Nav from './Nav.vue'; // Importa el componente Nav
 
 export default {
   name: 'VacantesComponent',
   components: {
     Nav,
+  },
+  props: {
+    auth: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
@@ -114,38 +119,17 @@ export default {
   methods: {
     async submitForm() {
       try {
-        if (this.editingVacante) {
-          // Actualizar vacante existente
-          await axios.put(`/vacancies/${this.editingVacante.id}`, {
-            vacancy_name: this.form.nombrePuesto,
-            vacancy_description: this.form.descripcionPuesto,
-            salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
-            company_name: 'Default Company', // Ajusta según la lógica de la empresa
-            company_id: 1, // Ajusta según la lógica de la empresa
-            user_id: 1, // Ajusta según la lógica de la usuario
-            province_id: 1, // Ajusta según la lógica de la provincia
-            area_id: 1, // Ajusta según la lógica del área
-            position_id: 1 // Ajusta según la lógica de la posición
-          });
-          // Actualizar la vacante en la lista local
-          const index = this.vacantes.findIndex(vacante => vacante.id === this.editingVacante.id);
-          if (index !== -1) {
-            this.vacantes[index] = { ...this.editingVacante, ...this.form };
-          }
-          console.log('Vacante actualizada:', this.editingVacante);
-        } else {
-          // Añadir nueva vacante
-          const response = await axios.post('/vacancies', {
-            vacancy_name: this.form.nombrePuesto,
-            vacancy_description: this.form.descripcionPuesto,
-            salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
-            company_name: 'Default Company', // Ajusta según la lógica de la empresa
-            company_id: 1, // Ajusta según la lógica de la empresa
-            user_id: 1, // Ajusta según la lógica de la usuario
-            province_id: 1, // Ajusta según la lógica de la provincia
-            area_id: 1, // Ajusta según la lógica del área
-            position_id: 1 // Ajusta según la lógica de la posición
-          });
+        const response = await axios.post('/vacancies', {
+          vacancy_name: this.form.nombrePuesto,
+          vacancy_description: this.form.descripcionPuesto,
+          salary: this.form.remuneracion === 'Sí' ? 80000 : 0, // Ajusta según la lógica de salario
+          company_name: 'Default Company', // Ajusta según la lógica de la empresa
+          company_id: 1, // Ajusta según la lógica de la empresa
+          user_id: 1, // Ajusta según la lógica del usuario
+          province_id: 1, // Ajusta según la lógica de la provincia
+          area_id: 1, // Ajusta según la lógica del área
+          position_id: 1 // Ajusta según la lógica de la posición
+        });
 
           this.vacantes.push(response.data.vacante);
           console.log('Vacante añadida:', response.data.vacante);
@@ -177,30 +161,31 @@ export default {
         console.error('Error al obtener estudiantes:', error);
       }
     },
-    setupObserver() {
-      // Configura el Intersection Observer
-      const options = {
-        root: null, // Observa el viewport
-        rootMargin: '0px',
-        threshold: 0.1, // 10% del elemento debe estar visible
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Inicia la animación si el elemento es visible
-            const element = this.$refs.counter;
-            new CountUp(element, this.estudiantesCount).start();
-            
-            // Deja de observar después de iniciar la animación
-            observer.unobserve(entry.target);
-          }
+    async updateVacante() {
+      try {
+        const response = await axios.put(`/vacancies/${this.selectedVacancy.id}`, {
+          vacancy_name: this.selectedVacancy.vacancy_name,
+          vacancy_description: this.selectedVacancy.vacancy_description,
+          salary: this.selectedVacancy.salary,
+          company_name: 'Default Company', // Ajusta según la lógica de la empresa
+          company_id: 1, // Ajusta según la lógica de la empresa
+          user_id: 1, // Ajusta según la lógica del usuario
+          province_id: 1, // Ajusta según la lógica de la provincia
+          area_id: 1, // Ajusta según la lógica del área
+          position_id: 1 // Ajusta según la lógica de la posición
         });
-      }, options);
 
-      // Observa el elemento con el ref 'counter'
-      if (this.$refs.counter) {
-        observer.observe(this.$refs.counter);
+        // Actualiza la vacante en la lista
+        const index = this.vacantes.findIndex(vacante => vacante.id === this.selectedVacancy.id);
+        if (index !== -1) {
+          this.vacantes[index] = response.data.vacante;
+        }
+
+        this.selectedVacancy = null;
+        this.currentView = 'VacantesAñadidas';
+        console.log('Vacante actualizada:', response.data.vacante);
+      } catch (error) {
+        console.error('Error al actualizar la vacante:', error);
       }
     },
     async deleteVacante(id) {
@@ -262,12 +247,9 @@ export default {
   },
   mounted() {
     this.fetchVacantes(); // Cargar vacantes al iniciar
-    this.fetchEstudiantes(); // Cargar estudiantes al iniciar
   }
 }
 </script>
-
-
 
 <style scoped>
 .background {
@@ -328,7 +310,47 @@ export default {
   width: 100%;
   display: flex;
   margin-top: 20px;
-  flex-wrap: wrap;
+}
+
+/* Estilo del panel izquierdo con los botones de las vistas */
+.left-panel {
+  flex: 0 0 250px;
+  padding: 20px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 30px;
+}
+
+/* Estilo de los contenedores de cada botón de vista */
+.vacante {
+  cursor: pointer;
+  margin-left: 25px;
+}
+
+/* Estilo general para los círculos (bolas) que representan las vistas */
+.circle {
+  background-color: #333;
+  color: white;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para el círculo activo (color azul) */
+.circle.active {
+  background-color: #5a8dee;
+}
+
+.circle:hover {
+  background-color: #555;
 }
 
 /* Estilo del panel derecho que contiene el formulario */
@@ -431,65 +453,12 @@ export default {
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-.vacante-edit-btn:hover {
-  background-color: #0056b3;
+.submit-button:hover {
+  background-color: #555;
 }
 
-.vacante-delete-btn {
-  background-color: #dc3545;
-}
-
-.vacante-delete-btn:hover {
-  background-color: #c82333;
-}
-
-/* Estilos responsivos */
-@media (max-width: 1024px) {
-  .navigation-panel {
-    width: 90%;
-    gap: 20px;
-  }
-
-  .form-container {
-    width: 80%;
-  }
-
-  .vacantes-list {
-    width: 90%;
-  }
-}
-
-@media (max-width: 768px) {
-  .navigation-panel {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-button {
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-  }
-
-  .main-content {
-    flex-direction: column;
-  }
-
-  .right-panel {
-    width: 100%;
-    padding: 10px;
-  }
-
-  .form-container {
-    width: 100%;
-  }
-
-  .vacantes-list {
-    width: 100%;
-  }
-}
 </style>

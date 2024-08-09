@@ -11,18 +11,11 @@ use App\Http\Controllers\CompanyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\FavoriteController;
 
 use Inertia\Inertia;
 
-// Cargar rutas de autenticación
-require __DIR__ . '/auth.php';
-require __DIR__ . '/api.php';
-
 // Página principal
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
+Route::get('/', [DashboardController::class, 'Home']);
 
 Route::get('/userr', [DashboardController::class, 'index']);
 Route::get('/count', [DashboardController::class, 'count']);

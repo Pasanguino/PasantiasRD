@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
          <ProfileCard
       v-for="(vacancy, index) in vacancies"
@@ -16,6 +17,7 @@
       :area_id="vacancy.area.area_name"
       :position_id="vacancy.position.position_name"
     />
+    <Nav :auth="auth"></Nav>
   </div>
 </template>
 

@@ -47,13 +47,15 @@ onMounted(fetchProvinceData);
 <style scoped>
 * {
     transition: 0.5s;
+
 }
 
 .cantidad_vacantes {
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
-    width: 100%;
+
+    /* Centrar el botón */
 }
 
 .titulo {

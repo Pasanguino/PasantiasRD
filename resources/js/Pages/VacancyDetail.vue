@@ -1,7 +1,7 @@
 <template>
   <div>
     <Head title="Aplicaciones" />
-    <Nav />
+    <Nav :auth="auth"></Nav>
     <div class="w-full mt-6">
       <Titulos titulo="Vacantes postuladas" />
       <div class="w-full mx-auto p-8">
@@ -85,7 +85,14 @@ import Footer from "@/Components/Footer.vue";
 import Titulos from "@/Components/Titulos.vue";
 
 const props = defineProps({
-  applications: Array,
+  auth: {
+    type: Object,
+    required: true
+  },
+  applications: {
+    type: Array,
+    required: true
+  }
 });
 
 function formatCurrency(amount) {
@@ -112,5 +119,6 @@ function viewApplication(id) {
 }
 </script>
 <style scoped>
+
 /* Puedes agregar estilos personalizados aquí si es necesario */
 </style>

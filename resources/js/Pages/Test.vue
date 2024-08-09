@@ -5,15 +5,23 @@
     </header>
     <main>
       <section class="content">
-        <h1>Esta es una página de prueba</h1>
+        <!-- Acceso directo a los datos del usuario -->
+        <h3 class="big-text">{{ auth.user.first_name }} {{ auth.user.last_name }}</h3><br>
         <p>Contenido simple para la página de prueba.</p>
       </section>
     </main>
   </div>
 </template>
 
-<script setup>
-import Nav from '/resources/js/Pages/Nav_student.vue'; // Asegúrate de que la ruta sea correcta
+<script>
+import Nav from '/resources/js/Pages/Nav.vue'; // Asegúrate de que la ruta sea correcta
+
+export default {
+  name: 'Test',
+  components: {
+    Nav
+  }
+};
 </script>
 
 <style scoped>
@@ -28,4 +36,3 @@ import Nav from '/resources/js/Pages/Nav_student.vue'; // Asegúrate de que la r
   margin-top: 20px;
 }
 </style>
-

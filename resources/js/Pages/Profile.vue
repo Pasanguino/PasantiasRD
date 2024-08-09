@@ -29,10 +29,10 @@
       <hr>
       <div class="settings">
         <div class="settings-header">
-          <div class="logo-upload">
-            <label for="logo">Arrastra una foto para cambiar el logo:</label>
-            <div id="logo" @drop.prevent="onFileDrop" @dragover.prevent @click="triggerFileInput">
-              <input type="file" ref="fileInput" @change="onFileChange" style="display: none;">
+          <div class="photo_path">
+            <label for="logo-input">Arrastra una foto para cambiar el logo:</label>
+            <div id="logo-drop" @drop.prevent="onLogoFileDrop" @dragover.prevent @click="triggerLogoFileInput">
+              <input type="file" id="logo-input" ref="logoFileInput" @change="onLogoFileChange" style="display: none;" accept="image/*">
               <p>Arrastra una imagen aquí o haz clic para seleccionar un archivo</p>
             </div>
           </div>
@@ -40,17 +40,37 @@
             <button @click="saveChanges" class="btn btn-outline">Guardar cambios</button>
           </div>
         </div>
-        <div class="about-us">
-          <label for="about">Acerca de</label>
-          <textarea id="about" rows="3" v-model="aboutUs"></textarea>
+
+        <div class="cv_path">
+          <label for="cv-input">Arrastra tu CV aquí:</label>
+          <div id="cv-drop" @drop.prevent="onCvFileDrop" @dragover.prevent @click="triggerCvFileInput">
+            <input type="file" id="cv-input" ref="cvFileInput" @change="onCvFileChange" style="display: none;" accept=".pdf,.doc,.docx">
+            <p>Arrastra tu CV aquí o haz clic para seleccionar un archivo</p>
+          </div>
+          <div v-if="cvFileName" class="file-preview">
+            <p>Archivo seleccionado: {{ cvFileName }}</p>
+          </div>
         </div>
-        <div class="location">
-          <label for="location">Localización</label>
-          <textarea id="location" rows="2" v-model="location"></textarea>
+
+        
+        <div class="description">
+          <label for="description">Descripcion</label>
+          <textarea id="description" rows="3" v-model="aboutUs"></textarea>
+        </div>
+
+        <div class="age-us">
+          <label for="age">Edad</label>
+          <input type="number" id="Edad" v-model="number">
+        </div>
+        
+        <div class="identification_path">
+          <label for="identification_path">Cedula</label>
+          <input type="number" id="Cedula" v-model="number">
         </div>
         <div class="contact-info">
-          <label for="email">Dirección de correo electrónico:</label>
-          <input type="email" id="email" v-model="email">
+          <label for="profession">Profesion</label>
+          <input type="text" id="profession" v-model="text">
+
           <label for="phone">Número de teléfono:</label>
           <input type="text" id="phone" v-model="phone">
         </div>
