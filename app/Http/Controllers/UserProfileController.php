@@ -103,60 +103,74 @@ public function updateCV(Request $request, $profile){
 
     public function postProfileData(Request $request)
     {
+        // Validación de los datos
+        $validator = Validator::make($request->all(), [
+            'description' => 'required|string',
+            'age' => 'required|integer',
+            'photo_path' => 'nullable|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
+            'identification_path' => 'nullable|string', // Ahora es una cadena de texto
+            'cv_path' => 'nullable|file|mimes:pdf|max:2048', // Solo PDF max 2MB
+            'profession_id' => 'required|integer',
+            'phone' => 'required|string',
+        ]);
 
-        // $validator = Validator::make($request->all(), [
-        //     'first_name' => 'required|string',
-        //     'last_name' => 'required|string',
-        //     'email' => 'required|string|email',
-        //     'phone' => 'required|string',
-        //     'description' => 'required|string',
-        //     'age' => 'required|integer',
-        //     'photo_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
-        //     'identification_path' => 'required|file|mimes:jpg,jpeg,png,avif,webp|max:2048', // Imagenes max 2MB
-        //     'cv_path' => 'required|file|mimes:pdf|max:2048', // Solo PDF max 2MB
-        //     'profession_id' => 'required|integer',
-        //     'province_id' => 'required|integer',
-        //     'user_id' => 'required|integer',
-        // ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error en la validación de los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
+        }
 
-        // if ($validator->fails()) {
-        //     $data = [
-        //         'message' => 'Error en la validación de los datos',
-        //         'errors' => $validator->errors(),
-        //         'status' => 400
-        //     ];
-        //     return response()->json($data, 400);
-        // }
+        // Buscar el perfil del usuario autenticado
+        $profile = UserProfile::where('user_id', auth()->id())->first();
 
-        // $profile = UserProfile::create([
-        //     'first_name' => $request->first_name,
-        //     'last_name' => $request->last_name,
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'description' => $request->description,
-        //     'age' => $request->age,
-        //     'photo_path' => $this->postPhoto($request),
-        //     'identification_path' => $this->postIdentification($request),
-        //     'cv_path' => $this->postCV($request),
-        //     'profession_id' => $request->profession_id,
-        //     'province_id' => $request->profession_id,
-        //     'user_id' => $request->user_id, // Deben enviar el id del usuario logueado.
-        // ]);
+        if (!$profile) {
+            return response()->json([
+                'message' => 'Perfil no encontrado',
+                'status' => 404
+            ], 404);
+        }
 
-        // if (!$profile) {
-        //     $data = [
-        //         'message' => 'Error al guardar los datos',
-        //         'status' => 500
-        //     ];
-        //     return response()->json($data, 500);
-        // }
+        // Actualizar los datos del perfil
+        $profile->description = $request->description;
+        $profile->age = $request->age;
+        $profile->phone = $request->phone;
+        $profile->profession_id = $request->profession_id;
+        $profile->identification_path = $request->identification_path;
 
-        // $data = [
-        //     'data' => $profile,
-        //     'status' => 201
-        // ];
+        // Manejar archivos
+        if ($request->hasFile('photo_path')) {
+            $profile->photo_path = $this->uploadFile($request->file('photo_path'));
+        }
+        if ($request->hasFile('cv_path')) {
+            $profile->cv_path = $this->uploadFile($request->file('cv_path'));
+        }
 
-        return response()->json($request->all());
+        // Guardar el perfil actualizado
+        if (!$profile->save()) {
+            return response()->json([
+                'message' => 'Error al guardar los datos',
+                'status' => 500
+            ], 500);
+        }
+
+        return response()->json([
+            'data' => $profile,
+            'status' => 200
+        ]);
+    }
+
+    /**
+     * Método para manejar la carga de archivos
+     *
+     * @param \Illuminate\Http\UploadedFile $file
+     * @return string
+     */
+    private function uploadFile($file)
+    {
+        // Guarda el archivo en el almacenamiento y devuelve la ruta pública
+        return $file->store('public/uploads');
     }
 
     public function updatePartialProfile(Request $request, $id)

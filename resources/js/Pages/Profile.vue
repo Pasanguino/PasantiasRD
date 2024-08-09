@@ -54,6 +54,7 @@
               <p>Archivo seleccionado: {{ cvFileName }}</p>
             </div>
           </div>
+          
 
           <div class="description">
             <label for="description">Descripción</label>
@@ -71,7 +72,7 @@
           </div>
 
           <div class="contact-info">
-            <div>
+            <div class="mt-2 mb-5">
               <label for="profession">Profesión</label>
               <select id="profession" name="profession_id" class="block w-full p-2 border border-gray-300 rounded-md">
                 <option v-for="area in areas" :key="area.id" :value="area.id">
