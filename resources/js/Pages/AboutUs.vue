@@ -41,7 +41,7 @@ export default {
 }
 
 .left-column {
-  padding: 30px;
+  padding: 70px;
   background-color: #ca760fdb;
 }
 
