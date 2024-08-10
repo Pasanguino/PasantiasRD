@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use PHPUnit\Framework\Constraint\Constraint;
 
 return new class extends Migration
 {
@@ -17,15 +16,19 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('phone');
-            $table->string('description');
-            $table->integer('age');
-            $table->string('photo_path');
-            $table->string('identification_path');
-            $table->string('cv_path');
-            $table->foreignId('profession_id');
-            $table->foreignId('province_id');
-            $table->foreignId('user_id');
+            $table->string('phone')->nullable(); // Permitir null
+            $table->string('description')->nullable(); // Permitir null
+            $table->integer('age')->nullable(); // Permitir null
+            $table->string('photo_path')->nullable(); // Permitir null
+            $table->string('identification_path')->nullable(); // Permitir null
+            $table->string('cv_path')->nullable(); // Permitir null
+            $table->foreignId('profession_id')->nullable(); // Permitir null
+            $table->foreignId('province_id')->nullable(); // Permitir null
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relación con usuarios
+
+            // Añadir una restricción única en province_id
+            $table->unique('province_id');
+
             $table->timestamps();
         });
     }

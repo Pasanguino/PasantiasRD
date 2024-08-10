@@ -221,7 +221,7 @@
   margin-bottom: 20px;
 }
 
-.logo-upload {
+.photo_path {
   width: 80%; /* Ampliar el campo para arrastrar */
   text-align: center;
   border: 2px dashed #ddd;
@@ -229,7 +229,22 @@
   cursor: pointer;
 }
 
-.logo-upload p {
+.photo_path p {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9em;
+  color: #BF5F07; /* Cambiar el color de las letras */
+}
+
+.cv_path {
+  width: 80%; /* Ampliar el campo para arrastrar */
+  text-align: center;
+  border: 2px dashed #ddd;
+  padding: 30px; /* Ampliar el área de arrastre */
+  cursor: pointer;
+}
+
+.cv_path p {
   margin: 0;
   font-family: 'Inter', sans-serif;
   font-size: 0.9em;

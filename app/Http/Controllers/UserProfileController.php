@@ -156,7 +156,7 @@ public function updateCV(Request $request, $profile){
             'status' => 201
         ];
 
-        return response()->json($data, 201);
+        return response()->json($request->all());
     }
 
     public function updatePartialProfile(Request $request, $id)
@@ -253,6 +253,13 @@ public function updateCV(Request $request, $profile){
         ];
 
         return response()->json($data, 200);
+
+        
     }
 
+    
+
+
+
 }
+
