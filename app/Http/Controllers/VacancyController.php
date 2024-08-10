@@ -143,20 +143,32 @@ class VacancyController extends Controller
 
     public function updateApplicationStatus(Request $request, $id)
     {
-        $request->validate([
-            'status' => 'required|in:en proceso,aceptado,rechazado',
-        ]);
-
-        $application = Application::findOrFail($id);
-
-        $application->status = $request->status;
-        $application->save();
-
-        return response()->json([
-            'message' => 'Estado de la aplicación actualizado exitosamente.',
-            'application' => $application
-        ]);
+        // Validar que el usuario esté autenticado y sea del tipo 1
+        if (auth()->check() && auth()->user()->type_user_id == 1) {
+    
+            // Validar el estado de la aplicación
+            $request->validate([
+                'status' => 'required|in:en proceso,aceptado,rechazado',
+            ]);
+    
+            // Buscar la aplicación por ID
+            $application = Application::findOrFail($id);
+    
+            // Actualizar el estado de la aplicación
+            $application->status = $request->status;
+            $application->save();
+    
+            // Retornar una respuesta exitosa
+            return response()->json([
+                'message' => 'Estado de la aplicación actualizado exitosamente.',
+                'application' => $application
+            ]);
+        }
+    
+        // Retornar una respuesta de error si el usuario no tiene permiso
+        return response()->json(['error' => 'No tienes permiso para actualizar el estado de la aplicación.'], 403);
     }
+    
 
     public function getStudentsByVacancy(Request $request, $vacancyId)
     {
