@@ -21,7 +21,7 @@
       <i class="material-icons user-icon" style="font-size: 45px; color: black"
         >&#xe853;</i>
       <div class="user-info">
-        <p class="user-name">{{ auth.user.company_name }}.</p>
+    
       </div>       
       <div class="dropdown-content">
         <a :href="route('profile')" as="a">Editar perfil</a>
