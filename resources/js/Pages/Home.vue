@@ -137,7 +137,7 @@
     </section>
 
 
-<!-- component -->
+<!-- component
 <div class="min-h-screen p-6 bg-gray-100 flex items-center justify-center m-20">
   <div class="container max-w-screen-lg mx-auto">
     <div>
@@ -251,7 +251,7 @@
     </a>
   </div>
 </div>
-
+ -->
 
     <!-- Footer ajustado sin posición absoluta -->
     <Footer />
