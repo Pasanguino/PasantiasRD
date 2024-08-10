@@ -3,7 +3,7 @@
     <Head title="Aplicaciones" />
     <Nav :auth="auth"></Nav>
     <div class="w-full mt-6">
-      <Titulos titulo="Vacantes postuladas" />
+      <Titulos titulo="Vacantes Guardadas" />
       <div class="w-full mx-auto p-8">
         <!-- Mostrar mensaje flash si existe -->
 
