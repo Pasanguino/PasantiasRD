@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PDO;
 
 class UserProfile extends Model
 {
@@ -25,8 +26,13 @@ class UserProfile extends Model
     ];
 
     
+
 public function profession(){
     return $this->hasOne(Profession::class);
+}
+
+public function province(){
+    return $this->hasOne(Province::class);
 }
 public function users(){
     return $this->belongsTo(User::class);

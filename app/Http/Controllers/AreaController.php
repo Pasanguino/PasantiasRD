@@ -6,14 +6,16 @@ use App\Models\Area;
 
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
+use App\Models\User;
 use Inertia\Inertia;
 
 
 class AreaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    private User $user_id = auth()->id();
+    private User $user = auth()->user();
+
     public function index()
     {
         $areas = Area::withCount('vacancies')->get();
